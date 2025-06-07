@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FCSIT Kiosk</title>
   <link rel="stylesheet" href="p_homepaege.css" />
+  <link rel="stylesheet" href="menu_page.css" />
 </head>
 <body>
 
@@ -46,12 +47,14 @@
 <header class="navbar">
 <div class="left-header">
   <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+  <a href="index.html">
   <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
+  </a>
   <div class="logo-text">FCSIT KIOSK</div>
 </div>
 
   <nav>
-    <a href="#">HOME</a>
+    <a href="index.html">HOME</a>
     <a href="menu_page.html" class="menu">MENU</a>
     <a href="#">ABOUT</a>
     <a href="#">REVIEWS</a>
@@ -64,27 +67,39 @@
   </div>
 </header>
 
-  <section class="slider">
-    <div class="slides">
-      <img src="img/photo_a.jpg" class="slide" />
-      <img src="img/photo_b.jpg" class="slide" />
-      <img src="img/photo_c.jpg" class="slide" />
-    </div>
-  </section>
+<div class="menu-container">
+        <div class="menu">
+            <h2>MENU</h2>
+            <div class="search-bar">
+                <input type="text" placeholder=" 🔍︎ Search">
+            </div>
+            <div class="categories">
+                <span>ALL</span>
+                <span>HEAVY FOODS</span>
+                <span>SNACKS</span>
+                <span>DRINKS</span>
+            </div>
+            <div class="items">
+                <div class="card">
+                    <img src="" alt="">
+                    <p>Food Name<br><strong>RM $</strong></p>
+                    <button>+</button>
+                </div>
+                <div class="card">
+                    <img src="" alt="">
+                    <p>Snack Name<br><strong>RM $</strong></p>
+                    <button>+</button>
+                </div>
+                <div class="card">
+                    <img src="" alt="">
+                    <p>Drink Name<br><strong>RM $</strong></p>
+                    <button>+</button>
+                </div>
+                <!-- Add more items as needed -->
+            </div>
+        </div>
 
-  <section class="cards">
-    <div class="card">
-      <img src="img/photo_a.jpg">
-    </div>
-    <div class="card">
-      <img src="img/photo_b.jpg">
-    </div>
-    <div class="card">
-      <img src="img/photo_c.jpg">
-    </div>
-  </section>
-
-<footer class="footer">
+<!-- <footer class="footer">
   <div class="contact">
     <p>CONTACT</p>
     <p>Exco Keusahawanan (Kiosk)
@@ -109,7 +124,8 @@
   <p>MON - FRI: 8AM - 6PM</p>
   <p>SATURDAY & SUNDAY: CLOSED</p>
 </div>
-</footer>
+</footer> 
+-->
 
 <script src="p_homepage.js"></script>
 
