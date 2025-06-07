@@ -29,35 +29,30 @@ $user = [
 
     <div class="admin-header">
         <img src="account.png" alt="Admin Image"  class="acc-dash">
-        <a href = "admin_profile.php" class="hellouser"> HELLO ADMIN !</a>
+        <a href = "admin_dashboard.php" class="hellouser"> HELLO ADMIN !</a>
     </div>
 
-    <a href="#" class="menuall">
-        <img src="layout.png" class="menu">
-        <span class="dash-text">DASHBOARD</span>
-    </a>
-    
-    <a href="#">
-        <img src="list.png" class="orders">
+    <a href="admin_product.php">
+        <img src="layout.png" class="products">
         <span class="dash-text">PRODUCTS</span>
     </a>
-  
-    <a href="#">
-        <img src="card plus.png" class="billing">
+    
+    <a href="admin_employee.php">
+        <img src="employees.png" class="employees">
         <span class="dash-text">EMPLOYEES</span>
     </a>
-
-    <a href="#">
-        <img src="gps.png" class="trackOrders">
+  
+    <a href="admin_sales.php">
+        <img src="sales.png" class="sales">
         <span class="dash-text">SALES</span>
     </a>
 
-    <a href="#">
-        <img src="gps.png" class="trackOrders">
+    <a href="admin_financialRecord.php">
+        <img src="financialrecord.png" class="financialRecord">
         <span class="dash-text">FINANCIAL RECORD</span>
     </a>
 
-    <a href="#">
+    <a href="admin_profile.php">
         <img src="profile2.png" class="profile">
         <span class="dash-text">PROFILE</span>
     </a>
@@ -77,16 +72,19 @@ $user = [
 </div>
 
     <nav>
-        <a href="#">HOME</a>
-        <a href="#">MENU</a>
+        <a href="admin_dashboard.php">DASHBOARD</a>
         <a href="#">ABOUT</a>
         <a href="#">REVIEWS</a>
     </nav>
 
     <div class="icons">
         <input type="text" placeholder=" 🔍︎ Search" class="search-box">
-        <img src="cart.png" alt="cart" class="cart-img">
-        <img src="account.png" alt="account" class="acc-img">
+        <a href="admin_setting.php">
+        <img src="settings.png" alt="setting" class="setting-img"></a>
+        <a href="admin_noti.php">
+        <img src="notification.png" alt="noti" class="noti-img"></a>
+        <a href="admin_profile.php">
+        <img src="account.png" alt="account" class="acc-img"></a>
         <span class="icon"></span>
     </div>
 </header>

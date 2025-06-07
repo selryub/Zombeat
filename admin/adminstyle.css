@@ -10,7 +10,6 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 30px;
-  /*height: 50px;*/
   background-color: #fff;
   border-bottom: 1px solid #ccc;
   flex-wrap: wrap;
@@ -19,7 +18,7 @@ body {
 
 nav{
     display:flex;
-    gap: 20px;
+    gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -39,12 +38,11 @@ nav{
 
 .search-box {
   padding: 5px;
-  margin-right: 10px;
+  margin-right: 50px;
   border: 2px solid #ccc;
-  border-radius: 20px;
+  border-radius: 30px ;
   outline: #000;
   border-color: #545050;
-  border-radius: 20px;
 }
 
 .icon {
@@ -52,13 +50,7 @@ nav{
   font-size: 18px;
 }
 
-.cart-img {
-  width: auto; 
-  height: 30px;   
-  object-fit: contain;
-  margin-left: 15px;
-}
-.acc-img {
+.setting-img, .noti-img, .acc-img {
   width: auto; 
   height: 30px;   
   object-fit: contain;
@@ -100,13 +92,17 @@ nav{
 }
 
 .sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 12px 20px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 17px;
   color: #000000;
   display: block;
   transition: 0.2s;
   margin-bottom: 15px;
+  line-height: 1;
 }
 
 .sidebar a:hover {
@@ -120,10 +116,9 @@ nav{
 }
 
 .acc-dash {
-  width:100px;
-  cursor:pointer;
-  margin-left: 50px;
-  margin-bottom: 30px;
+  width:80px;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
   display: block;
 }
 
@@ -134,13 +129,12 @@ nav{
 }
 
 /* Sidebar Icons */
-.menu, .orders, .billing, .trackOrders, .profile, .logout {
+.products, .employees, .sales, .financialRecord, .profile, .logout {
   width: 25px;
   height: 25px;
   padding-left: 5px;
+  margin-right: 5px;
 }
-
-.logout { padding-left: 8px; }
 
 .dash-text {
   font-family: 'Times New Roman', Times, serif;
@@ -176,55 +170,6 @@ nav{
 
 }
 
-/* .menu {
-  width: 25px;
-  height: 25px;
-  margin-right: 25px;
-  padding-left: 5px;
-}
-
-.dash-text {
-  font-family: 'Times New Roman', Times, serif;
-  align-self:center;
-  gap: 5px;
-}
-
-.orders {
-  width: 30px;
-  height: 30px;
-  margin-right: 20px;
-  align-items: center;
-  padding-left: 5px;
-}
-
-.billing {
-  width: 40px;
-  height: 30px;
-  margin-right: 15px;
-  padding-left: 1px;
-}
-
-.trackOrders {
-  width: 30px;
-  height: 30px;
-  margin-right: 20px;
-  padding-left: 5px;
-}
-
-.profile {
-  width: 30px;
-  height: 30px;
-  margin-right: 20px;
-  padding-left: 6px;
-}
-
-.logout {
-  width: 30px;
-  height: 30px;
-  margin-right: 20px;
-  padding-left: 8px;
-} */
-
 /* Hamburger Icon */
 .menu-icon {
   font-size: 24px;
@@ -252,8 +197,7 @@ nav{
 .logo-text {
   font-weight: bold;
   font-size: 28px;
-  font-family: sans-serif; 
+  font-family: Georgia; 
   color: #000;
   padding-left: 20px;
 }
-
