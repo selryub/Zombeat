@@ -2,6 +2,18 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #afdcf6;
+  height: 100%;
+  flex-direction: column;
+}
+
+body > .menu-container {
+  flex: 1;
+}
+
+.page-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 nav{
@@ -119,6 +131,7 @@ text-decoration: underline;
   background-color: #f8f8f8;
   padding: 30px;
   font-size: 14px;
+  border-top: 3px solid #928f8f;
 }
 
 .contact {
@@ -145,9 +158,9 @@ text-decoration: underline;
 }
 
 .hours {
-    margin-right: 100px;
-    font-family: 'Times New Roman', Times, serif;
-    text-align: center;
+  margin-right: 100px;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
 
 }
 
