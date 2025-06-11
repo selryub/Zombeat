@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +22,9 @@
     </table>
 </div>
 
+<div class="paginatiom">
+    <button id="back-btn">Back</button>
+</div>
 
     <!--Link to JavaScript-->
     <script src="employeelist.js"></script>

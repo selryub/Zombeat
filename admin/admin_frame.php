@@ -71,12 +71,24 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "admin") {
 
     <div class="icons">
         <input type="text" placeholder=" 🔍︎ Search" class="search-box">
-        <a href="admin_setting.php">
-        <img src="settings.png" alt="setting" class="setting-img"></a>
+        
+        <div class="settings-container">
+            <img src="settings.png" alt="Settings" class="setting-img" id="settings-toggle">    
+            <div class="settings-panel" id="settings-panel">
+                <h4>Settings</h4>
+                <div class="setting-item">
+                    <label for="theme-switch">🌗 Theme</label>
+                    <select id="theme-switch">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <a href="admin_noti.php">
-        <img src="notification.png" alt="noti" class="noti-img"></a>
+            <img src="notification.png" alt="noti" class="noti-img"></a>
         <a href="admin_profile.php">
-        <img src="account.png" alt="account" class="acc-img"></a>
+            <img src="account.png" alt="account" class="acc-img"></a>
         <span class="icon"></span>
     </div>
 </header>
