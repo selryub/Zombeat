@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Profile</title>
     <link rel="stylesheet" href="profile.css">
     <link rel="stylesheet" href="adminstyle.css">
 </head>
 <body>
 <?php include "admin_frame.php"; ?>
+
 
     <!--Link to JavaScript-->
     <script src="profile.js"></script>
