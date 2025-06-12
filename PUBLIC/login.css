@@ -34,17 +34,17 @@ body {
 }
 
 /*whole section box include sign up */
-.signup-box {
+.login-box {
   background-color: #fff;
   border-radius: 12px;
   padding: 0px 0px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 50%;
-  height: 53%;
+  height: 40%;
   margin-bottom: 20px;
 }
 
-.signup-box h3 {
+.login-box h3 {
   background-color: #003366;
   color: white;
   font-family: monospace;
@@ -58,10 +58,11 @@ body {
 .input-group {
   display: flex;
   align-items: center;
-  margin: 15px;
+  margin: 15px ;
   border: 1px solid #ccc;
   padding: 5px;
   border-radius: 5px;
+
 }
 
 /*space between icon and placeholder */
@@ -99,6 +100,8 @@ body {
   font-size: 12px;
   margin: 10px 0;
   margin-left: 20px;
+  align-items: center;
+  display: flex;
 }
 
 .forgotPassword input {
@@ -108,6 +111,7 @@ body {
 .forgotPassword a {
   color: #0056b3;
   text-decoration: none;
+  margin-left: 100px;
 }
 
 button[type="submit"] {
@@ -122,13 +126,13 @@ button[type="submit"] {
   font-family: 'Times New Roman', Times, serif;
 }
 
-.signup-box p {
+.login-box p {
   font-size: 12px;
   text-align: center;
   margin-top: 15px;
 }
 
-.signup-box p a {
+.login-box p a {
   color: #000080;
   text-decoration: none;
 }
