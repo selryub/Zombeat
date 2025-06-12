@@ -1,0 +1,16 @@
+<?php
+
+$databaseHost = 'localhost';
+$databaseName = 'fcsit_kiosk';
+$databaseUsername = 'root';
+$databasePassword = '';
+$charset = 'utf8mb4';
+
+$conn = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, $databaseName);
+
+if (!$conn) {
+    die("Connection failed: ". mysqli_connect_error());
+}
+
+   //mysqli_close($mysqli);
+?>

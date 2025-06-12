@@ -1,0 +1,38 @@
+.content {
+    padding: 20px;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: #f9f9f9;
+    padding: 20px;
+    flex: 1;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.charts {
+    margin-bottom: 30px;
+}
+
+.tables h3 {
+    margin-top: 30px;
+}
+
+.tables table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tables th, .tables td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
