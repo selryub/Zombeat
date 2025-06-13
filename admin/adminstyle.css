@@ -1,3 +1,5 @@
+change this to employee style
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -55,9 +57,7 @@ nav{
   height: 30px;   
   object-fit: contain;
   margin-left: 15px;
-  cursor: pointer;
 }
-
 
 .prev, .next {
   position:absolute;
@@ -202,54 +202,4 @@ nav{
   font-family: Georgia; 
   color: #000;
   padding-left: 20px;
-}
-
-/* Settings */
-.settings-container {
-  position: relative;
-  display: inline-block;
-}
-
-.settings-panel {
-  display: none;
-  position: absolute;
-  top: 35px;
-  right: 0;
-  background-color: #FFF;
-  border: 1px solid #ccc;
-  padding: 12px;
-  width: 180px;
-  border-radius: 8px;
-  z-index: 1000;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.settings-panel h4 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 14px;
-  font-weight: bold;
-}
-.setting-item {
-  margin-bottom: 10px;
-}
-
-.settings-panel select{
-  width: 100%;
-  padding: 5px;
-  border-radius: 5px;
-  font-size: 13px;
-}
-
-body.dark-mode {
-  background-color: #121212;
-  color: #f1f1f1;
-}
-
-body.dark-mode .sidebar,
-body.dark-mode .settings-panel,
-body.dark-mode .content {
-  background-color: #1e1e1e;
-  color: #f1f1f1;
-  border-color: #444;
 }
