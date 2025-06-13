@@ -78,28 +78,28 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "admin") {
 
   <div class="status-line">
     <div class="status-step">
-      <img src="../admin/notification.png" alt="Received">
-      <p>Order Received</p>
+      <img src="../employee/notification.png" alt="Received">
+      <p>ORDER RECEIVED</p>
     </div>
     <div class="status-step">
-      <img src="../admin/notification.png" alt="Confirmed">
-      <p>Order Confirmed</p>
+      <img src="../employee/confirm.png" alt="Confirmed">
+      <p>ORDER CONFIRMED</p>
     </div>
     <div class="status-step">
-      <img src="../admin/settings.png" alt="Processing">
-      <p>Order Processed</p>
+      <img src="../employee/processing.png" alt="Processing">
+      <p>ORDER PROCESSED</p>
     </div>
     <div class="status-step">
-      <img src="../admin/sales.png" alt="On the Way">
-      <p>On the Way</p>
+      <img src="../employee/ontheway.png" alt="On the Way">
+      <p>ON THE WAY</p>
     </div>
     <div class="status-step">
-      <img src="../admin/logout.png" alt="Delivered">
-      <p>Delivered</p>
+      <img src="../employee/delivered.png" alt="Delivered">
+      <p>DELIVERED</p>
     </div>
   </div>
 
-  <p class="estimated-time">Estimated Time: <strong>12:30 PM</strong></p>
+  <p class="estimated-time">ESTIMATED TIME: <strong>12:30 PM</strong></p>
 </div>
 
 </body>
