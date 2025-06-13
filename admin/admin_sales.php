@@ -82,6 +82,4 @@ $populaRes = $conn->query($sql);
     </div>
 
     <!--Link to JavaScript-->
-    <script src="admin.js"></script>
-
-
+    <script src="admin.js"></script> 
