@@ -1,0 +1,27 @@
+.story-section {
+  background-color: #dce6f9;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.story-image img {
+  border-radius: 10px;
+  width: 250px;
+  height: auto;
+}
+
+.story-text {
+  max-width: 500px;
+}
+
+.story-text h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.story-text p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
