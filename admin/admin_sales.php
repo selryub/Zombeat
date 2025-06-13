@@ -24,7 +24,29 @@ $sql = "SELECT DATE(order_date) AS date,
         WHERE order_date >= '$start'
         GROUP BY $group ORDER BY date ASC";
 $chartRes = $conn->query($sql);
-$chartDates =)
+$chartDates = $chartRevenue = [];
+while ($r = $charRes->fetch_assoc()) {
+    $chartDates[] = $r["date"];
+    $chartRevenue[] = $r["revenue"];
+}
+
+//Fetch purchase history
+$sql = "SELECT o.order_id, o.order_date, o.total_amount, u.full_name
+        FROM orders o
+        JOIN user u ON o.user_id = u.user_id
+        WHERE o.order_date >= '$start'
+        ORDER BY o.order_date DESC";
+
+$history = $conn->query($sql);
+
+//Fetch popular products
+$sql = "SELECT p.product_name, SUM(oi.quantity) AS qty_sold
+        FROM order_item oi
+        JOIN product p ON oi.product_id = p.product_id
+        JOIN orders o ON oi.order_id = o.order_id
+        WHERE o.order_date >= '$start'
+        GROUP BY oi.product_id ORDER BY qty_sold DESC LIMIT 5";
+$populaRes = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -33,10 +55,31 @@ $chartDates =)
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="adminstyle.css">
+    <script src ="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<?php include "admin_frame.php"; ?>
-
+    <?php include "admin_frame.php"; ?>
+    <div class="content">
+        <h2>Sales Overview</h2>
+        <div class="filters">
+            <a href="?period=daily" class="<?= $period=="daily"?"active":"" ?>">Daily</a>
+            <a href="?period=weekly" class="<?= $period=="weekly"?"active":"" ?>">Weekly</a>
+            <a href="?period=monyhly" class="<?= $period=="monthly"?"active":"" ?>">Monthly</a>
+        </div>
+        <div class="chart-container">
+            <canvas id="salesChart"></canvas>
+        </div>
+        <h3>Purchase History</h3>
+        <table class="history">
+            <thead><tr><th>Order #</th><th>Customer</th><th>Amount (RM)</th></tr></thead>
+            <tbody>
+                <?php while ($row = $history->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row["order_id"]) ?></td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
 
     <!--Link to JavaScript-->
     <script src="admin.js"></script>

@@ -73,7 +73,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "admin") {
 <body>
 
 <div class="track-box">
-  <h2>ORDER DETAIL</h2>
+  <h2>ORDER STATUS</h2>
   <p class="order-id">Order ID: <strong>#ORDER12345</strong></p>
 
   <div class="status-line">
