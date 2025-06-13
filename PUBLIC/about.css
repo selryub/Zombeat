@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 40px 20px;
+  padding: 71px 20px;
 }
 
 .story-image img {
@@ -24,4 +24,5 @@
 .story-text p {
   margin-bottom: 10px;
   line-height: 1.6;
+  text-align: justify;
 }

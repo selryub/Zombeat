@@ -113,7 +113,46 @@
 </div>
 </footer>
 
-<script src="index.js"></script>
+<script>
+// Toggle sidebar open and close
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+
+  // If sidebar is open (250px), close it
+  if (sidebar.style.width === "250px") {
+    sidebar.style.width = "0";
+  } 
+  // Else, open it
+  else {
+    sidebar.style.width = "250px";
+  }
+}
+
+// Auto-slide functionality for a carousel
+let index = 0;
+const slides = document.querySelector('.slides'); // container of all slides
+const totalSlides = document.querySelectorAll('.slide').length; // count slides
+
+setInterval(() => {
+  index = (index + 1) % totalSlides; // move to next slide, loop back to 0
+  slides.style.transform = `translateX(-${index * 100}%)`; // shift slide
+}, 3000); // every 3 seconds
+
+// Close sidebar if clicked outside it
+document.addEventListener("click", function (e) {
+  const sidebar = document.getElementById("sidebar");
+  const menuIcon = document.querySelector(".menu-icon");
+
+  // If sidebar is open AND click is outside sidebar AND menu icon
+  if (
+    sidebar.style.width === "250px" &&
+    !sidebar.contains(e.target) &&
+    !menuIcon.contains(e.target)
+  ) {
+    sidebar.style.width = "0"; // then close sidebar
+  }
+});
+</script>
 
 </body>
 </html>

@@ -1,0 +1,107 @@
+<?php
+include '../admin/db_connect.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $confirmPassword = $_POST['confirmPassword'];
+
+  if ($password !== $confirmPassword) {
+    echo "<script>alert('Passwords do not match!');</script>";
+  } else {
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $name, $email, $hashedPassword);
+
+    if ($stmt->execute()) {
+      echo "<script>alert('Account created successfully!');</script>";
+    } else {
+      echo "<script>alert('Error: Email may already exist.');</script>";
+    }
+
+    $stmt->close();
+    $conn->close();
+  }
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="register.css"/>
+</head>
+<body>
+  <div class="container">
+    <div class="form-section">
+      <h2>CREATE AN ACCOUNT</h2>
+      <div class="signup-box">
+        <h3>SIGN UP</h3>
+        <form id="signupForm" method="POST" action="register.php">
+          <div class="input-group">
+            <span><img src="img/profile2.png" class="nameIcon"></span>
+            <input type="text" name="name" placeholder="Full Name" required />
+          </div>
+          <div class="input-group">
+            <span><img src="img/email.png" class="emailIcon"></span>
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+          <div class="input-group">
+            <span><img src="img/lock.png" class="lockIcon"></span>
+            <input type="password" name="password" id="password" placeholder="Password" required />
+          </div>
+          <div class="input-group">
+            <span><img src="img/lock.png" class="lockIcon"></span>
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required />
+          </div>
+          <div class="terms">
+            <input type="checkbox" id="terms" name="terms" required />
+            <label for="terms">I've read and agree to <a href="#">Terms & Condition</a></label>
+          </div>
+          <button type="submit" id="submit-btn">SIGN UP</button>
+        </form>
+      </div>
+      <p>Already Have An Account? <a href="login.php">Login</a></p>
+    </div>
+    <div class="image-section">
+      <div class="image-placeholder"></div>
+    </div>
+  </div>
+
+  <!-- Inline JavaScript from register.js -->
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      const password = this.querySelector('input[name="password"]').value;
+      const confirmPassword = this.querySelector('input[name="confirmPassword"]').value;
+
+      if (password !== confirmPassword) {
+        e.preventDefault();
+        alert("Passwords do not match!");
+        return;
+      }
+
+      if (!this.querySelector('#terms').checked) {
+        e.preventDefault();
+        alert("Please agree to the Terms & Conditions.");
+        return;
+      }
+    });
+
+    const checkbox = document.getElementById("terms");
+    const submitBtn = document.getElementById("submit-btn");
+
+    checkbox.addEventListener("change", () => {
+      submitBtn.disabled = !checkbox.checked;
+    });
+
+    // Disable submit by default
+    window.addEventListener("DOMContentLoaded", () => {
+      submitBtn.disabled = true;
+    });
+  </script>
+</body>
+</html>
