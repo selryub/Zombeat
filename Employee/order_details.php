@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (isset($_SESSION["username"]) && $_SESSION["role"] !== "admin") {
-    header("Location: login.php");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +15,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "admin") {
 
         /* NAVBAR */
         .navbar {
-            background: #2c3e50;
+            background: #cbd8f7;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
@@ -72,23 +64,12 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "admin") {
 </head>
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-    <div class="logo">
-        <img src="kiosk.JPG" alt="FCSIT Kiosk">
-    </div>
-    <div class="nav-links">
-        <a href="index.php">Home</a>
-        <a href="menu.php">Menu</a>
-        <a href="about.php">About</a>
-        <a href="reviews.php">Reviews</a>
-    </div>
-</div>
+<?php include "admin_frame.php"; ?>
 
 <!-- ORDER TRACKING SECTION -->
 <div class="track-box">
     <h2>ORDER STATUS</h2>
-    <p class="order-id">Order ID: <strong>#ORDER12345</strong></p>
+    <img src="order-id-image.png" alt="Order ID" style="max-width: 200px;">
 
     <div class="status-line">
         <div class="status-step">

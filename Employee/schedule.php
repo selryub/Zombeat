@@ -14,7 +14,7 @@
             font-family: Arial, sans-serif;
             background-color: #f0f6ff;
             margin: 0;
-            padding: 20px;
+            padding: 19px;
         }
 
         .navbar {
@@ -68,20 +68,15 @@
 </head>
 <body>
 
-<div class="navbar">
-    <div class="logo"><img src="kiosk.JPG" alt="FCSIT Kiosk"></div>
-    <div class="search-bar">
-        <input type="text" placeholder="Search...">
-    </div>
-</div>
+<?php include "admin_frame.php"; ?>
 
 <div class="schedule-container">
     <h2>Employee Work Schedule</h2>
     
     <label for="employee">Select Employee:</label>
     <select id="employee" name="employee">
-        <option value="john_doe">John Doe</option>
-        <option value="jane_smith">Jane Smith</option>
+        <option value="john_doe">Epa</option>
+        <option value="jane_smith">Eizlyn Ismail</option>
         <!-- Add dynamic names from DB -->
     </select>
 
