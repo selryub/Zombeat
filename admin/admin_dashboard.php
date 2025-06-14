@@ -46,21 +46,12 @@ $users = $conn->query("SELECT full_name, registration_date
     <link rel="stylesheet" href="admindashboard.css">
     <link rel="stylesheet" href="adminstyle.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 
 </head>
 <body>
     <div class="content">
     <h2>Dashboard</h2>
-    <div class="filters">
-        <a href="?period=daily"   class="<?= $period=='daily'?'active':'' ?>">Daily</a>
-        <a href="?period=weekly"  class="<?= $period=='weekly'?'active':'' ?>">Weekly</a>
-        <a href="?period=monthly" class="<?= $period=='monthly'?'active':'' ?>">Monthly</a>
-    </div>
-    <div class="chart-container">
-    <canvas id="salesChart" width="800" height="300"></canvas>
-    </div>
-
     <div class="cards">
         <a href="admin_sales.php" class="card-link">
             <div class="card">Revenue<br><strong>RM <?= number_format($rev,2) ?></strong></div>
@@ -81,10 +72,19 @@ $users = $conn->query("SELECT full_name, registration_date
             <div class="card">Total Orders<br><strong><?= $conn->query("SELECT COUNT(*) as cnt FROM orders")->fetch_assoc()['cnt']; ?></strong></div>
         </a>
     </div>
-    <div class="calendar-container">
-        <div id="calendar"></div>
+    <div class="filters">
+        <a href="?period=daily"   class="<?= $period=='daily'?'active':'' ?>">Daily</a>
+        <a href="?period=weekly"  class="<?= $period=='weekly'?'active':'' ?>">Weekly</a>
+        <a href="?period=monthly" class="<?= $period=='monthly'?'active':'' ?>">Monthly</a>
     </div>
-    <canvas id="salesChart"></canvas>
+    <div class="dashboard-middle">
+        <div class="chart-container">
+        <canvas id="salesChart" width="800" height="300"></canvas>
+        </div>
+        <div class="calendar-container">
+            <div id="calendar"></div>
+        </div>
+    </div>
 
     <h3>Recent Registrations</h3>
     <div class="table-scroll">
@@ -110,9 +110,10 @@ $users = $conn->query("SELECT full_name, registration_date
     const labels = <?= json_encode($labels); ?>;
     const data = <?= json_encode($vals); ?>;
     </script>
+
     <!--Link to JavaScript-->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="dashboard.js"></script>
+    <script src="admindashboard.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>

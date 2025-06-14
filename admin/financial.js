@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     const ctx = document.getElementById("revExpChart").getContext("2d");
 
-    const revenue = <?=
-        json_encode(array_column($daily, "revenue")); ?>;
-    const dates = <?=
-        json_encode(array_column($daily, "date")); ?>;
-    const expenses = <?=
-        json_encode(array_map(function($e) {
-            return isset($e["expense"]) ? $e["expense"] : 0;
-        }, $expense_data)); ?>;
+    // const revenue = <?=
+    //     json_encode(array_column($daily, "revenue")); ?>;
+    // const dates = <?=
+    //     json_encode(array_column($daily, "date")); ?>;
+    // const expenses = <?=
+    //     json_encode(array_map(function($e) {
+    //         return isset($e["expense"]) ? $e["expense"] : 0;
+    //     }, $expense_data)); ?>;
 
     new Chart(ctx, {
         type: "line",
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
             responsive: true,
             interaction: {mode: "index", intersect: false},
             scales: {
-                x: { type: "time", time: {parser: "YYYY-MM-DD", unit: "day", displayFormats: {"DD MMM"} }},
+                x: { type: "time", time: {parser: "YYYY-MM-DD", unit: "day", displayFormats: "DD MMM"}},
                 y: { beginAtZero: true}
             }
         }

@@ -33,7 +33,7 @@ $net_profit = $total_rev - $total_exp;
     <title>Profile</title>
     <link rel="stylesheet" href="financial.css">
     <link rel="stylesheet" href="adminstyle.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 </head>
 <body>
     <?php include "admin_frame.php"; ?>
