@@ -4,14 +4,14 @@ ini_set('display_errors', 1);
 
 // Include DB connection
 include '../admin/db_connect.php';
-echo "Connected to database.<br>";
+//echo "Connected to database.<br>";
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
   // Prepare statement to avoid SQL injection
-  $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+  $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
   $stmt->bind_param("s", $email);
   $stmt->execute();
   $result = $stmt->get_result();
@@ -60,7 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <a href="#">Forgot Password?</a>
             </label>
           </div>
-          <button type="submit">LOGIN</button>
+          <a href="index.php">
+            <button type="submit">LOGIN</button>
+          </a>
+          
         </form>
       </div>
       <p>Don't have an account? <a href="register.php">Sign Up</a></p>
