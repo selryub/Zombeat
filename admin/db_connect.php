@@ -11,6 +11,6 @@ $conn = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, $dat
 if (!$conn) {
     die("Connection failed: ". mysqli_connect_error());
 }
-
+    mysqli_set_charset($conn, $charset);
    //mysqli_close($mysqli);
 ?>

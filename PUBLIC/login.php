@@ -1,7 +1,10 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Include DB connection
 include '../admin/db_connect.php';
-
+echo "Connected to database.<br>";
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST['email'];

@@ -52,7 +52,7 @@
 </div>
 
   <nav>
-    <a href="index.html">HOME</a>
+    <a href="index.php">HOME</a>
     <a href="menu_page.html" class="menu">MENU</a>
     <a href="about.html">ABOUT</a>
     <a href="#">REVIEWS</a>
@@ -60,7 +60,7 @@
   <div class="icons">
     <input type="text" placeholder=" 🔍︎ Search" class="search-box">
     <img src="img/cart.png" alt="cart" class="cart-img">
-    <img src="img/account.png" alt="account" class="acc-img">
+    <a href="login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
     <span class="icon"></span>
   </div>
 </header>
