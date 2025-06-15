@@ -13,7 +13,7 @@
 //     });
 // }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     fetch("admin_employee.php")
         .then(response => response.json())
         .then(data => {

@@ -13,8 +13,6 @@ if ($result->num_rows > 0) {
     }
 }
 
-// header('Content-Type: application/json');
-// echo json_encode($employees);
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +34,15 @@ if ($result->num_rows > 0) {
                 <th>Name</th><th>Wage (RM/hr)</th><th>Attendance Status</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+    <?php foreach ($employees as $emp): ?>
+    <tr>
+        <td><?= htmlspecialchars($emp["full_name"]) ?></td>
+        <td><?= htmlspecialchars($emp["hourly_rate"]) ?></td>
+        <td><?= htmlspecialchars($emp["attendance_status"]) ?></td>
+    </tr>
+    <?php endforeach; ?>
+</tbody>
     </table>
 </div>
 
