@@ -60,7 +60,7 @@
   <div class="icons">
     <input type="text" placeholder=" 🔍︎ Search" class="search-box">
     <img src="img/cart.png" alt="cart" class="cart-img">
-    <a href="login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
+    <a href="/Zombeat/PUBLIC/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
     <span class="icon"></span>
   </div>
 </header>
