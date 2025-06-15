@@ -10,7 +10,7 @@
   
 <div class="page-wrapper">
 <!-- Sidebar -->
-<div id="sidebar" class="sidebar">
+<!-- <div id="sidebar" class="sidebar">
 
   <a href="otherpage.html">
   <img src="img/account.png" alt="Clickable Image Button"  class="acc-dash">
@@ -41,24 +41,24 @@
       <img src="img/logout.png" class="logout">
   <span class="dash-text">LOGOUT</span>
   </a>
-</div>
+</div> -->
+
 
 <!-- Header -->
 <header class="navbar">
 <div class="left-header">
-  <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+  <!-- <div class="menu-icon" onclick="toggleSidebar()">☰</div> -->
   <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
   <div class="logo-text">FCSIT KIOSK</div>
 </div>
 
   <nav>
     <a href="index.php">HOME</a>
-    <a href="menu_page.html" class="menu">MENU</a>
+    <a href="menu_page.html">MENU</a>
     <a href="about.html">ABOUT</a>
     <a href="#">REVIEWS</a>
   </nav>
   <div class="icons">
-    <input type="text" placeholder=" 🔍︎ Search" class="search-box">
     <img src="img/cart.png" alt="cart" class="cart-img">
     <a href="/Zombeat/PUBLIC/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
     <span class="icon"></span>
