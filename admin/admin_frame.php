@@ -49,7 +49,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
         <span class="dash-text">PROFILE</span>
     </a>
 
-    <a href="#">
+    <a href="logout.php" onclick="return confirmLogout()">
         <img src="logout.png" class="logout">
     <span class="dash-text">LOGOUT</span>
     </a>
@@ -81,7 +81,11 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
         <span class="icon"></span>
     </div>
 </header>
-
+<script>
+function confirmLogout() {
+    return confirm("Are you sure you want to log out?");
+}
+</script>
     <!--Link to JavaScript-->
     <script src="admin.js"></script>
 

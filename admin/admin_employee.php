@@ -1,3 +1,21 @@
+<?php
+require "db_connect.php";
+$sql = "SELECT user.full_name, employee.hourly_rate, employee.attendance_status 
+        FROM employee
+        INNER JOIN user ON employee.user_id = user.user_id";
+$result = $conn->query($sql);
+
+$employees = [];
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $employees[] = $row;
+    }
+}
+
+// header('Content-Type: application/json');
+// echo json_encode($employees);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,10 +38,6 @@
         </thead>
         <tbody></tbody>
     </table>
-</div>
-
-<div class="paginatiom">
-    <button id="back-btn">Back</button>
 </div>
 
     <!--Link to JavaScript-->
