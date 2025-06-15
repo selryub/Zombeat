@@ -1,15 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const ctx = document.getElementById("revExpChart").getContext("2d");
 
-    // const revenue = <?=
-    //     json_encode(array_column($daily, "revenue")); ?>;
-    // const dates = <?=
-    //     json_encode(array_column($daily, "date")); ?>;
-    // const expenses = <?=
-    //     json_encode(array_map(function($e) {
-    //         return isset($e["expense"]) ? $e["expense"] : 0;
-    //     }, $expense_data)); ?>;
-
     new Chart(ctx, {
         type: "line",
         data: {
@@ -28,4 +19,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
+    async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const content = document.querySelector('.content');
+
+    await html2canvas(content).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgProps = doc.getImageProperties(imgData);
+        const pdfWidth = doc.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        doc.save("financial-report.pdf");
+  });
+}
 });
+

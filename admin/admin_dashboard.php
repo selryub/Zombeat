@@ -6,6 +6,7 @@ include "admin_frame.php";
 $period = $_GET['period'] ?? 'daily';
 $now = new DateTime();
 
+//Filter
 switch ($period) {
   case 'weekly':
     $start = $now->modify('Monday this week')->format('Y-m-d 00:00:00');
@@ -19,17 +20,31 @@ switch ($period) {
     $start = (new DateTime())->format('Y-m-d 00:00:00');
     $group = "HOUR(order_date)";
 }
+
 // Sales chart
 $sql = "SELECT DATE(order_date) AS label, SUM(total_amount) AS value
         FROM orders WHERE order_date >= '$start' GROUP BY $group";
 $res = $conn->query($sql);
 $labels = []; $vals = [];
-while ($r = $res->fetch_assoc()) { $labels[] = $r['label']; $vals[] = (float)$r['value']; }
+while ($r = $res->fetch_assoc()) { 
+    $labels[] = $r['label']; 
+    $vals[] = (float)$r['value']; 
+}
+
 
 // Financial summary
-$rev = $conn->query("SELECT SUM(total_amount) AS total FROM orders WHERE order_date >= '$start'")->fetch_assoc()['total'] ?? 0;
-$exp = $conn->query("SELECT SUM(total_sales) AS total FROM financial_report WHERE report_date >= '$start'")->fetch_assoc()['total'] ?? 0;
-$profit = $rev - $exp;
+$rev = $conn->query("SELECT SUM(total_amount) AS total FROM orders WHERE order_date >= '$start'")
+            ->fetch_assoc()['total'] ?? 0;
+
+//Items sold
+$sql = "SELECT SUM(quantity) AS total_sold FROM order_item
+        JOIN orders ON order_item.order_id = orders.order_id
+        WHERE orders.order_date >= '$start'";
+$totalSold = $conn->query($sql)
+                  ->fetch_assoc()["total_sold"] ??0;   
+
+//Profit = RM 0.20 per item sold
+$profit = $totalSold * 0.20;
 
 // Recent signups
 $users = $conn->query("SELECT full_name, registration_date 
@@ -56,8 +71,8 @@ $users = $conn->query("SELECT full_name, registration_date
         <a href="admin_sales.php" class="card-link">
             <div class="card">Revenue<br><strong>RM <?= number_format($rev,2) ?></strong></div>
         </a>
-        <a href="admin_financialRecord.php" class="card-link">
-            <div class="card">Expenses<br><strong>RM <?= number_format($exp,2) ?></strong></div>
+        <a href="admin_sales.php" class="card-link">
+            <div class="card">Items Sold<br><strong><?= $totalSold ?></strong></div>
         </a>
         <a href="admin_financialRecord.php" class="card-link">
             <div class="card">Net Profit<br><strong>RM <?= number_format($profit,2) ?></strong></div>
