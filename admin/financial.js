@@ -1,32 +1,11 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//     const ctx = document.getElementById("revExpChart").getContext("2d");
-
-//     new Chart(ctx, {
-//         type: "line",
-//         data: {
-//             labels: dates,
-//             datasets: [
-//                 { label: "Revenue", data: revenue, borderColor: "#4caf50", fill: false},
-//                 { label: "Expenses", data: expenses, borderColor: "#f44336", fill: false},
-//             ]
-//         },
-//         options: {
-//             responsive: true,
-//             interaction: {mode: "index", intersect: false},
-//             scales: {
-//                 x: { type: "time", time: {parser: "YYYY-MM-DD", unit: "day", displayFormats: "DD MMM"}},
-//                 y: { beginAtZero: true}
-//             }
-//         }
-//     });
 
 document.addEventListener("DOMContentLoaded", function () {
   const ctx = document.getElementById('financialChart').getContext('2d');
 
-  const labels = chartData.map(item => item.date);
+  const labels = chartData.map(item => item.label); 
   const itemsSold = chartData.map(item => parseInt(item.items_sold));
   const revenue = chartData.map(item => parseFloat(item.revenue));
-  const profit = chartData.map(item => parseFloat(item.items_sold * 0.20));
+  const profit = chartData.map(item => parseFloat(item.items_sold) * 0.20); 
 
   new Chart(ctx, {
     type: 'bar',
@@ -36,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         {
           label: 'Items Sold',
           data: itemsSold,
-          backgroundColor: 'rgba(75, 192, 192, 0.5)',
+          backgroundColor: 'rgba(54, 54, 235, 0.3)',
           yAxisID: 'y',
           type: 'bar'
         },
@@ -52,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
         {
           label: 'Profit (RM)',
           data: profit,
-          borderColor: 'rgba(54, 162, 235, 1)',
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(75, 192, 75, 1)',
+          backgroundColor: 'rgba(34, 139, 34, 0.2)',
           yAxisID: 'y1',
           type: 'line',
           tension: 0.4
@@ -67,6 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
         intersect: false,
       },
       stacked: false,
+      plugins: {
+        title: {
+          display: true,
+          text: `Financial Performance (${period.charAt(0).toUpperCase() + period.slice(1)})`
+        }
+      },
       scales: {
         y: {
           type: 'linear',
@@ -83,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-    async function downloadPDF() {
+  async function downloadPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const content = document.querySelector('.content');
@@ -99,4 +84,3 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 }
 });
-

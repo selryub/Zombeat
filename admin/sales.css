@@ -1,4 +1,7 @@
-.content { padding: 20px;}
+.content { 
+    padding: 20px;
+}
+
 .filters a {
     margin-right: 10px;
     text-decoration: none;
@@ -10,10 +13,9 @@
 }
 
 .chart-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 20px 0;
+    margin: 30px;
 }
+
 .history, .history th, .history td {
     border: 1px solid #ccc;
     border-collapse: collapse;

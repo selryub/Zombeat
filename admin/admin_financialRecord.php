@@ -6,27 +6,121 @@ $period = $_GET['period'] ?? 'daily';
 $now = new DateTime();
 switch ($period) {
   case 'weekly':
-    $start = $now->modify('Monday this week')->format('Y-m-d 00:00:00');
+    $start = $now->modify('Monday this week')->setTime(0, 0);
+    $end = (new DateTime('last day of this month'))->setTime(23, 59, 59);
     break;
+
   case 'monthly':
-    $start = (new DateTime('first day of this month'))->format('Y-m-d 00:00:00');
+    $start = (new DateTime('first day of this month'))->setTime(0, 0);
+    $end = (new DateTime('last day of this month'))->setTime(23, 59, 59);
     break;
+
   default:
-    $start = (new DateTime())->format('Y-m-d 00:00:00');
+    $start = (new DateTime())->setTime(0, 0);
+    $end = (new DateTime())->setTime(23, 59, 59);
 }
 
-$stmt = $conn->prepare("SELECT SUM(oi.quantity) AS items_sold, SUM(o.total_amount) AS revenue FROM order_item oi JOIN orders o ON oi.order_id = o.order_id WHERE o.order_date >= ?");
-$stmt->bind_param("s", $start);
+$startFormatted = $start->format('Y-m-d H:i:s');
+$endFormatted = $end->format('Y-m-d H:i:s');
+
+$stmt = $conn->prepare("SELECT SUM(oi.quantity) AS items_sold, SUM(o.total_amount) AS revenue FROM order_item oi JOIN orders o ON oi.order_id = o.order_id WHERE o.order_date BETWEEN ? AND ?");
+$stmt->bind_param("ss", $startFormatted, $endFormatted);
 $stmt->execute();
 $data = $stmt->get_result()->fetch_assoc();
 $items_sold = $data['items_sold'] ?: 0;
 $revenue = $data['revenue'] ?: 0;
 $profit = $items_sold * 0.20;
 
-$hist_stmt = $conn->prepare("SELECT DATE(o.order_date) AS date, SUM(oi.quantity) AS items_sold, SUM(o.total_amount) AS revenue FROM order_item oi JOIN orders o ON oi.order_id = o.order_id WHERE o.order_date >= ? GROUP BY DATE(o.order_date)");
-$hist_stmt->bind_param("s", $start);
+if ($period == 'monthly') {
+  $query = "
+    SELECT 
+      FLOOR((DAY(o.order_date) - 1) / 7) + 1 AS label,
+      SUM(oi.quantity) AS items_sold,
+      SUM(o.total_amount) AS revenue
+    FROM order_item oi
+    JOIN orders o ON oi.order_id = o.order_id
+    WHERE o.order_date BETWEEN ? AND ?
+    GROUP BY label
+    ORDER BY label
+  ";
+  $hist_stmt = $conn->prepare($query);
+  $hist_stmt->bind_param("ss", $startFormatted, $endFormatted);
+} elseif ($period == 'weekly') {
+  $query = "
+    SELECT 
+      DAYNAME(o.order_date) AS label,
+      SUM(oi.quantity) AS items_sold,
+      SUM(o.total_amount) AS revenue
+    FROM order_item oi
+    JOIN orders o ON oi.order_id = o.order_id
+    WHERE o.order_date BETWEEN ? AND ?
+    GROUP BY label
+    ORDER BY FIELD(label, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+  ";
+  $hist_stmt = $conn->prepare($query);
+  $hist_stmt->bind_param("ss", $startFormatted, $endFormatted);
+}
+else {
+  $query = "
+    SELECT 
+      DATE_FORMAT(o.order_date, ?) AS label,
+      SUM(oi.quantity) AS items_sold,
+      SUM(o.total_amount) AS revenue
+    FROM order_item oi
+    JOIN orders o ON oi.order_id = o.order_id
+    WHERE o.order_date BETWEEN ? AND ?
+    GROUP BY label
+    ORDER BY label
+  ";
+  $dateFormat = '%Y-%m-%d %H:00:00';
+  $hist_stmt = $conn->prepare($query);
+  $hist_stmt->bind_param("sss", $dateFormat, $startFormatted, $endFormatted);
+}
+
 $hist_stmt->execute();
-$hist_data = $hist_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$raw_data = $hist_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+$hist_data = [];
+if ($period == 'daily') {
+    $hours = range(8, 17);
+    foreach ($hours as $h) {
+        $label = sprintf("%02d:00", $h);
+        $hist_data[$label] = ['items_sold' => 0, 'revenue' => 0];
+    }
+    foreach ($raw_data as $row) {
+        $hour = (new DateTime($row['label']))->format('H:00');
+        if (isset($hist_data[$hour])) {
+            $hist_data[$hour]['items_sold'] += $row['items_sold'];
+            $hist_data[$hour]['revenue'] += $row['revenue'];
+        }
+    }
+} elseif ($period == 'weekly') {
+    $weekdays = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+    foreach ($weekdays as $day) {
+        $hist_data[$day] = ['items_sold' => 0, 'revenue' => 0];
+    }
+    foreach ($raw_data as $row) {
+        $day = (new DateTime($row['label']))->format('l');
+        $hist_data[$day]['items_sold'] += $row['items_sold'];
+        $hist_data[$day]['revenue'] += $row['revenue'];
+    }
+} else {
+    $hist_data = [
+        'Week 1' => ['items_sold' => 0, 'revenue' => 0],
+        'Week 2' => ['items_sold' => 0, 'revenue' => 0],
+        'Week 3' => ['items_sold' => 0, 'revenue' => 0],
+        'Week 4' => ['items_sold' => 0, 'revenue' => 0]
+    ];
+    foreach ($raw_data as $row) {
+      $weekNum = (int)$row['label'];
+      $week = 'Week ' . $weekNum;
+
+      if (isset($hist_data[$week])) {
+          $hist_data[$week]['items_sold'] += $row['items_sold'];
+          $hist_data[$week]['revenue'] += $row['revenue']; // Previously you did 'items_sold' here again — fixed!
+      }
+    }
+}
 
 if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
   $pdf = new FPDF();
@@ -52,9 +146,9 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
   $pdf->Ln();
 
   $pdf->SetFont('Arial', '', 12);
-  foreach ($hist_data as $r) {
+  foreach ($hist_data as $label => $r) {
     $date_profit = $r['items_sold'] * 0.20;
-    $pdf->Cell(40, 10, $r['date'], 1);
+    $pdf->Cell(40, 10, $label, 1);
     $pdf->Cell(40, 10, $r['items_sold'], 1);
     $pdf->Cell(50, 10, number_format($r['revenue'], 2), 1);
     $pdf->Cell(50, 10, number_format($date_profit, 2), 1);
@@ -63,6 +157,15 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
 
   $pdf->Output('D', 'financial_report_' . $period . '.pdf');
   exit;
+}
+
+$hist_data_array = [];
+foreach ($hist_data as $label => $row) {
+  $hist_data_array[] = [
+    'label' => $label,
+    'items_sold' => $row['items_sold'],
+    'revenue' => $row['revenue']
+  ];
 }
 ?>
 
@@ -100,9 +203,9 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
         <tr><th>Date</th><th>Items Sold</th><th>Revenue (RM)</th><th>Profit (RM)</th></tr>
       </thead>
       <tbody>
-        <?php foreach ($hist_data as $r): $date_profit = $r['items_sold'] * 0.20; ?>
+        <?php foreach ($hist_data as $label => $r): $date_profit = $r['items_sold'] * 0.20; ?>
         <tr>
-          <td><?= htmlspecialchars($r['date']) ?></td>
+          <td><?= htmlspecialchars($label) ?></td>
           <td><?= $r['items_sold'] ?></td>
           <td><?= number_format($r['revenue'],2) ?></td>
           <td><?= number_format($date_profit,2) ?></td>
@@ -114,7 +217,10 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
 </div>
 <a href="?period=<?= $period ?>&download=pdf" class="print-btn">📄 Download PDF</a>
 <script>
-  const chartData = <?= json_encode($hist_data) ?>;
+  const chartData = <?= json_encode($hist_data_array) ?>;
+  const period = '<?= $period ?>'; 
+  window.chartData = chartData;
+  window.period = period;
 </script>    
 <!--Link to JavaScript-->
     <script src="admin.js"></script>

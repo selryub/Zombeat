@@ -70,7 +70,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
     </nav>
 
     <div class="icons">
-        <input type="text" placeholder=" 🔍︎ Search" class="search-box">
+        <input type="text" id="globalSearch" placeholder=" 🔍︎ Search" class="search-box"/>
         <div class="settings-container">
             <img src="settings.png" alt="Settings" class="setting-img" id="settings-toggle">    
                 </div>
