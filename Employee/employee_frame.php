@@ -24,7 +24,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
         <a href = "employee_dashboard.php" class="hellouser"> HELLO EMPLOYEE !</a>
     </div>
 
-    <a href="admin_product.php" class="menuall">
+    <a href="order_details.php" class="menuall">
         <img src="details.png" class="products">
         <span class="dash-text">ORDER DETAILS</span>
     </a>
@@ -39,7 +39,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
         <span class="dash-text">SCHEDULES</span>
     </a>
 
-    <a href="admin_product.php">
+    <a href="product.php">
         <img src="product.png" class="product">
         <span class="dash-text">PRODUCT</span>
     </a>
@@ -65,8 +65,8 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
 
     <nav>
         <a href="employee_dashboard.php">DASHBOARD</a>
-        <a href="#">ABOUT</a>
-        <a href="#">REVIEWS</a>
+        <a href="about.html">ABOUT</a>
+        <a href="feedback.php">REVIEWS</a>
     </nav>
 
     <div class="icons">
