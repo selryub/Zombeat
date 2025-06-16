@@ -54,8 +54,8 @@
 
   <nav>
     <a href="index.php">HOME</a>
-    <a href="menu_page.html">MENU</a>
-    <a href="about.html">ABOUT</a>
+    <a href="menu_page.php">MENU</a>
+    <a href="about.php">ABOUT</a>
     <a href="#">REVIEWS</a>
   </nav>
   <div class="icons">

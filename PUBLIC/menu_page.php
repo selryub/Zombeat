@@ -1,13 +1,55 @@
+<?php
+require_once '../admin/db_connect.php';
+
+// Get category and search input from URL
+$category = $_GET['category'] ?? 'All';
+$search = $_GET['search'] ?? '';
+
+// Start building SQL query
+$sql = "SELECT * FROM menu WHERE 1";
+$params = [];
+$types = "";
+
+// If category is not 'All', add condition
+if ($category !== 'All') {
+    $sql .= " AND menuCategory = ?";
+    $params[] = $category;
+    $types .= "s";
+}
+
+// If search keyword is not empty, add condition
+if (!empty($search)) {
+    $sql .= " AND menuName LIKE ?";
+    $params[] = "%$search%";
+    $types .= "s";
+}
+
+// Prepare and bind if parameters exist
+$stmt = $conn->prepare($sql);
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
+}
+
+// Execute and fetch
+$stmt->execute();
+$result = $stmt->get_result();
+
+$stmt->close();
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FCSIT Kiosk</title>
-  <link rel="stylesheet" href="index.css"/>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="menu_page.css" />
 </head>
 <body>
-  
+
 <div class="page-wrapper">
 <!-- Sidebar -->
 <!-- <div id="sidebar" class="sidebar">
@@ -21,34 +63,40 @@
     <img src="img/layout.png" class="menu">
     <span class="dash-text">MENU</span>
   </a>
+
   <a href="#">
     <img src="img/list.png" class="orders">
     <span class="dash-text">ORDERS</span>
   </a>
+
   <a href="#">
     <img src="img/card plus.png" class="billing">
     <span class="dash-text">BILLING</span>
   </a>
+
   <a href="#">
     <img src="img/gps.png" class="trackOrders">
     <span class="dash-text">TRACK ORDERS</span>
   </a>
+
   <a href="#">
     <img src="img/profile2.png" class="profile">
     <span class="dash-text">PROFILE</span>
   </a>
+
   <a href="#">
       <img src="img/logout.png" class="logout">
   <span class="dash-text">LOGOUT</span>
   </a>
 </div> -->
 
-
 <!-- Header -->
 <header class="navbar">
 <div class="left-header">
   <!-- <div class="menu-icon" onclick="toggleSidebar()">☰</div> -->
+  <a href="index.php">
   <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
+  </a>
   <div class="logo-text">FCSIT KIOSK</div>
 </div>
 
@@ -59,31 +107,54 @@
     <a href="#">REVIEWS</a>
   </nav>
   <div class="icons">
+    <!-- <input type="text" placeholder=" 🔍︎ Search" class="search-box"> -->
     <img src="img/cart.png" alt="cart" class="cart-img">
     <a href="/Zombeat/PUBLIC/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
     <span class="icon"></span>
   </div>
 </header>
 
-  <section class="slider">
-    <div class="slides">
-      <img src="img/photo_a.jpg" class="slide" />
-      <img src="img/photo_b.jpg" class="slide" />
-      <img src="img/photo_c.jpg" class="slide" />
-    </div>
-  </section>
+<div class="menu-header-bar">
+  <h2>MENU</h2>
+  <form method="GET" action="menu_page.php">
+  <input type="text" name="search" class="search-menu" placeholder=" 🔍︎ Search" value="<?php echo htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES); ?>">
+</form>
+</div>
 
-  <section class="cards">
-    <div class="card">
-      <img src="img/photo_a.jpg">
-    </div>
-    <div class="card">
-      <img src="img/photo_b.jpg">
-    </div>
-    <div class="card">
-      <img src="img/photo_c.jpg">
-    </div>
-  </section>
+<div class="menu-container">
+  <div class="menu-text">
+<div class="categories">
+<?php
+$categories = ['All', 'Heavy Foods', 'Snacks', 'Drinks'];
+foreach ($categories as $cat) {
+    $activeClass = ($cat === $category) ? 'active-category' : '';
+    echo "<a href='?category=" . urlencode($cat) . "'><span class='$activeClass'>$cat</span></a>";
+}
+?>
+</div>
+<div class="items">
+<?php if ($result && $result->num_rows > 0): ?>
+    <?php while ($row = $result->fetch_assoc()): ?>
+        <div class="card">
+            <img src="<?= htmlspecialchars($row['menuImage']) ?>" alt="<?= htmlspecialchars($row['menuName']) ?>">
+            <p class="item-name"><?= htmlspecialchars($row['menuName']) ?></p>
+            <div class="card-text">
+                <p class="item-desc"><?= htmlspecialchars($row['menuDesc']) ?></p>
+                <div class="price-button">
+                    <strong class="price">RM <?= number_format($row['menuPrice'], 2) ?></strong>
+                    <button>+</button>
+                </div>
+            </div>
+        </div>
+    <?php endwhile; ?>
+<?php else: ?>
+    <p>No items found in this category.</p>
+<?php endif; ?>
+</div>
+</div>
+</div>
+
+</div>
 
 <footer class="footer">
   <div class="contact">
@@ -112,46 +183,7 @@
 </div>
 </footer>
 
-<script>
-// Toggle sidebar open and close
-function toggleSidebar() {
-  const sidebar = document.getElementById("sidebar");
-
-  // If sidebar is open (250px), close it
-  if (sidebar.style.width === "250px") {
-    sidebar.style.width = "0";
-  } 
-  // Else, open it
-  else {
-    sidebar.style.width = "250px";
-  }
-}
-
-// Auto-slide functionality for a carousel
-let index = 0;
-const slides = document.querySelector('.slides'); // container of all slides
-const totalSlides = document.querySelectorAll('.slide').length; // count slides
-
-setInterval(() => {
-  index = (index + 1) % totalSlides; // move to next slide, loop back to 0
-  slides.style.transform = `translateX(-${index * 100}%)`; // shift slide
-}, 3000); // every 3 seconds
-
-// Close sidebar if clicked outside it
-document.addEventListener("click", function (e) {
-  const sidebar = document.getElementById("sidebar");
-  const menuIcon = document.querySelector(".menu-icon");
-
-  // If sidebar is open AND click is outside sidebar AND menu icon
-  if (
-    sidebar.style.width === "250px" &&
-    !sidebar.contains(e.target) &&
-    !menuIcon.contains(e.target)
-  ) {
-    sidebar.style.width = "0"; // then close sidebar
-  }
-});
-</script>
+<script src="index.css"></script>
 
 </body>
 </html>

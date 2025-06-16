@@ -48,9 +48,17 @@
     padding-top: 25px;
 }
 
-.categories span:hover {
-    text-decoration: underline;
-    color: #000;
+.categories a {
+  color: black;             /* Make link text always black */
+  text-decoration: none;    /* Remove underline */
+}
+
+.categories a:hover {
+  text-decoration: underline; /* Add underline on hover if you like */
+}
+
+.categories a:visited {
+  color: black; /* Make visited links also black */
 }
 
 .items {
