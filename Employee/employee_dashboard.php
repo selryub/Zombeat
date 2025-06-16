@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="employeestyle.css">
 </head>
 <body>
-<?php include "admin_frame.php"; ?>
+<?php include "employee_frame.php"; ?>
 
 
     <!--Link to JavaScript-->
