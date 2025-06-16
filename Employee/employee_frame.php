@@ -44,14 +44,14 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
         <span class="dash-text">PRODUCT</span>
     </a>
 
-    <a href="admin_employee.php">
+    <a href="profile_page.php">
         <img src="profile2.png" class="profile">
         <span class="dash-text">PROFILE</span>
     </a>
 
-    <a href="#">
+    <a href="logout.php" onclick="return confirmLogout()">
         <img src="logout.png" class="logout">
-    <span class="dash-text">LOGOUT</span>
+        <span class="dash-text">LOGOUT</span>
     </a>
 </div>
 

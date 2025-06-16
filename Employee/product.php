@@ -9,6 +9,26 @@
   
 </head>
 
+<!-- UPDATE Button aligned right -->
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px 10px 20px;">
+  <input type="text" placeholder="🔍︎ Search" class="search-menu" style="flex: 1; max-width: 300px; padding: 6px;">
+  <a href="update_product.php">
+    <button style="
+      background-color: #09204f;
+      color: white;
+      padding: 8px 20px;
+      border: none;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 10px;
+      cursor: pointer;
+    ">
+      UPDATE
+    </button>
+  </a>
+</div>
+
 <div class="menu-container">
   <div class="menu-text">
     <div class="categories">
