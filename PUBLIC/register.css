@@ -132,9 +132,11 @@ button[type="submit"] {
 }
 
 .signup-box p {
-  font-size: 12px;
-  text-align: center;
-  margin-top: 15px;
+  font-size: 10px;
+  text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 0;
 }
 
 .signup-box p a {
@@ -155,4 +157,9 @@ button[type="submit"] {
   height: 150px;
   background: linear-gradient(to top right, #aaa, #ccc);
   border-radius: 20px;
+}
+
+.pw-requirement {
+  line-height: 1.2;
+  display: none;
 }

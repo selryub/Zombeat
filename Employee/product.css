@@ -3,7 +3,7 @@
     justify-content: start;
     align-items: center;
     padding: 20px 300px 0 150px;
-    gap: 200px;
+    gap: 20px;
 }
 
 .menu-header-bar h2 {
@@ -15,7 +15,7 @@
 .menu-header-bar input {
     padding: 8px;
     font-size: 16px;
-    width: 170%;
+    width: 40%;
     margin: 0 auto;
 }
 
@@ -39,17 +39,18 @@
 
 .categories {
     display: flex;
-    gap: 215px;
+    gap: 200px;
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
     color: #817c7c;
     margin-bottom: 20px;
-    padding-left: 300px;
+    padding-left: 250px;
     padding-top: 25px;
 }
 
-.categories a:hover {
-  text-decoration: underline; /* Add underline on hover if you like */
+.categories span:hover {
+    text-decoration: underline;
+    color: #000;
 }
 
 .items {
@@ -123,9 +124,18 @@
     height: 30px;
     cursor: pointer;
 }
+#product-form {
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  max-width: 500px;
+}
 
-button[data-require-login="true"] {
-    background-color: #ccc;
-    cursor: not-allowed;
+#product-form input, textarea {
+  width: 100%;
+  margin: 8px 0;
+  padding: 8px;
 }
 

@@ -9,31 +9,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if ($password !== $confirmPassword) {
     echo "<script>alert('Passwords do not match!'); window.history.back();</script>";
-  } else {
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-    $stmt = $conn->prepare("INSERT INTO user (full_name, email, password) VALUES (?, ?, ?)");
-    if (!$stmt) {
-      die("Prepare failed: " . $conn->error);
-    }
-
-    $stmt->bind_param("sss", $name, $email, $hashedPassword);
-
-    if ($stmt->execute()) {
-      echo "<script>
-              alert('Account created successfully!');
-              window.location.href = 'login.php';
-            </script>";
-    } else {
-      echo "<script>alert('Error: Email may already exist.'); window.history.back();</script>";
-    }
-
-    $stmt->close();
-    $conn->close();
+    exit;
   }
+
+  // Enforce password rules
+  if (!preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[^\s]{6,8}$/', $password)) {
+    echo "<script>alert('Password must be 6-8 characters long, include 1 uppercase letter, 1 number, 1 special character, and no spaces.'); window.history.back();</script>";
+    exit;
+  }
+
+  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+  $stmt = $conn->prepare("INSERT INTO user (full_name, email, password) VALUES (?, ?, ?)");
+  if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+  }
+
+  $stmt->bind_param("sss", $name, $email, $hashedPassword);
+
+  if ($stmt->execute()) {
+    echo "<script>
+            alert('Account created successfully!');
+            window.location.href = 'login.php';
+          </script>";
+  } else {
+    echo "<script>alert('Error: Email may already exist.'); window.history.back();</script>";
+  }
+
+  $stmt->close();
+  $conn->close();
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -50,25 +56,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <h2>CREATE AN ACCOUNT</h2>
       <div class="signup-box">
         <h3>SIGN UP</h3>
-        <form id="signupForm" method="POST" action="register.php">
-          <div class="input-group">
-            <span><img src="img/profile2.png" class="nameIcon"></span>
-            <input type="text" name="name" placeholder="Full Name" required />
-          </div>
-          <div class="input-group">
-            <span><img src="img/email.png" class="emailIcon"></span>
-            <input type="email" name="email" placeholder="Email" required />
-          </div>
-          <div class="input-group">
-            <span><img src="img/lock.png" class="lockIcon"></span>
-            <input type="password" name="password" id="password" placeholder="Password" required />
-          </div>
-          <div class="input-group">
-            <span><img src="img/lock.png" class="lockIcon"></span>
-            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required />
-          </div>
-          <button type="submit" id="submit-btn">SIGN UP</button>
-        </form>
+     <!-- Inside your register.php -->
+<form id="signupForm" method="POST" action="register.php">
+  <div class="input-group">
+    <span><img src="img/profile2.png" class="nameIcon"></span>
+    <input type="text" name="name" placeholder="Full Name" required />
+  </div>
+  <div class="input-group">
+    <span><img src="img/email.png" class="emailIcon"></span>
+    <input type="email" name="email" placeholder="Email" required />
+  </div>
+  <div class="input-group">
+  <span><img src="img/lock.png" class="lockIcon"></span>
+  <input type="password" name="password" id="password" placeholder="Password" required />
+</div>
+<p class="pw-requirement" id="pwRule" style="display: none;">
+    Password must be 6–8 characters long, include 1 uppercase letter, 1 number, 1 special character, and no spaces.
+  </p>
+  <div class="input-group">
+    <span><img src="img/lock.png" class="lockIcon"></span>
+    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required />
+  </div>
+  <button type="submit" id="submit-btn">SIGN UP</button>
+</form>
+
       </div>
       <p>Already Have An Account? <a href="login.php">Login</a></p>
     </div>
@@ -79,6 +90,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <!-- Inline JavaScript from register.js -->
   <script>
+      const passwordInput = document.getElementById('password');
+  const pwRule = document.getElementById('pwRule');
+
+  passwordInput.addEventListener('focus', () => {
+    pwRule.style.display = 'block';
+  });
+
+  passwordInput.addEventListener('blur', () => {
+    pwRule.style.display = 'none';
+  });
+
     document.getElementById('signupForm').addEventListener('submit', function(e) {
       const password = this.querySelector('input[name="password"]').value;
       const confirmPassword = this.querySelector('input[name="confirmPassword"]').value;
