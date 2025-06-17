@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCSIT Kiosk - Track Order Page</title>
+    <link rel="stylesheet" href="track_order.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <!-- Logo -->
+            <div class="logo">
+                <img src="img/kiosk.JPG" alt="FCSIT Kiosk Logo" class="logo-icon">
+                <span class="logo-text">FCSIT KIOSK</span>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="nav">
+                <a href="#" class="nav-link active">HOME</a>
+                <a href="#" class="nav-link">MENU</a>
+                <a href="#" class="nav-link">ABOUT</a>
+                <a href="#" class="nav-link">REVIEWS</a>
+            </nav>
+            
+            <!-- Search and Icons -->
+            <div class="header-actions">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search...">
+                    <button class="search-btn">
+                        <img src="img/search.png" alt="Search">
+                    </button>
+                </div>
+                <button class="cart-btn">
+                    <img src="img/cart.png" alt="Cart" width="24" height="24">
+                </button>
+                <button class="profile-btn">
+                    <img src="img/profile2.png" alt="Profile" width="24" height="24">
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+
+            <!-- Order Status Card -->
+            <div class="order-status-card">
+                <button class="close-btn">✕</button>
+                
+                <h1 class="order-title">ORDER STATUS</h1>
+                <p class="order-id">Order ID:</p>
+                
+                <!-- Order Image Placeholder -->
+                <div class="order-image">
+                    <div class="image-placeholder">
+                        <img src="img/no-image.png" alt="No image">
+                    </div>
+                </div>
+                
+                <!-- Progress Steps -->
+                <div class="progress-container">
+                    <div class="progress-step completed">
+                        <div class="step-icon">
+                            <img src="img/clock.png" alt="Order Received">
+                        </div> 
+                        <div class="step-label">ORDER RECEIVED</div>
+                        <div class="step-line completed"></div>
+                    </div>
+                    
+                    <div class="progress-step completed">
+                        <div class="step-icon">
+                            <img src="img/thumbs-up.png" alt="Order Confirmed">
+                        </div>
+                        <div class="step-label">ORDER CONFIRMED</div>
+                        <div class="step-line completed"></div>
+                    </div>
+                    
+                    <div class="progress-step active">
+                        <div class="step-icon">
+                            <img src="img/utensils.png" alt="Order Processed">
+                        </div>
+                        <div class="step-label">ORDER PROCESSED</div>
+                        <div class="step-line"></div>
+                    </div>
+                    
+                    <div class="progress-step">
+                        <div class="step-icon">
+                            <img src="img/scooter.png" alt="On The Way">
+                        </div>
+                        <div class="step-label">ON THE WAY</div>
+                        <div class="step-line"></div>
+                    </div>
+                    
+                    <div class="progress-step">
+                        <div class="step-icon">
+                            <img src="img/delivered.png" alt="Delivered">
+                        </div>
+                        <div class="step-label">DELIVERED</div>
+                    </div>
+                </div>
+                
+                <!-- Estimated Time -->
+                <div class="estimated-time">
+                    <h3>ESTIMATED TIME:</h3>
+                    <div class="time-placeholder">
+                        <div class="time-bar"></div>
+                        <div class="time-bar"></div>
+                        <div class="time-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Simple mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav').classList.toggle('active');
+        });
+
+        // Close button functionality
+        document.querySelector('.close-btn').addEventListener('click', function() {
+            document.querySelector('.order-status-card').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

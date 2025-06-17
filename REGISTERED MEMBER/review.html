@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FCSIT Kiosk - Review Page</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#002f6c',
+                        secondary: '#c9dafc'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="review.css">
+</head>
+<body class="bg-secondary min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white border border-gray-300 flex items-center px-4 py-2 shadow-sm">
+        <div class="flex items-center space-x-4 flex-1">
+            <button aria-label="Menu" class="text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+            <img alt="FCSIT Kiosk logo" class="w-10 h-10" height="40" src="img/kiosk.JPG" width="40"/>
+            <span class="pixel-font text-lg tracking-widest select-none">FCSIT KIOSK</span>
+        </div>
+        <div class="flex items-center space-x-12">
+            <div class="flex space-x-6 text-xs mr-4">
+                <a class="hover:underline" href="index.html">HOME</a>
+                <a class="hover:underline" href="menu_page.html">MENU</a>
+                <a class="hover:underline" href="about.html">ABOUT</a>
+                <a class="underline font-semibold hover:no-underline" href="review.html">REVIEWS</a>
+            </div>
+            <div class="flex items-center space-x-6">
+                <div class="relative flex items-center">
+                    <i class="fas fa-search absolute left-3 text-gray-400 text-xs"></i>
+                    <input aria-label="Search" class="border border-gray-400 rounded-3xl pl-8 pr-4 py-1.5 text-xs w-48 focus:outline-none" placeholder="Search" type="search"/>
+                </div>
+                <button aria-label="Shopping bag" class="text-xl">
+                    <i class="fas fa-shopping-bag"></i>
+                </button>
+                <button aria-label="User profile" class="text-xl">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="max-w-6xl mx-auto px-4 pt-20 pb-12 flex flex-col md:flex-row gap-8">
+        <!-- Rating & Feedback box -->
+        <section aria-label="Rating and feedback form" class="bg-white rounded-xl border border-gray-300 max-w-md w-full shadow-sm">
+            <header class="bg-primary rounded-t-xl py-4 text-center pixel-font text-white text-lg tracking-widest select-none">
+                RATING & FEEDBACK
+            </header>
+            <form action="#" class="p-6 space-y-6" method="POST">
+                <div class="text-center text-base text-black font-serif">
+                    Rate your meal experience:
+                </div>
+                <div aria-label="Star rating" class="flex justify-center space-x-1 text-gray-300 text-2xl select-none">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="text-center text-base text-black font-serif">
+                    Write your feedback:
+                </div>
+                <textarea aria-label="Write your feedback" class="w-full border border-gray-400 rounded resize-none text-xs p-2 font-serif text-black" placeholder="Type here" rows="4"></textarea>
+                <div class="flex justify-center">
+                    <button class="bg-primary text-white font-bold text-xs px-6 py-1 rounded-full tracking-widest hover:opacity-90 transition" type="submit">
+                        SUBMIT
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Reviews -->
+        <section class="flex-1 space-y-6 text-black font-serif text-sm">
+            <h2 class="mb-2 text-lg">What others are saying:</h2>
+            <article class="space-y-1">
+                <div class="flex items-center space-x-2 text-gray-700">
+                    <i class="fas fa-user-circle text-xl"></i>
+                    <div class="flex space-x-1 text-yellow-600 text-lg">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-gray-500 leading-relaxed max-w-xl">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+                    convallis, nisl at convallis tincidunt, nunc urna fermentum nunc, nec
+                    luctus nunc nisl nec nunc.
+                </p>
+            </article>
+            <article class="space-y-1">
+                <div class="flex items-center space-x-2 text-gray-700">
+                    <i class="fas fa-user-circle text-xl"></i>
+                    <div class="flex space-x-1 text-yellow-600 text-lg">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star text-gray-400"></i>
+                    </div>
+                </div>
+                <p class="text-gray-500 leading-relaxed max-w-xl">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+                    convallis, nisl at convallis tincidunt, nunc urna fermentum nunc, nec
+                    luctus nunc nisl nec nunc.
+                </p>
+            </article>
+            <article class="space-y-1">
+                <div class="flex items-center space-x-2 text-gray-700">
+                    <i class="fas fa-user-circle text-xl"></i>
+                    <div class="flex space-x-1 text-yellow-600 text-lg">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-gray-500 leading-relaxed max-w-xl">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+                    convallis, nisl at convallis tincidunt, nunc urna fermentum nunc, nec
+                    luctus nunc nisl nec nunc.
+                </p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

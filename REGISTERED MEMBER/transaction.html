@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCSIT Kiosk - Transaction Page</title>
+    <link rel="stylesheet" href="transaction.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="logo">
+                <img src="img/kiosk.JPG" alt="FCSIT Kiosk Logo">
+                <span class="brand-name">FCSIT KIOSK</span>
+            </div>
+            
+            <nav class="nav">
+                <a href="#" class="nav-link">HOME</a>
+                <a href="#" class="nav-link">MENU</a>
+                <a href="#" class="nav-link">ABOUT</a>
+                <a href="#" class="nav-link">REVIEWS</a>
+            </nav>
+            
+            <div class="header-actions">
+                <div class="search-box">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="'8" stroke="currentColor" stroke-width="2"/>
+                        <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2"/>   
+                    </svg>              
+                    <input type="text" placeholder="Search">
+                </div>
+                <button class="cart-btn">
+                    <img src="img/cart.png" alt="Cart" width="24" height="24">
+                </button>
+                <button class="profile-btn">
+                    <img src="img/profile2.png" alt="Profile" width="24" height="24">
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="progress-container">
+        <div class="progress-steps">
+            <div class="step completed">
+                <span class="step-number">1.</span>
+                <span class="step-label">CART</span>
+            </div>
+            <div class="step active">
+                <span class="step-number">2.</span>
+                <span class="step-label">TRANSACTION</span>
+            </div>
+            <div class="step">
+                <span class="step-number">3.</span>
+                <span class="step-label">BILLING</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="checkout-grid">
+
+                <!-- Payment Methods -->
+                <div class="payment-section">
+
+                    <!-- Credit Card -->
+                    <div class="payment-method">
+                        <input type="radio" id="credit-card" name="payment" value="credit-card" checked>
+                        <label for="credit-card" class="payment-card">
+                            <div class="payment-header">
+                                <span class="payment-title">Credit Card</span>
+                                <img src="img/creditcard.png" alt="Credit Card" class="payment-icon">
+                            </div>
+                            <div class="card-visual">
+                                <div class="card-lines">
+                                    <div class="card-line"></div>
+                                    <div class="card-line"></div>
+                                    <div class="card-line"></div>
+                                </div>
+                            </div>
+                            <div class="card-form">
+                                <div class="form-row">
+                                    <input type="text" placeholder="0000 0000 0000 0000" class="card-number">
+                                    <input type="text" placeholder="MM/YY" class="expiry">
+                                    <input type="text" placeholder="CVV" class="cvv">
+                                </div>
+                                <input type="text" placeholder="Card Holder Name" class="card-name">
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- PayPal -->
+                    <div class="payment-method">
+                        <input type="radio" id="paypal" name="payment" value="paypal">
+                        <label for="paypal" class="payment-card">
+                            <div class="payment-header">
+                                <span class="payment-title">PayPal</span>
+                                <img src="img/paypal.png" alt="PayPal" class="paypal-logo">
+                            </div>
+                            <div class="paypal-placeholder">
+                                <div class="placeholder-lines">
+                                    <div class="placeholder-line long"></div>
+                                    <div class="placeholder-line medium"></div>
+                                    <div class="placeholder-line short"></div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Cash -->
+                    <div class="payment-method">
+                        <input type="radio" id="cash" name="payment" value="cash">
+                        <label for="cash" class="payment-card">
+                            <div class="payment-header">
+                                <span class="payment-title">Cash</span>
+                                <div class="cash-icon">
+                                    <img src="img/cash.png" alt="Cash Payment" width="40" height="30">
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn btn-primary">Pay now</button>
+                        <button class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h2>ORDER SUMMARY</h2>
+                    
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="item-image"></div>
+                            <div class="item-details">
+                                <div class="item-name">Product 1</div>
+                                <div class="item-price">RM XX.XX</div>
+                            </div>
+                        </div>
+                        
+                        <div class="order-item">
+                            <div class="item-image"></div>
+                            <div class="item-details">
+                                <div class="item-name">Product 2</div>
+                                <div class="item-price">RM XX.XX</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="promo-code">
+                        <input type="text" placeholder="Promo code" class="promo-input">
+                    </div>
+
+                    <div class="order-totals">
+                        <div class="total-row">
+                            <span>SUBTOTAL</span>
+                            <span>RM XX.XX</span>
+                        </div>
+                        <div class="total-row">
+                            <span>DELIVERY FEE</span>
+                            <span>RM XX.XX</span>
+                        </div>
+                        <div class="total-row final-total">
+                            <span>TOTAL</span>
+                            <span>RM XX.XX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
