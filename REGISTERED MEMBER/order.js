@@ -122,31 +122,39 @@ function showAddToCartConfirmation(button) {
     }, 500);
 }
 
-// Checkout Function
+// Modified Checkout Function - Redirects to view cart page
 function checkout() {
     if (cart.length === 0) {
         alert('Your cart is empty!');
         return;
     }
     
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    // Store cart data temporarily in a global variable or pass via URL
+    // Since we can't use localStorage, we'll use URL parameters for small data
+    // or you can store in a global variable if both pages are part of the same session
     
-    // Create order summary
-    let orderSummary = 'Order Summary:\n\n';
-    cart.forEach(item => {
-        orderSummary += `${item.name} x${item.quantity} - RM ${(item.price * item.quantity).toFixed(2)}\n`;
-    });
-    orderSummary += `\nTotal: RM ${total.toFixed(2)}`;
+    // For URL approach (good for small amounts of data):
+    const cartData = encodeURIComponent(JSON.stringify(cart));
+    window.location.href = `view_cart.html?cart=${cartData}`;
     
-    // For now, just show an alert. You can replace this with a proper checkout process
-    if (confirm(orderSummary + '\n\nProceed to checkout?')) {
-        alert('Order placed successfully! Thank you for your purchase.');
-        // Clear cart
-        cart = [];
-        updateCartDisplay();
-        updateCartBadge();
-        toggleCart();
+    // Alternative: Store in global variable (if pages are in same session)
+    // window.cartData = cart;
+    // window.location.href = 'view_cart.html';
+}
+
+// Function to get cart data from URL (for the view cart page)
+function getCartFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cartData = urlParams.get('cart');
+    if (cartData) {
+        try {
+            return JSON.parse(decodeURIComponent(cartData));
+        } catch (e) {
+            console.error('Error parsing cart data:', e);
+            return [];
+        }
     }
+    return [];
 }
 
 // Filter by Category Function
