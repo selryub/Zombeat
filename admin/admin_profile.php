@@ -1,5 +1,4 @@
 <?php
-session_start();
 require "db_connect.php";
 
 if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
@@ -7,14 +6,14 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
     exit();
 }
 
-$user_id = $_SESSION["user_id"];
+// $user_id = $_SESSION["user_id"];
 
 //Fetch from Database
 //$username = $_SESSION["username"];
-$sql = "SELECT full_name, email, phone
+$sql = "SELECT full_name, email
         FROM user WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id);
+$stmt->bind_param("i",$user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
@@ -31,16 +30,22 @@ if(!$user) {
 
 //update profile
 //$user_id = $_SESSION["user_id"];
-$name = $_POST["name"];
-$email = $_POST["email"];
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = $_POST["name"];
+    $email = $_POST["email"];
 
-$sql = "UPDATE user SET full_name = ?, email = ? WHERE user_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ssi", $name, $email, $user_id);
-$stmt->execute();
+    $sql = "UPDATE user SET full_name = ?, email = ? WHERE user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssi", $name, $email, $user_id);
+    $stmt->execute();
 
-$_SESSION["username"] = $name;
-$_SESSION["email"] = $email;
+    $_SESSION["username"] = $name;
+    $_SESSION["email"] = $email;
+    
+    // Optional: redirect to prevent form re-submission
+    header("Location: profile.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +67,6 @@ $_SESSION["email"] = $email;
         <h2>Admin Profile</h2>
             <p><strong>Name:</strong> <span id="display-name"><?= htmlspecialchars($user["full_name"]) ?></span></p>
             <p><strong>Email:</strong> <span id="display-email"><?= htmlspecialchars($user["email"]) ?></span></p>
-            <p><strong>Phone:</strong> <span id="display-phone"><?= htmlspecialchars($user["phone"]) ?></span></p>
             <button id="edit-btn">Edit Profile</button>
 
         <!-- Edit Form -->
@@ -72,9 +76,6 @@ $_SESSION["email"] = $email;
 
             <label>Email:</label>
             <input type="email" name="email" value="<?= htmlspecialchars($user["email"]) ?>" required><br>
-
-            <label>Phone:</label>
-            <input type="text" name="phone" value="<?= htmlspecialchars($user["phone"]) ?>" required><br>
 
             <button type="submit">Save</button>
             <button type="button" id="cancel-btn">Cancel</button>

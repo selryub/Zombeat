@@ -1,41 +1,147 @@
 <?php
 require "db_connect.php";
-include "admin_frame.php";
 
-//Date filters
 $period = $_GET['period'] ?? 'daily';
 $now = new DateTime();
-
 switch ($period) {
   case 'weekly':
-    $start = $now->modify('Monday this week')->format('Y-m-d 00:00:00');
-    $group = "WEEK(order_date)";
+    $start = $now->modify('Monday this week')->setTime(0, 0);
+    $end = (new DateTime('last day of this month'))->setTime(23, 59, 59);
     break;
-  case 'monthly':
-    $start = (new DateTime('first day of this month'))->format('Y-m-d 00:00:00');
-    $group = "MONTH(order_date)";
-    break;
-  default:
-    $start = (new DateTime())->format('Y-m-d 00:00:00');
-    $group = "HOUR(order_date)";
-}
-// Sales chart
-$sql = "SELECT DATE(order_date) AS label, SUM(total_amount) AS value
-        FROM orders WHERE order_date >= '$start' GROUP BY $group";
-$res = $conn->query($sql);
-$labels = []; $vals = [];
-while ($r = $res->fetch_assoc()) { $labels[] = $r['label']; $vals[] = (float)$r['value']; }
 
-// Financial summary
-$rev = $conn->query("SELECT SUM(total_amount) AS total FROM orders WHERE order_date >= '$start'")->fetch_assoc()['total'] ?? 0;
-$exp = $conn->query("SELECT SUM(total_sales) AS total FROM financial_report WHERE report_date >= '$start'")->fetch_assoc()['total'] ?? 0;
-$profit = $rev - $exp;
+  case 'monthly':
+    $start = (new DateTime('first day of this month'))->setTime(0, 0);
+    $end = (new DateTime('last day of this month'))->setTime(23, 59, 59);
+    break;
+
+  default:
+    $start = (new DateTime())->setTime(0, 0);
+    $end = (new DateTime())->setTime(23, 59, 59);
+}
+
+$startFormatted = $start->format('Y-m-d H:i:s');
+$endFormatted = $end->format('Y-m-d H:i:s');
+
+$stmt = $conn->prepare("SELECT SUM(oi.quantity) AS items_sold, SUM(o.total_amount) AS revenue FROM order_item oi JOIN orders o ON oi.order_id = o.order_id WHERE o.order_date BETWEEN ? AND ?");
+$stmt->bind_param("ss", $startFormatted, $endFormatted);
+$stmt->execute();
+$data = $stmt->get_result()->fetch_assoc();
+$items_sold = $data['items_sold'] ?: 0;
+$revenue = $data['revenue'] ?: 0;
+$profit = $items_sold * 0.20;
+
+if ($period == 'monthly') {
+  $query = "
+    SELECT 
+      FLOOR((DAY(o.order_date) - 1) / 7) + 1 AS label,
+      SUM(oi.quantity) AS items_sold,
+      SUM(o.total_amount) AS revenue
+    FROM order_item oi
+    JOIN orders o ON oi.order_id = o.order_id
+    WHERE o.order_date BETWEEN ? AND ?
+    GROUP BY label
+    ORDER BY label
+  ";
+  $hist_stmt = $conn->prepare($query);
+  $hist_stmt->bind_param("ss", $startFormatted, $endFormatted);
+} elseif ($period == 'weekly') {
+  $query = "
+    SELECT 
+      DAYNAME(o.order_date) AS label,
+      SUM(oi.quantity) AS items_sold,
+      SUM(o.total_amount) AS revenue
+    FROM order_item oi
+    JOIN orders o ON oi.order_id = o.order_id
+    WHERE o.order_date BETWEEN ? AND ?
+    GROUP BY label
+    ORDER BY FIELD(label, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+  ";
+  $hist_stmt = $conn->prepare($query);
+  $hist_stmt->bind_param("ss", $startFormatted, $endFormatted);
+}
+else {
+  $query = "
+    SELECT 
+      DATE_FORMAT(o.order_date, ?) AS label,
+      SUM(oi.quantity) AS items_sold,
+      SUM(o.total_amount) AS revenue
+    FROM order_item oi
+    JOIN orders o ON oi.order_id = o.order_id
+    WHERE o.order_date BETWEEN ? AND ?
+    GROUP BY label
+    ORDER BY label
+  ";
+  $dateFormat = '%Y-%m-%d %H:00:00';
+  $hist_stmt = $conn->prepare($query);
+  $hist_stmt->bind_param("sss", $dateFormat, $startFormatted, $endFormatted);
+}
+
+$hist_stmt->execute();
+$raw_data = $hist_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+$hist_data = [];
+if ($period == 'daily') {
+    $hours = range(8, 17);
+    foreach ($hours as $h) {
+        $label = sprintf("%02d:00", $h);
+        $hist_data[$label] = ['items_sold' => 0, 'revenue' => 0];
+    }
+    foreach ($raw_data as $row) {
+        $hour = (new DateTime($row['label']))->format('H:00');
+        if (isset($hist_data[$hour])) {
+            $hist_data[$hour]['items_sold'] += $row['items_sold'];
+            $hist_data[$hour]['revenue'] += $row['revenue'];
+        }
+    }
+} elseif ($period == 'weekly') {
+    $weekdays = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+    foreach ($weekdays as $day) {
+        $hist_data[$day] = ['items_sold' => 0, 'revenue' => 0];
+    }
+    foreach ($raw_data as $row) {
+        $day = (new DateTime($row['label']))->format('l');
+        $hist_data[$day]['items_sold'] += $row['items_sold'];
+        $hist_data[$day]['revenue'] += $row['revenue'];
+    }
+} else {
+    $hist_data = [
+        'Week 1' => ['items_sold' => 0, 'revenue' => 0],
+        'Week 2' => ['items_sold' => 0, 'revenue' => 0],
+        'Week 3' => ['items_sold' => 0, 'revenue' => 0],
+        'Week 4' => ['items_sold' => 0, 'revenue' => 0]
+    ];
+    foreach ($raw_data as $row) {
+      $weekNum = (int)$row['label'];
+      $week = 'Week ' . $weekNum;
+
+      if (isset($hist_data[$week])) {
+          $hist_data[$week]['items_sold'] += $row['items_sold'];
+          $hist_data[$week]['revenue'] += $row['revenue']; // Previously you did 'items_sold' here again — fixed!
+      }
+    }
+}
+$hist_data_array = [];
+foreach ($hist_data as $label => $row) {
+  $hist_data_array[] = [
+    'label' => $label,
+    'items_sold' => $row['items_sold'],
+    'revenue' => $row['revenue']
+  ];
+}
 
 // Recent signups
 $users = $conn->query("SELECT full_name, registration_date 
                         FROM user 
-                        WHERE registration_date >= '$start' 
+                        WHERE registration_date >= '" . $start->format('Y-m-d H:i:s') . "' 
                         ORDER BY registration_date DESC LIMIT 5")->fetch_all(MYSQLI_ASSOC);
+$stmt = $conn->prepare("SELECT full_name, registration_date 
+                        FROM user 
+                        WHERE registration_date >= ? 
+                        ORDER BY registration_date DESC LIMIT 5");
+$startFormatted = $start->format('Y-m-d H:i:s');
+$stmt->bind_param("s", $startFormatted);
+$stmt->execute();
+$users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -50,14 +156,15 @@ $users = $conn->query("SELECT full_name, registration_date
 
 </head>
 <body>
+    <?php include "admin_frame.php"; ?>
     <div class="content">
     <h2>Dashboard</h2>
     <div class="cards">
         <a href="admin_sales.php" class="card-link">
-            <div class="card">Revenue<br><strong>RM <?= number_format($rev,2) ?></strong></div>
+            <div class="card">Revenue<br><strong>RM <?= number_format($revenue,2) ?></strong></div>
         </a>
-        <a href="admin_financialRecord.php" class="card-link">
-            <div class="card">Expenses<br><strong>RM <?= number_format($exp,2) ?></strong></div>
+        <a href="admin_sales.php" class="card-link">
+            <div class="card">Items Sold<br><strong><?= $items_sold ?></strong></div>
         </a>
         <a href="admin_financialRecord.php" class="card-link">
             <div class="card">Net Profit<br><strong>RM <?= number_format($profit,2) ?></strong></div>
@@ -79,16 +186,12 @@ $users = $conn->query("SELECT full_name, registration_date
     </div>
     <div class="dashboard-middle">
         <div class="chart-container">
-        <canvas id="salesChart" width="800" height="300"></canvas>
+        <canvas id="salesChart" width="900" height="500"></canvas>
         </div>
-        <div class="calendar-container">
-            <div id="calendar"></div>
-        </div>
-    </div>
-
-    <h3>Recent Registrations</h3>
-    <div class="table-scroll">
+        
+        <div class="table-scroll">
         <table class="user-table">
+            <h3>Recent Registrations</h3>
         <thead>
             <tr>
                 <th>Name</th>
@@ -104,11 +207,18 @@ $users = $conn->query("SELECT full_name, registration_date
         <?php endforeach; ?>
         </tbody>
     </table>
-</div>
+    </div>
+        <div class="calendar-container">
+            <div id="calendar"></div>
+        </div>
+    </div>
+
 
     <script>
-    const labels = <?= json_encode($labels); ?>;
-    const data = <?= json_encode($vals); ?>;
+    const chartData = <?= json_encode($hist_data_array) ?>;
+    const period = '<?= $period ?>'; 
+    window.chartData = chartData;
+    window.period = period;
     </script>
 
     <!--Link to JavaScript-->

@@ -7,9 +7,8 @@
 }
 
 .story-image img {
-  border-radius: 10px;
-  width: 250px;
-  height: auto;
+  width: 500px;
+  height: 500px;
 }
 
 .story-text {

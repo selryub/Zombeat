@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (isset($_SESSION["username"]) && $_SESSION["role"] !== "admin") {
+if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
     header("Location: login.php");
     exit();
 }
@@ -12,46 +12,46 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "admin") {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="adminstyle.css">
+    <link rel="stylesheet" href="employeestyle.css">
 </head>
 <body>
 
     <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
 
-    <div class="admin-header">
-        <img src="account.png" alt="Admin Image"  class="acc-dash">
-        <a href = "admin_dashboard.php" class="hellouser"> HELLO ADMIN !</a>
+    <div class="employee-header">
+        <img src="account.png" alt="Employee Image"  class="acc-dash">
+        <a href = "employee_dashboard.php" class="hellouser"> HELLO EMPLOYEE !</a>
     </div>
 
-    <a href="admin_product.php" class="menuall">
-        <img src="layout.png" class="products">
-        <span class="dash-text">PRODUCTS</span>
+    <a href="order_details.php" class="menuall">
+        <img src="details.png" class="products">
+        <span class="dash-text">ORDER DETAILS</span>
     </a>
     
-    <a href="admin_employee.php">
-        <img src="employees.png" class="employees">
-        <span class="dash-text">EMPLOYEES</span>
-    </a>
-  
     <a href="admin_sales.php">
         <img src="sales.png" class="sales">
         <span class="dash-text">SALES</span>
     </a>
-
-    <a href="admin_financialRecord.php">
-        <img src="financialrecord.png" class="financialRecord">
-        <span class="dash-text">FINANCIAL RECORD</span>
+  
+    <a href="schedule.php">
+        <img src="schedule.png" class="schedule">
+        <span class="dash-text">SCHEDULES</span>
     </a>
 
-    <a href="admin_profile.php">
+    <a href="product.php">
+        <img src="product.png" class="product">
+        <span class="dash-text">PRODUCT</span>
+    </a>
+
+    <a href="profile_page.php">
         <img src="profile2.png" class="profile">
         <span class="dash-text">PROFILE</span>
     </a>
 
-    <a href="#">
+    <a href="logout.php" onclick="return confirmLogout()">
         <img src="logout.png" class="logout">
-    <span class="dash-text">LOGOUT</span>
+        <span class="dash-text">LOGOUT</span>
     </a>
 </div>
 
@@ -64,9 +64,9 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "admin") {
 </div>
 
     <nav>
-        <a href="admin_dashboard.php">DASHBOARD</a>
-        <a href="#">ABOUT</a>
-        <a href="#">REVIEWS</a>
+        <a href="employee_dashboard.php">DASHBOARD</a>
+        <a href="about.html">ABOUT</a>
+        <a href="feedback.php">REVIEWS</a>
     </nav>
 
     <div class="icons">
@@ -83,6 +83,6 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "admin") {
 </header>
 
     <!--Link to JavaScript-->
-    <script src="admin.js"></script>
+    <script src="employee.js"></script>
 
 

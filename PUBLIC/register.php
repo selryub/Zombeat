@@ -8,19 +8,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $confirmPassword = $_POST['confirmPassword'];
 
   if ($password !== $confirmPassword) {
-    echo "<script>alert('Passwords do not match!');</script>";
+    echo "<script>alert('Passwords do not match!'); window.history.back();</script>";
   } else {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
     $stmt = $conn->prepare("INSERT INTO user (full_name, email, password) VALUES (?, ?, ?)");
-    if(!$stmt){
-      die("Prepare failed". $conn->error);
+    if (!$stmt) {
+      die("Prepare failed: " . $conn->error);
     }
-    $stmt->bind_param("sss", $full_name, $email, $hashedPassword);
+
+    $stmt->bind_param("sss", $name, $email, $hashedPassword);
 
     if ($stmt->execute()) {
-      echo "<script>alert('Account created successfully!');</script>";
+      echo "<script>
+              alert('Account created successfully!');
+              window.location.href = 'login.php';
+            </script>";
     } else {
-      echo "<script>alert('Error: Email may already exist.');</script>";
+      echo "<script>alert('Error: Email may already exist.'); window.history.back();</script>";
     }
 
     $stmt->close();
@@ -28,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -61,10 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span><img src="img/lock.png" class="lockIcon"></span>
             <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required />
           </div>
-          <div class="terms">
-            <input type="checkbox" id="terms" name="terms" required />
-            <label for="terms">I've read and agree to <a href="#">Terms & Condition</a></label>
-          </div>
           <button type="submit" id="submit-btn">SIGN UP</button>
         </form>
       </div>
@@ -87,18 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return;
       }
 
-      if (!this.querySelector('#terms').checked) {
-        e.preventDefault();
-        alert("Please agree to the Terms & Conditions.");
-        return;
-      }
-    });
-
-    const checkbox = document.getElementById("terms");
-    const submitBtn = document.getElementById("submit-btn");
-
-    checkbox.addEventListener("change", () => {
-      submitBtn.disabled = !checkbox.checked;
     });
 
     // Disable submit by default
