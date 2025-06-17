@@ -6,20 +6,20 @@ $category = $_GET['category'] ?? 'All';
 $search = $_GET['search'] ?? '';
 
 // Start building SQL query
-$sql = "SELECT * FROM menu WHERE 1";
+$sql = "SELECT * FROM product WHERE 1";
 $params = [];
 $types = "";
 
 // If category is not 'All', add condition
 if ($category !== 'All') {
-    $sql .= " AND menuCategory = ?";
+    $sql .= " AND category = ?";
     $params[] = $category;
     $types .= "s";
 }
 
 // If search keyword is not empty, add condition
 if (!empty($search)) {
-    $sql .= " AND menuName LIKE ?";
+    $sql .= " AND product_name LIKE ?";
     $params[] = "%$search%";
     $types .= "s";
 }
@@ -136,12 +136,12 @@ foreach ($categories as $cat) {
 <?php if ($result && $result->num_rows > 0): ?>
     <?php while ($row = $result->fetch_assoc()): ?>
         <div class="card">
-            <img src="<?= htmlspecialchars($row['menuImage']) ?>" alt="<?= htmlspecialchars($row['menuName']) ?>">
-            <p class="item-name"><?= htmlspecialchars($row['menuName']) ?></p>
+            <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
+            <p class="item-name"><?= htmlspecialchars($row['product_name']) ?></p>
             <div class="card-text">
-                <p class="item-desc"><?= htmlspecialchars($row['menuDesc']) ?></p>
+                <p class="item-desc"><?= htmlspecialchars($row['description']) ?></p>
                 <div class="price-button">
-                    <strong class="price">RM <?= number_format($row['menuPrice'], 2) ?></strong>
+                    <strong class="price">RM <?= number_format($row['price'], 2) ?></strong>
                     <button>+</button>
                 </div>
             </div>
