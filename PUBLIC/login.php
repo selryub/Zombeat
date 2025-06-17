@@ -5,46 +5,69 @@ session_start();
 
 $redirect = $_GET['redirect'] ?? 'index.php';
 
-
-include '../admin/db_connect.php';
+require '../admin/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-  $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
-  $stmt->bind_param("s", $email);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  $user = $result->fetch_assoc();
+    // Check user table
+    $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $userResult = $stmt->get_result();
+    $user = $userResult->fetch_assoc();
+    $stmt->close();
 
-  if ($user && password_verify($password, $user['password'])) {
-    $_SESSION['user_id'] = $user['id'];
-    $_SESSION['email'] = $user['email'];
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['role'] = 'user';
 
-    // JavaScript redirect with alert
-    echo "<script>
-            alert('Login successful!');
-            window.location.href = 'index.php';
-          </script>";
-  } else {
+        echo "<script>
+                alert('User login successful!');
+                window.location.href = '$redirect';
+              </script>";
+        exit;
+    }
+
+    // Check admin table
+    $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $adminResult = $stmt->get_result();
+    $admin = $adminResult->fetch_assoc();
+    $stmt->close();
+    $conn->close();
+
+    if ($admin && password_verify($password, $admin['password'])) {
+        $_SESSION['admin_id'] = $admin['id'];
+        $_SESSION['email'] = $admin['email'];
+        $_SESSION['role'] = 'admin';
+
+        echo "<script>
+                alert('Admin login successful!');
+                window.location.href = '../admin/admin_dashboard.php';
+              </script>";
+        exit;
+    }
+
+    // If both fail
     echo "<script>
             alert('Invalid email or password.');
             window.history.back();
           </script>";
-  }
-
-  $stmt->close();
-  $conn->close();
+    exit;
 }
 ?>
 
+<!-- HTML START -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up</title>
+  <title>Sign In</title>
   <link rel="stylesheet" href="login.css"/>
 </head>
 <body>
@@ -54,24 +77,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="login-box">
         <h3>USER LOGIN</h3>
         <form id="loginForm" method="POST" action="login.php">
-  <div class="input-group">
-    <span><img src="img/profile2.png" class="emailIcon"></span>
-    <input type="text" name="email" placeholder="Email" required />
-  </div>
-  <div class="input-group">
-    <span><img src="img/lock.png" class="lockIcon" /></span>
-    <input type="password" name="password" id="password" placeholder="Password" required />
-  </div>
-  <div class="forgotPassword">
-    <input type="checkbox" id="rememberMe" />
-    <label for="rememberMe">Remember me</label>
-    <label for="forgotPassword">
-      <a href="forgot_password.php">Forgot Password?</a>
-    </label>
-  </div>
-  <button type="submit">LOGIN</button> <!-- Correct here -->
-</form>
-
+          <div class="input-group">
+            <span><img src="img/profile2.png" class="emailIcon"></span>
+            <input type="text" name="email" placeholder="Email" required />
+          </div>
+          <div class="input-group">
+            <span><img src="img/lock.png" class="lockIcon" /></span>
+            <input type="password" name="password" id="password" placeholder="Password" required />
+          </div>
+          <div class="forgotPassword">
+            <input type="checkbox" id="rememberMe" />
+            <label for="rememberMe">Remember me</label>
+            <label for="forgotPassword">
+              <a href="forgot_password.php">Forgot Password?</a>
+            </label>
+          </div>
+          <button type="submit">LOGIN</button>
+        </form>
       </div>
       <p>Don't have an account? <a href="register.php">Sign Up</a></p>
     </div>
