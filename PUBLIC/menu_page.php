@@ -1,8 +1,16 @@
 <?php
+session_start();
+
+// If user is logged in, redirect to registered menu
+if (isset($_SESSION['user_id'])) {
+    header('Location: /Zombeat/REGISTERED MEMBER/menu_page.php');
+    exit;
+}
+
 require_once '../admin/db_connect.php';
 
 // Get category and search input from URL
-$category = $_GET['category'] ?? 'All';
+$category = $_GET['category'] ?? 'ALL';
 $search = $_GET['search'] ?? '';
 
 // Start building SQL query
@@ -11,7 +19,7 @@ $params = [];
 $types = "";
 
 // If category is not 'All', add condition
-if ($category !== 'All') {
+if ($category !== 'ALL') {
     $sql .= " AND menuCategory = ?";
     $params[] = $category;
     $types .= "s";
@@ -125,7 +133,7 @@ $conn->close();
   <div class="menu-text">
 <div class="categories">
 <?php
-$categories = ['All', 'Heavy Foods', 'Snacks', 'Drinks'];
+$categories = ['ALL', 'HEAVY FOODS', 'SNACKS', 'DRINKS'];
 foreach ($categories as $cat) {
     $activeClass = ($cat === $category) ? 'active-category' : '';
     echo "<a href='?category=" . urlencode($cat) . "'><span class='$activeClass'>$cat</span></a>";
@@ -142,7 +150,9 @@ foreach ($categories as $cat) {
                 <p class="item-desc"><?= htmlspecialchars($row['menuDesc']) ?></p>
                 <div class="price-button">
                     <strong class="price">RM <?= number_format($row['menuPrice'], 2) ?></strong>
-                    <button>+</button>
+                    <button class="add-to-cart-btn">+</button>
+
+
                 </div>
             </div>
         </div>
@@ -183,7 +193,16 @@ foreach ($categories as $cat) {
 </div>
 </footer>
 
-<script src="index.css"></script>
+<script>
+document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        alert('Please login first to add items to your cart.');
+        window.location.href = '/Zombeat/PUBLIC/login.php';
+    });
+});
+</script>
+
+
 
 </body>
 </html>

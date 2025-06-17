@@ -3,7 +3,7 @@
     justify-content: start;
     align-items: center;
     padding: 20px 300px 0 150px;
-    gap: 20px;
+    gap: 200px;
 }
 
 .menu-header-bar h2 {
@@ -15,7 +15,7 @@
 .menu-header-bar input {
     padding: 8px;
     font-size: 16px;
-    width: 40%;
+    width: 170%;
     margin: 0 auto;
 }
 
@@ -39,26 +39,17 @@
 
 .categories {
     display: flex;
-    gap: 200px;
+    gap: 215px;
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
     color: #817c7c;
     margin-bottom: 20px;
-    padding-left: 250px;
+    padding-left: 300px;
     padding-top: 25px;
-}
-
-.categories a {
-  color: black;             /* Make link text always black */
-  text-decoration: none;    /* Remove underline */
 }
 
 .categories a:hover {
   text-decoration: underline; /* Add underline on hover if you like */
-}
-
-.categories a:visited {
-  color: black; /* Make visited links also black */
 }
 
 .items {
@@ -132,3 +123,9 @@
     height: 30px;
     cursor: pointer;
 }
+
+button[data-require-login="true"] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
