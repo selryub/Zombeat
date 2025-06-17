@@ -1,35 +1,19 @@
 <?php
 require "db_connect.php";
 
-if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
-    header("Location: login.php");
-    exit();
-}
-
-// $user_id = $_SESSION["user_id"];
-
-//Fetch from Database
-//$username = $_SESSION["username"];
-$sql = "SELECT full_name, email
-        FROM user WHERE user_id = ?";
+// Fetch user info
+$sql = "SELECT full_name, email FROM user WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i",$user_id);
+$stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
-if(!$user) {
-    $user = ["full_name" => "Unknown", "email" => "unknown@exampke.com"];
+if (!$user) {
+    $user = ["full_name" => "Unknown", "email" => "unknown@example.com"];
 }
-// $user = [
-//     "name" => $_SESSION["username"] ?? "epa",
-//     "email" => $_SESSION["email"] ?? "admin@unimas.my",
-//     "phone" => $_SESSION["phone"] ?? "012-3456789",
-//     "role" => $_SESSION["role"] ?? "admin",
-// ];
 
-//update profile
-//$user_id = $_SESSION["user_id"];
+// Handle profile update
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
@@ -41,36 +25,83 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $_SESSION["username"] = $name;
     $_SESSION["email"] = $email;
-    
-    // Optional: redirect to prevent form re-submission
-    header("Location: profile.php");
+
+    header("Location: profile.php?success=1");
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Profile</title>
+    <title>User Profile</title>
     <link rel="stylesheet" href="profile.css">
     <link rel="stylesheet" href="adminstyle.css">
+    <style>
+      .admin-profile-section {
+          padding: 30px;
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+          
+      }
+      .admin-profile-box {
+          background: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          max-width: 500px;
+          margin: auto;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+      .admin-profile-box h2 {
+          text-align: center;
+          margin-bottom: 20px;
+      }
+      .admin-profile-box p {
+            font-family: sans-serif;
+            font-size: 16px;
+            margin: 30px 0;
+      }
+      .admin-profile-box form input {
+          width: 100%;
+          padding: 10px;
+          margin: 8px 0;
+          box-sizing: border-box;
+      }
+      .admin-profile-box button {
+          padding: 8px 15px;
+          margin-top: 10px;
+          cursor: pointer;
+          border-radius: 10px;
+      }
+      .alert.success {
+          background: #d4edda;
+          color: #155724;
+          padding: 10px;
+          margin: 10px auto;
+          border: 1px solid #c3e6cb;
+          border-radius: 5px;
+          max-width: 500px;
+      }
+    </style>
 </head>
 <body>
 <?php include "admin_frame.php"; ?>
 
+<!-- Success Message -->
+<?php if (isset($_GET['success'])): ?>
+    <div class="alert success">Profile updated successfully!</div>
+<?php endif; ?>
 
 <!--Admin Profile -->
 <section class="admin-profile-section">
     <div class="admin-profile-box">
-        <h2>Admin Profile</h2>
-            <p><strong>Name:</strong> <span id="display-name"><?= htmlspecialchars($user["full_name"]) ?></span></p>
-            <p><strong>Email:</strong> <span id="display-email"><?= htmlspecialchars($user["email"]) ?></span></p>
-            <button id="edit-btn">Edit Profile</button>
+        <h2>User Profile</h2>
+        <p><strong>Name:</strong> <span id="display-name"><?= htmlspecialchars($user["full_name"]) ?></span></p>
+        <p><strong>Email:</strong> <span id="display-email"><?= htmlspecialchars($user["email"]) ?></span></p>
+        <button id="edit-btn">Edit Profile</button>
 
         <!-- Edit Form -->
-        <form id="edit-form" action="update_profile.php" method="POST" style="display:none;">
+        <form id="edit-form" action="profile.php" method="POST" style="display:none;">
             <label>Name:</label>
             <input type="text" name="name" value="<?= htmlspecialchars($user["full_name"]) ?>" required><br>
 
@@ -83,6 +114,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
 </section>
 
-    <!--Link to JavaScript-->
-    <script src="profile.js"></script>
-    <script src="admin.js"></script>
+<script>
+// Show/hide form
+document.getElementById("edit-btn").addEventListener("click", function () {
+    document.getElementById("edit-form").style.display = "block";
+    this.style.display = "none";
+});
+
+document.getElementById("cancel-btn").addEventListener("click", function () {
+    document.getElementById("edit-form").style.display = "none";
+    document.getElementById("edit-btn").style.display = "inline-block";
+});
+</script>
+
+<script src="admin.js"></script>
+</body>
+</html>

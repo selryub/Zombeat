@@ -1,5 +1,6 @@
 .content {
-    padding: 20px;
+    padding: 5px 30px;
+    font-family: Verdana;
 }
 
 .cards {
@@ -17,26 +18,91 @@
     font-size: 1.2em;
 }
 
+.filters {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 5px 10px;
+}
+
+.filters a {
+    padding: 2px 20px;
+    text-decoration: none;
+    background-color: #ffeef2;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.filters a:hover {
+  background-color: #e0e3e7;
+  color: #000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.filters a.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
 .charts {
     margin-bottom: 30px;
 }
 
-.tables h3 {
-    margin-top: 30px;
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-.tables table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+.report-table thead {
+  background-color: #62b3ac; 
+  color: #fff;
+  text-align: center;
 }
 
-.tables th, .tables td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: center;
+.report-table th, .report-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: center;
 }
 
+.report-table tbody tr:hover {
+  background-color: #fff0f5; 
+  transition: background 0.2s ease;
+}
+
+.report-table td {
+  color: #333;
+}
+
+.download-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.print-btn {
+  background-color: #ff8fa3; /* soft pink */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.print-btn:hover {
+  background-color: #ff5e7a;
+}
 
 @media print {
   .report-table {

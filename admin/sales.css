@@ -1,19 +1,40 @@
 .content { 
-    padding: 20px;
+    padding: 5px 30px;
+    font-family: Verdana;
+}
+
+.filters {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 5px 10px;
 }
 
 .filters a {
-    margin-right: 10px;
+    padding: 2px 20px;
     text-decoration: none;
-    padding: 6px;
+    background-color: #ffeef2;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
-.filters .active {
-    font-weight: bold;
+.filters a:hover {
+  background-color: #e0e3e7;
+  color: #000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.filters a.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
 }
 
 .chart-container {
-    margin: 30px;
+    margin: 5px 30px;
 }
 
 .history, .history th, .history td {
@@ -29,4 +50,60 @@
 .popular {
     list-style: disc;
     padding-left: 20px;
+}
+
+table.history {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+table.history thead {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+table.history th, table.history td {
+  padding: 15px 20px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+table.history tr:hover {
+  background-color: #f1f1f1;
+}
+
+table.history tbody {
+    background-color: burlywood;
+}
+
+/* Top 5 products list */
+ul.popular {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+ul.popular li {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+ul.popular li:last-child {
+  border-bottom: none;
+}
+
+ul.popular li:nth-child(odd) {
+  background-color: #f9fafc;
 }
