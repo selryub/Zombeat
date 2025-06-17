@@ -108,10 +108,10 @@ $result = $conn->query("SELECT * FROM product WHERE is_active = 1");
 <div id="product-form-popup">
   <form id="product-form" method="post" enctype="multipart/form-data">
     <input type="hidden" name="product_id" id="product_id">
-    <input type="text" name="product_name" placeholder="Product Name" required>
-    <input type="text" name="category" placeholder="Category" required>
-    <textarea name="description" placeholder="Description" required></textarea>
-    <input type="number" name="price" placeholder="Price" step="0.01" required>
+    <input type="text" name="product_name" id="product_name" placeholder="Product Name" required>
+    <input type="text" name="category" id="category" placeholder="Category" required>
+    <textarea name="description" id="description" placeholder="Description" required></textarea>
+    <input type="number" name="price" id="price" placeholder="Price" step="0.01" required>
     <input type="file" name="image">
     <button type="submit">Save Product</button>
     <button type="button" onclick="closeForm()">Cancel</button>
