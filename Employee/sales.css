@@ -1,0 +1,32 @@
+.content { 
+    padding: 20px;
+}
+
+.filters a {
+    margin-right: 10px;
+    text-decoration: none;
+    padding: 6px;
+}
+
+.filters .active {
+    font-weight: bold;
+}
+
+.chart-container {
+    margin: 30px;
+}
+
+.history, .history th, .history td {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+
+.history th, .history td {
+    padding: 8px;
+    text-align: left;
+}
+
+.popular {
+    list-style: disc;
+    padding-left: 20px;
+}

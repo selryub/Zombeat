@@ -1,5 +1,5 @@
 <?php
-// This can be replaced with include('../includes/db.php'); if you're using a database
+require "db_connect.php";
 ?>
 
 <!DOCTYPE html>
@@ -104,7 +104,6 @@
                 <th>Date</th>
                 <th>Day</th>
                 <th>Time</th>
-                <th>Role</th>
             </tr>
         </thead>
         <tbody>
@@ -114,16 +113,16 @@
                 // Static schedule data (you can replace this with a DB query later)
                 $all_schedules = [
                     'eizlyn' => [
-                        ["2025-06-14", "Friday", "08:00 AM - 12:00 PM", "Cashier"],
-                        ["2025-06-15", "Saturday", "12:00 PM - 04:00 PM", "Runner"],
+                        ["2025-06-14", "Friday", "08:00 AM - 12:00 PM"],
+                        ["2025-06-15", "Saturday", "12:00 PM - 04:00 PM"],
                     ],
                     'epa' => [
-                        ["2025-06-14", "Friday", "02:00 PM - 06:00 PM", "Cashier"],
-                        ["2025-06-16", "Sunday", "10:00 AM - 02:00 PM", "Stock Handler"],
+                        ["2025-06-14", "Friday", "02:00 PM - 06:00 PM"],
+                        ["2025-06-16", "Sunday", "10:00 AM - 02:00 PM"],
                     ],
                     'selma' => [
-                        ["2025-06-14", "Friday", "08:00 AM - 12:00 PM", "Runner"],
-                        ["2025-06-17", "Monday", "12:00 PM - 04:00 PM", "Cashier"],
+                        ["2025-06-14", "Friday", "08:00 AM - 12:00 PM"],
+                        ["2025-06-17", "Monday", "12:00 PM - 04:00 PM"],
                     ],
                 ];
 
@@ -133,7 +132,6 @@
                                 <td>{$row[0]}</td>
                                 <td>{$row[1]}</td>
                                 <td>{$row[2]}</td>
-                                <td>{$row[3]}</td>
                               </tr>";
                     }
                 } else {

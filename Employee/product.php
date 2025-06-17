@@ -5,7 +5,7 @@ include "db_connect.php";
 if (isset($_GET['delete'])) {
     $deleteId = intval($_GET['delete']);
     $conn->query("UPDATE product SET is_active = 0 WHERE product_id = $deleteId");
-    header("Location: product.php");
+    header('Location: /Zombeat/REGISTERED MEMBER/menu_page.php');
     exit;
 }
 
@@ -62,7 +62,8 @@ $result = $conn->query("SELECT * FROM product WHERE is_active = 1");
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Employee - Product Management</title>
     <link rel="stylesheet" href="product.css">
-    <link rel="stylesheet" href="employeestyle.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="menu_page.css" >
     <style>
     #product-form-popup {
       display: none;
@@ -117,6 +118,33 @@ $result = $conn->query("SELECT * FROM product WHERE is_active = 1");
     <button type="button" onclick="closeForm()">Cancel</button>
   </form>
 </div>
+
+<footer class="footer">
+  <div class="contact">
+    <p>CONTACT</p>
+    <p>Exco Keusahawanan (Kiosk)
+    <br>Persatuan Teknologi Maklumat (PERTEKMA)
+    <br>Fakulti Sains Komputer dan Teknologi Maklumat
+    <br>Univeristi Malaysia Sarawak
+    </p>
+  </div>
+
+  <div class="map-container">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.28178855754!2d110.42879137977478!3d1.4681128239800552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31fba3ce88e3a469%3A0xf0983c853635b29!2sFaculty%20of%20Computer%20Science%20%26%20Information%20Technology%20(FCSIT)!5e0!3m2!1sen!2smy!4v1748969425700!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+<div class="straightline">
+  <img src="img/blackline.png">
+</div>
+
+<div class="hours">
+  <p>OPENING HOURS</p>
+  <p>MON - FRI: 8AM - 6PM</p>
+  <p>SATURDAY & SUNDAY: CLOSED</p>
+</div>
+</footer>
 
 <script>
 function openForm() {

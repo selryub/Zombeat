@@ -25,27 +25,27 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
     </div>
 
     <a href="order_details.php" class="menuall">
-        <img src="details.png" class="products">
+        <img src="img/details.png" class="products">
         <span class="dash-text">ORDER DETAILS</span>
     </a>
     
-    <a href="admin_sales.php">
-        <img src="sales.png" class="sales">
+    <a href="sales.php">
+        <img src="img/sales.png" class="sales">
         <span class="dash-text">SALES</span>
     </a>
   
     <a href="schedule.php">
-        <img src="schedule.png" class="schedule">
+        <img src="img/schedule.png" class="schedule">
         <span class="dash-text">SCHEDULES</span>
     </a>
 
-    <a href="product.php">
-        <img src="product.png" class="product">
-        <span class="dash-text">PRODUCT</span>
+    <a href="product.php" class="menuall">
+        <img src="img/layout.png" class="products">
+        <span class="dash-text">PRODUCTS</span>
     </a>
 
     <a href="profile_page.php">
-        <img src="profile2.png" class="profile">
+        <img src="img/profile2.png" class="profile">
         <span class="dash-text">PROFILE</span>
     </a>
 
@@ -65,7 +65,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
 
     <nav>
         <a href="employee_dashboard.php">DASHBOARD</a>
-        <a href="about.html">ABOUT</a>
+        <a href="about.php">ABOUT</a>
         <a href="review.html">REVIEWS</a>
     </nav>
 
@@ -76,7 +76,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
                 </div>
         <a href="admin_noti.php">
             <img src="notification.png" alt="noti" class="noti-img"></a>
-        <a href="admin_profile.php">
+        <a href="profile_page.php">
             <img src="account.png" alt="account" class="acc-img"></a>
         <span class="icon"></span>
     </div>

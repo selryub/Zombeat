@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FCSIT Kiosk</title>
   <link rel="stylesheet" href="index.css"/>
-  <link rel="stylesheet" href="about.css"/>
 </head>
 <body>
   
@@ -44,6 +43,7 @@
   </a>
 </div> -->
 
+
 <!-- Header -->
 <header class="navbar">
 <div class="left-header">
@@ -54,28 +54,36 @@
 
   <nav>
     <a href="index.php">HOME</a>
-    <a href="menu_page.html">MENU</a>
-    <a href="about.html">ABOUT</a>
+    <a href="menu_page.php">MENU</a>
+    <a href="about.php">ABOUT</a>
     <a href="#">REVIEWS</a>
   </nav>
   <div class="icons">
-    <!-- <input type="text" placeholder=" 🔍︎ Search" class="search-box"> -->
     <img src="img/cart.png" alt="cart" class="cart-img">
-    <img src="img/account.png" alt="account" class="acc-img">
+    <a href="/Zombeat/PUBLIC/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
     <span class="icon"></span>
   </div>
 </header>
 
- <main class="story-section">
-    <div class="story-image">
-      <img src="img/kiosk2.jpg" alt="Our Story Image" />
+  <section class="slider">
+    <div class="slides">
+      <img src="img/photo_a.jpg" class="slide" />
+      <img src="img/photo_b.jpg" class="slide" />
+      <img src="img/photo_c.jpg" class="slide" />
     </div>
-    <div class="story-text">
-      <h2>OUR STORY</h2>
-      <p>FCSIT Kiosk, operated by PERTEKMA (student organization of FCSIT-UNIMAS), is a food and beverages kiosk located at Block B, Faculty of Computer Science and Information Technology (FCSIT) at University Malaysia Sarawak (UNIMAS). Provide quick and affordable meals designed to meet the needs of students, lecturers, and staff with busy schedules. </p>
-      <p>FCSIT Kiosk Website is a web system that people can use to buy products from the kiosk. Students and staff can purchase a product by registering and logging into the system.</p>
+  </section>
+
+  <section class="cards">
+    <div class="card">
+      <img src="img/photo_a.jpg">
     </div>
-  </main>
+    <div class="card">
+      <img src="img/photo_b.jpg">
+    </div>
+    <div class="card">
+      <img src="img/photo_c.jpg">
+    </div>
+  </section>
 
 <footer class="footer">
   <div class="contact">
@@ -104,7 +112,46 @@
 </div>
 </footer>
 
-<!-- <script src="index.js"></script> -->
+<script>
+// Toggle sidebar open and close
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+
+  // If sidebar is open (250px), close it
+  if (sidebar.style.width === "250px") {
+    sidebar.style.width = "0";
+  } 
+  // Else, open it
+  else {
+    sidebar.style.width = "250px";
+  }
+}
+
+// Auto-slide functionality for a carousel
+let index = 0;
+const slides = document.querySelector('.slides'); // container of all slides
+const totalSlides = document.querySelectorAll('.slide').length; // count slides
+
+setInterval(() => {
+  index = (index + 1) % totalSlides; // move to next slide, loop back to 0
+  slides.style.transform = `translateX(-${index * 100}%)`; // shift slide
+}, 3000); // every 3 seconds
+
+// Close sidebar if clicked outside it
+document.addEventListener("click", function (e) {
+  const sidebar = document.getElementById("sidebar");
+  const menuIcon = document.querySelector(".menu-icon");
+
+  // If sidebar is open AND click is outside sidebar AND menu icon
+  if (
+    sidebar.style.width === "250px" &&
+    !sidebar.contains(e.target) &&
+    !menuIcon.contains(e.target)
+  ) {
+    sidebar.style.width = "0"; // then close sidebar
+  }
+});
+</script>
 
 </body>
 </html>
