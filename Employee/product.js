@@ -42,3 +42,16 @@ function filterCategory(category) {
     }
   });
 }
+
+// function editProduct(id) {
+//   fetch(`get_product.php?id=${id}`)
+//     .then(res => res.json())
+//     .then(data => {
+//       document.querySelector('#product-form-popup input[name=product_id]').value = data.product_id;
+//       document.querySelector('#product-form-popup input[name=product_name]').value = data.product_name;
+//       document.querySelector('#product-form-popup textarea[name=description]').value = data.description;
+//       document.querySelector('#product-form-popup input[name=category]').value = data.category;
+//       document.querySelector('#product-form-popup input[name=price]').value = data.price;
+//       openForm();
+//     });
+// }

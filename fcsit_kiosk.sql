@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2025 at 01:25 AM
+-- Generation Time: Jun 17, 2025 at 07:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -111,17 +111,6 @@ CREATE TABLE `orders` (
   `tracking_status` enum('Pending','Preparing','Out for Delivery','Complete','Cancelled') DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`order_id`, `user_id`, `processed_by`, `order_date`, `status`, `total_amount`, `payment_method`, `tracking_status`) VALUES
-(4, 2, NULL, '2025-06-16 06:43:38', 'Completed', 10.00, 'Cash', ''),
-(5, 7, NULL, '2025-06-13 06:45:14', 'Completed', 12.50, 'Card', ''),
-(6, 13, NULL, '2025-06-10 06:45:23', 'Completed', 9.00, 'Cash', ''),
-(7, 12, NULL, '2025-06-01 06:45:47', 'Completed', 20.00, 'Card', ''),
-(8, 14, NULL, '2025-05-19 06:45:54', 'Completed', 17.00, 'Cash', '');
-
 -- --------------------------------------------------------
 
 --
@@ -135,21 +124,6 @@ CREATE TABLE `order_item` (
   `quantity` int(11) DEFAULT NULL,
   `subtotal` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `order_item`
---
-
-INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`, `subtotal`) VALUES
-(1, 4, 6, 2, 6.00),
-(2, 4, 3, 4, 4.00),
-(3, 6, 2, 3, 9.00),
-(4, 7, 4, 5, 20.00),
-(5, 5, 6, 1, 6.50),
-(6, 5, 2, 2, 6.00),
-(7, 8, 4, 1, 4.00),
-(8, 5, 3, 3, 10.50),
-(9, 5, 5, 1, 2.50);
 
 -- --------------------------------------------------------
 
@@ -178,20 +152,25 @@ CREATE TABLE `product` (
   `price` decimal(10,2) DEFAULT NULL,
   `category` varchar(50) DEFAULT NULL,
   `stock_quantity` int(11) DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL
+  `image_url` varchar(255) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `description`, `price`, `category`, `stock_quantity`, `image_url`) VALUES
-(1, 'Nasi Ayam', 'Roasted Chicken', 7.00, 'Lunch', 60, 'nasi_ayam.jpg'),
-(2, 'Nasi Lemak', 'Coconut rice with sambal and egg', 3.00, 'Food', 100, 'nasi.jpg'),
-(3, 'Sandwich', 'White bread with mayo and egg', 3.50, 'Food', 80, 'roti.jpg'),
-(4, 'Green Tea', 'A chilled blend of smooth green tea and milk, lightly sweetened and served over ice', 4.00, 'Drink', 200, 'tea.jpg'),
-(5, 'Teh Ais', 'Ice milk tea', 2.50, 'Drink', 200, 'teh.jpg'),
-(6, 'Nasi Ayam', 'Savor the succulent flavor of our chicken, paired with fragrant rice and a trio of sauces', 6.50, 'Food', 100, 'ayam.jpg');
+INSERT INTO `product` (`product_id`, `product_name`, `description`, `price`, `category`, `stock_quantity`, `image_url`, `is_active`) VALUES
+(1, 'Nasi Lemak', 'Coconut Rice With Sambal', 6.00, 'Heavy Foods', 10, 'img/photo_a.jpg', 1),
+(2, 'Nasi Goreng', 'Fried rice with egg', 4.00, 'Heavy Foods', 10, 'img/photo_a.jpg', 1),
+(3, 'Mi Goreng Telur Mata', 'Fried Noodles with egg', 5.50, 'Heavy Foods', 10, 'img/photo_a.jpg', 1),
+(4, 'Mi Jawa', 'Javanese noodle in gravy', 6.00, 'Heavy Foods', 10, 'img/photo_a.jpg', 1),
+(5, 'Loaded Fries', 'Fries with cheese and mayonnaise', 4.50, 'Snacks', 10, 'img/photo_a.jpg', 1),
+(6, 'Wantan Goreng', 'Crispy Fried Dumplings', 3.00, 'Snacks', 10, 'img/photo_b.jpg', 1),
+(7, 'Bergedil Daging', 'Fried mashed meat potato', 4.00, 'Snacks', 10, 'img/photo_b.jpg', 1),
+(8, 'Kuih Apam Cheese', 'Fluffy cake with cheese', 3.50, 'Snacks', 10, 'img/photo_a.jpg', 1),
+(9, 'Air Mineral', 'Bottled mineral water', 1.00, 'Drinks', 10, 'img/photo_c.jpg', 1),
+(10, 'Dutch Lady Strawberry Milk', 'Chilled strawberry milk drink', 1.50, 'Drinks', 10, 'img/photo_c.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -236,31 +215,22 @@ CREATE TABLE `user` (
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `user_type` enum('public','registered','employee','admin') DEFAULT NULL,
-  `registration_date` datetime DEFAULT NULL,
-  `otp` varchar(6) DEFAULT NULL,
-  `otp_expire` datetime DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL
+  `registration_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `full_name`, `email`, `password`, `user_type`, `registration_date`, `otp`, `otp_expire`, `phone`) VALUES
-(2, 'Nurul Izzati', 'nizzati006@gmail.com', '12345678', 'registered', '2025-06-10 00:02:38', NULL, NULL, NULL),
-(3, 'Hana Iris', 'hana@gmail.com', '246810', 'employee', '2025-06-10 00:38:37', NULL, NULL, NULL),
-(4, '', 'rania_iris@gmail.com', '$2y$10$FIDkJtHr8iHk.LSIpzVpuuVeqm0kiMB9C2HzPgdRMPCLA8e7Ge7t2', 'registered', '2025-06-09 20:22:24', NULL, NULL, NULL),
-(6, 'Sely Kim', 'sely@gmail.com', '$2y$10$Lb2f/l1yar8esUl/.UgWDuEUZUKIn2GBZvBoenMMwKPS4RfuDl1Ia', 'registered', '2025-06-09 20:35:53', NULL, NULL, NULL),
-(7, 'Aqilah Jolihi', 'aqij204@gmail.com', '$2y$10$JXV2UD5mjOb9sV5Uf4RHJuHZ20XAuknjix0v5BIUbfER525DB4BKq', 'registered', '2025-06-09 20:44:36', NULL, NULL, NULL),
-(8, '', '', '$2y$10$pEHu8FRBk1JbfkCZqtgl9upQ7KwdPOh8oBCpqDf4gNjPZpb9KkXmW', 'registered', '2025-06-10 07:25:58', NULL, NULL, NULL),
-(9, 'Eizlyn Ismail', 'eizlynlyn@gmail.com', '$2y$10$fyMhUED6VF5d2euneGjMw.TdsWH7iB4.p5CU9dzJOV/KSxUgyv6HG', 'registered', '2025-06-10 09:06:20', NULL, NULL, NULL),
-(10, 'Nurul Izzati', 'izztyty@gmail.com', 'pass01', 'registered', '2025-06-16 06:11:55', NULL, NULL, NULL),
-(11, 'Jennie Kim', 'jennyruby@gmail.com', 'pass02', 'registered', '2025-06-13 06:11:55', NULL, NULL, NULL),
-(12, 'Eizlyn Natasha', 'lynsha12@gmail.com', 'pass03', 'registered', '2025-06-06 06:11:55', NULL, NULL, NULL),
-(13, 'Effa Lee', 'leeffa@gmail.com', 'pass04', 'registered', '2025-05-22 06:11:55', NULL, NULL, NULL),
-(14, 'Sely Rose', 'Rosely27@gmail.com', 'pass05', 'registered', '2025-05-19 06:11:55', NULL, NULL, NULL),
-(16, 'Syarifsh Rania', 'rania@yahoo.com', 'dummy789', 'registered', '2025-06-16 07:21:59', NULL, NULL, NULL),
-(17, 'Farah Najwa', 'farah@yahoo.com', 'dummy123', 'registered', '2025-06-16 07:23:05', NULL, NULL, '195138125');
+INSERT INTO `user` (`user_id`, `full_name`, `email`, `password`, `user_type`, `registration_date`) VALUES
+(2, 'Nurul Izzati', 'nizzati006@gmail.com', '12345678', 'registered', '2025-06-10 00:02:38'),
+(3, 'Hana Iris', 'hana@gmail.com', '246810', 'employee', '2025-06-10 00:38:37'),
+(4, '', 'rania_iris@gmail.com', '$2y$10$FIDkJtHr8iHk.LSIpzVpuuVeqm0kiMB9C2HzPgdRMPCLA8e7Ge7t2', 'registered', '2025-06-09 20:22:24'),
+(6, 'Sely Kim', 'sely@gmail.com', '$2y$10$Lb2f/l1yar8esUl/.UgWDuEUZUKIn2GBZvBoenMMwKPS4RfuDl1Ia', 'registered', '2025-06-09 20:35:53'),
+(7, 'Aqilah Jolihi', 'aqij204@gmail.com', '$2y$10$JXV2UD5mjOb9sV5Uf4RHJuHZ20XAuknjix0v5BIUbfER525DB4BKq', 'registered', '2025-06-09 20:44:36'),
+(8, '', '', '$2y$10$pEHu8FRBk1JbfkCZqtgl9upQ7KwdPOh8oBCpqDf4gNjPZpb9KkXmW', 'registered', '2025-06-10 07:25:58'),
+(9, 'Eizlyn Ismail', 'eizlynlyn@gmail.com', '$2y$10$fyMhUED6VF5d2euneGjMw.TdsWH7iB4.p5CU9dzJOV/KSxUgyv6HG', 'registered', '2025-06-10 09:06:20'),
+(10, 'Nurul Hazwani', 'nurulhazwaninh06@gmail.com', '$2y$10$UuzF.TyIIaznIft2WC1TZO3.1wRH62HzbHkHOjkF.kerwJmZ9GuiC', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -388,13 +358,13 @@ ALTER TABLE `financial_report`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -406,7 +376,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `schedule`
@@ -418,7 +388,7 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

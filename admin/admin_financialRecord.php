@@ -190,9 +190,9 @@ foreach ($hist_data as $label => $row) {
     <div class="card">Net Profit<br><strong>RM <?= number_format($profit,2) ?></strong></div>
   </div>
   <div class="filters">
-    <a href="?period=daily" <?= $period=='daily' ? 'class="active"':'' ?>>Daily</a>
-    <a href="?period=weekly" <?= $period=='weekly'? 'class="active"':'' ?>>Weekly</a>
-    <a href="?period=monthly" <?= $period=='monthly'? 'class="active"':'' ?>>Monthly</a>
+    <a href="?period=daily" class='<?= $period=="daily"?"active":"" ?>'>Daily</a>
+    <a href="?period=weekly" class='<?= $period=="weekly"?"active":"" ?>'>Weekly</a>
+    <a href="?period=monthly" class='<?= $period=="monthly"?"active":"" ?>'>Monthly</a>
   </div>
   <div class="charts">
   <canvas id="financialChart" width="800" height="400"></canvas>
@@ -215,7 +215,9 @@ foreach ($hist_data as $label => $row) {
     </table>
   </div>
 </div>
-<a href="?period=<?= $period ?>&download=pdf" class="print-btn">📄 Download PDF</a>
+<div class="download-wrapper">
+  <a href="?period=<?= $period ?>&download=pdf" class="print-btn">📄 Download PDF</a>
+</div>
 <script>
   const chartData = <?= json_encode($hist_data_array) ?>;
   const period = '<?= $period ?>'; 
