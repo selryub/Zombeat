@@ -3,6 +3,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
+$redirect = $_GET['redirect'] ?? 'index.php';
+
+
 include '../admin/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
