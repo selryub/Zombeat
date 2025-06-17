@@ -66,7 +66,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
     <nav>
         <a href="employee_dashboard.php">DASHBOARD</a>
         <a href="about.html">ABOUT</a>
-        <a href="feedback.php">REVIEWS</a>
+        <a href="review.html">REVIEWS</a>
     </nav>
 
     <div class="icons">
