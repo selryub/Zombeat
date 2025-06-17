@@ -19,13 +19,11 @@
             <a href="menu_page.html" class="nav-item">MENU</a>
             <a href="about.html" class="nav-item">ABOUT</a>
             <a href="review.html" class="nav-item">REVIEWS</a>
-            <input type="text" class="search-bar" placeholder="Search...">
         </nav>
         <div class="icons">
             <input type="text" placeholder=" 🔍︎ Search" class="search-box">
             <img src="img/cart.png" alt="cart" class="cart-img">
             <img src="img/account.png" alt="account" class="acc-img">
-            <span class="icon"></span>
         </div>
     </header>
 
@@ -55,11 +53,11 @@
                     <button class="option-btn active" id="deliveryBtn">DELIVERY</button>
                     <button class="option-btn" id="pickupBtn">PICKUP</button>
                 </div>
-                
+            
                 <!-- Location Input -->
                 <div class="location-section">
-                    <span class="location-icon">📍</span>
-                    <input type="text" class="location-input" placeholder="Location" value="Faculty of Science and Information Technology">
+                    <img src="img/location.jpg" alt="Location" height="24" height="24">
+                    <input type="text" class="location-input" placeholder="Location" value="Location">
                 </div>
 
                 <!-- Cart Items -->
@@ -67,11 +65,11 @@
                     <!-- Cart Item 1 -->
                     <div class="cart-item">
                         <div class="item-image">
-                            <span class="placeholder-icon">🍱</span>
+                            <span class="placeholder-icon"></span>
                         </div>
                         <div class="item-details">
-                            <input type="text" class="item-name-input" value="Nasi Lemak Special">
-                            <div class="item-price">RM 12.50</div>
+                            <input type="text" class="item-name-input" value="FOOD">
+                            <div class="item-price">RM XX.XX</div>
                         </div>
                         <div class="quantity-controls">
                             <button class="qty-btn minus" onclick="updateQuantity(this, -1)">-</button>
@@ -83,27 +81,11 @@
                     <!-- Cart Item 2 -->
                     <div class="cart-item">
                         <div class="item-image">
-                            <span class="placeholder-icon">🍜</span>
+                            <span class="placeholder-icon"></span>
                         </div>
                         <div class="item-details">
-                            <input type="text" class="item-name-input" value="Mee Goreng Mamak">
-                            <div class="item-price">RM 8.00</div>
-                        </div>
-                        <div class="quantity-controls">
-                            <button class="qty-btn minus" onclick="updateQuantity(this, -1)">-</button>
-                            <input type="number" class="qty-input" value="2" min="1">
-                            <button class="qty-btn plus" onclick="updateQuantity(this, 1)">+</button>
-                        </div>
-                    </div>
-
-                    <!-- Cart Item 3 -->
-                    <div class="cart-item">
-                        <div class="item-image">
-                            <span class="placeholder-icon">🥤</span>
-                        </div>
-                        <div class="item-details">
-                            <input type="text" class="item-name-input" value="Teh Tarik">
-                            <div class="item-price">RM 4.00</div>
+                            <input type="text" class="item-name-input" value="FOOD">
+                            <div class="item-price">RM XX.XX</div>
                         </div>
                         <div class="quantity-controls">
                             <button class="qty-btn minus" onclick="updateQuantity(this, -1)">-</button>
@@ -126,7 +108,7 @@
                     <div class="price-breakdown">
                         <div class="summary-line">
                             <span class="label">SUBTOTAL</span>
-                            <span class="amount" id="subtotal">RM 28.50</span>
+                            <span class="amount" id="subtotal">RM XX.XX</span>
                         </div>
                         <div class="summary-line">
                             <span class="label">DELIVERY FEE</span>
@@ -134,7 +116,7 @@
                         </div>
                         <div class="summary-line total-line">
                             <span class="label">TOTAL</span>
-                            <span class="amount" id="total">RM 28.50</span>
+                            <span class="amount" id="total">RM XX.XX</span>
                         </div>
                     </div>
 
@@ -182,7 +164,7 @@
             
             cartItems.forEach(item => {
                 const priceText = item.querySelector('.item-price').textContent;
-                const price = parseFloat(priceText.replace('RM ', ''));
+                const price = parseFloat(priceText.replace('RM ', '').replace('XX.XX', '0'));
                 const quantity = parseInt(item.querySelector('.qty-input').value);
                 subtotal += price * quantity;
             });
@@ -215,8 +197,6 @@
 
         // Initialize totals on page load
         document.addEventListener('DOMContentLoaded', calculateTotals);
-        
-        <script src="view_cart.js"></script>
     </script>
 </body>
 </html>

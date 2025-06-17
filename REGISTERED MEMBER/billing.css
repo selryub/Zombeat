@@ -1,4 +1,4 @@
-/* styles.css */
+/* Updated styles.css */
 
 * {
     margin: 0;
@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #8B9DC3 0%, #A8B8E0 100%);
     min-height: 100vh;
     color: #333;
 }
@@ -70,6 +70,7 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
+    letter-spacing: 1px;
 }
 
 .nav-menu {
@@ -136,37 +137,57 @@ body {
     background: rgba(0, 0, 0, 0.1);
 }
 
-/* Progress Steps */
+/* Progress Steps - Updated to match mockup */
 .progress-container {
     background: rgba(255, 255, 255, 0.9);
-    padding: 1rem 0;
+    padding: 1.5rem 0;
     display: flex;
     justify-content: center;
-    gap: 4rem;
+    align-items: center;
+    gap: 6rem;
     margin-bottom: 2rem;
+    position: relative;
 }
 
 .progress-step {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
     transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 2;
 }
 
 .progress-step.completed {
-    background: #4caf50;
+    background: #4CAF50;
     color: white;
+    box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3);
 }
 
 .progress-step.active {
-    background: #4a90e2;
+    background: #2196F3;
     color: white;
+    box-shadow: 0 3px 10px rgba(33, 150, 243, 0.3);
+}
+
+.progress-step:not(.completed):not(.active) {
+    background: rgba(0, 0, 0, 0.1);
+    color: #666;
 }
 
 .step-number {
     font-weight: bold;
+    font-size: 1rem;
+}
+
+.step-text {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
 }
 
 /* Main Content */
@@ -182,7 +203,8 @@ body {
     color: white;
     margin-bottom: 2rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    font-weight: 600;
 }
 
 .receipt-container {
@@ -192,20 +214,21 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Cart Section */
+/* Cart Section - Updated to match mockup */
 .cart-section {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 15px;
     padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(10px);
 }
 
 .section-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
     color: #333;
+    letter-spacing: 1px;
 }
 
 .cart-item {
@@ -220,16 +243,24 @@ body {
     border-bottom: none;
 }
 
+/* Updated product image to match mockup */
 .product-image {
-    width: 80px;
-    height: 80px;
-    background: #f0f0f0;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #FFB366, #FF8A50);
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    color: #999;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 3px 10px rgba(255, 138, 80, 0.3);
+    position: relative;
+}
+
+.product-image::before {
+    content: '📦';
+    font-size: 1.2rem;
 }
 
 .product-info {
@@ -238,22 +269,28 @@ body {
 
 .product-name {
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
+    color: #333;
+    font-size: 1rem;
 }
 
 .product-price {
     color: #666;
     font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .quantity-info {
     text-align: right;
     font-weight: bold;
+    color: #333;
 }
 
 .quantity-label {
     color: #666;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 0.2rem;
 }
 
 .remarks-section {
@@ -275,14 +312,15 @@ body {
     border-radius: 8px;
     resize: vertical;
     font-family: inherit;
+    background: #fafafa;
 }
 
-/* Order Info Section */
+/* Order Info Section - Updated styling */
 .order-info-section {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 15px;
     padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(10px);
 }
 
@@ -301,10 +339,12 @@ body {
     padding: 0.5rem;
     border-radius: 50%;
     transition: background 0.3s ease;
+    color: #666;
 }
 
 .close-btn:hover {
     background: rgba(0, 0, 0, 0.1);
+    color: #333;
 }
 
 .order-details {
@@ -314,24 +354,27 @@ body {
 .detail-row {
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #eee;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .detail-label {
-    font-weight: bold;
+    font-weight: 600;
     color: #333;
 }
 
 .detail-value {
     color: #666;
+    font-weight: 500;
 }
 
+/* Order Summary - Enhanced styling to match mockup */
 .order-summary {
     margin-bottom: 2rem;
-    padding: 1rem;
-    background: rgba(74, 144, 226, 0.1);
-    border-radius: 8px;
+    padding: 1.5rem;
+    background: rgba(33, 150, 243, 0.08);
+    border-radius: 12px;
+    border: 1px solid rgba(33, 150, 243, 0.1);
 }
 
 .summary-title {
@@ -339,20 +382,32 @@ body {
     font-weight: bold;
     margin-bottom: 1rem;
     color: #333;
+    letter-spacing: 0.5px;
 }
 
 .summary-row {
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 0;
+    font-weight: 500;
 }
 
 .summary-row.total-row {
-    border-top: 2px solid #4a90e2;
+    border-top: 2px solid #2196F3;
     margin-top: 1rem;
     padding-top: 1rem;
     font-weight: bold;
     font-size: 1.1rem;
+    color: #333;
+}
+
+.summary-label {
+    color: #555;
+}
+
+.summary-value {
+    color: #333;
+    font-weight: 600;
 }
 
 .order-remarks {
@@ -374,6 +429,7 @@ body {
     border-radius: 8px;
     resize: vertical;
     font-family: inherit;
+    background: #fafafa;
 }
 
 .action-buttons {
@@ -391,40 +447,43 @@ body {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-size: 0.85rem;
+    flex: 1;
 }
 
 .btn-primary {
-    background: #4a90e2;
+    background: #2196F3;
     color: white;
 }
 
 .btn-primary:hover {
-    background: #357abd;
+    background: #1976D2;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
 }
 
 .btn-secondary {
-    background: rgba(74, 144, 226, 0.1);
-    color: #4a90e2;
-    border: 2px solid #4a90e2;
+    background: rgba(33, 150, 243, 0.1);
+    color: #2196F3;
+    border: 2px solid #2196F3;
 }
 
 .btn-secondary:hover {
-    background: #4a90e2;
+    background: #2196F3;
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
 }
 
 .email-section {
     border-top: 1px solid #eee;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
 }
 
 .email-section h4 {
     margin-bottom: 1rem;
     color: #333;
+    font-weight: 600;
 }
 
 .email-input-group {
@@ -438,10 +497,11 @@ body {
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
+    background: #fafafa;
 }
 
 .btn-email {
-    background: #4caf50;
+    background: #4CAF50;
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -449,10 +509,13 @@ body {
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
 }
 
 .btn-email:hover {
-    background: #45a049;
+    background: #45A049;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
 }
@@ -505,7 +568,7 @@ body {
     width: 50px;
     height: 50px;
     border: 5px solid #f3f3f3;
-    border-top: 5px solid #4a90e2;
+    border-top: 5px solid #2196F3;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 1rem;
@@ -519,7 +582,7 @@ body {
 .success-icon {
     width: 80px;
     height: 80px;
-    background: #4caf50;
+    background: #4CAF50;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -546,7 +609,7 @@ body {
     }
     
     .progress-container {
-        gap: 1rem;
+        gap: 2rem;
         flex-wrap: wrap;
     }
     
@@ -581,5 +644,9 @@ body {
     .product-image {
         width: 60px;
         height: 60px;
+    }
+    
+    .progress-container {
+        gap: 1rem;
     }
 }
