@@ -69,23 +69,15 @@
 <div class="slideshow-container">
 
   <div class="slide fade">
-    <img src="img/Welcome to our Class!.png" alt="welcome">
+    <img src="img/vs2.png" alt="welcome">
   </div>
 
   <div class="slide fade">
-    <img src="img/SeriMuka.png" alt="Seri Muka">
-    <div class="slide-text">
-      <h2>Satisfy Your Cravings</h2>
-      <p>Snacks & Local Favorites</p>
-    </div>
+    <img src="img/welcome.png" alt="vs1">
   </div>
 
   <div class="slide fade">
-    <img src="img/StrawberryMilk.jpeg" alt="Strawberry Milk">
-    <div class="slide-text">
-      <h2>Cool Drinks Await</h2>
-      <p>Refreshing & Chilled</p>
-    </div>
+    <img src="img/vs1.png" alt="vs2">
   </div>
 
 </div>
