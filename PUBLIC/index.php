@@ -66,22 +66,41 @@
 </header>
 
   <section class="slider">
-    <div class="slides">
-      <img src="img/photo_a.jpg" class="slide" />
-      <img src="img/photo_b.jpg" class="slide" />
-      <img src="img/photo_c.jpg" class="slide" />
+<div class="slideshow-container">
+
+  <div class="slide fade">
+    <img src="img/Welcome to our Class!.png" alt="welcome">
+  </div>
+
+  <div class="slide fade">
+    <img src="img/SeriMuka.png" alt="Seri Muka">
+    <div class="slide-text">
+      <h2>Satisfy Your Cravings</h2>
+      <p>Snacks & Local Favorites</p>
     </div>
+  </div>
+
+  <div class="slide fade">
+    <img src="img/StrawberryMilk.jpeg" alt="Strawberry Milk">
+    <div class="slide-text">
+      <h2>Cool Drinks Await</h2>
+      <p>Refreshing & Chilled</p>
+    </div>
+  </div>
+
+</div>
+
   </section>
 
   <section class="cards">
     <div class="card">
-      <img src="img/photo_a.jpg">
+      <img src="img/SandwichRollEgg.png">
     </div>
     <div class="card">
-      <img src="img/photo_b.jpg">
+      <img src="img/BuburAyam2.png">
     </div>
     <div class="card">
-      <img src="img/ChickenWrap.png">
+      <img src="img/ChickenWrap.png ">
     </div>
   </section>
 
@@ -128,14 +147,17 @@ function toggleSidebar() {
 }
 
 // Auto-slide functionality for a carousel
-let index = 0;
-const slides = document.querySelector('.slides'); // container of all slides
-const totalSlides = document.querySelectorAll('.slide').length; // count slides
+let slideIndex = 0;
+const slides = document.querySelectorAll('.slide');
 
-setInterval(() => {
-  index = (index + 1) % totalSlides; // move to next slide, loop back to 0
-  slides.style.transform = `translateX(-${index * 100}%)`; // shift slide
-}, 3000); // every 3 seconds
+function showSlides() {
+  slides.forEach(slide => slide.classList.remove('active'));
+  slideIndex = (slideIndex + 1) % slides.length;
+  slides[slideIndex].classList.add('active');
+}
+
+showSlides(); // Show the first slide
+setInterval(showSlides, 3000); // Change slide every 3 seconds
 
 // Close sidebar if clicked outside it
 document.addEventListener("click", function (e) {
