@@ -111,8 +111,8 @@ $conn->close();
   <nav>
     <a href="index.php">HOME</a>
     <a href="menu_page.php">MENU</a>
-    <a href="about.php">ABOUT</a>
-    <a href="#">REVIEWS</a>
+    <a href="../PUBLIC/about.php">ABOUT</a>
+    <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
   </nav>
   <div class="icons">
     <!-- <input type="text" placeholder=" 🔍︎ Search" class="search-box"> -->
