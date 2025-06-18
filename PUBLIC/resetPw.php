@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate password strength
     if (!preg_match("/^(?=.*[A-Z])(?=.*\d)(?=.*\W)(?!.*\s).{6,8}$/", $newPassword)) {
-        echo "<script>alert('Password does not meet the criteria.'); window.history.back();</script>";
+        echo "<script>alert('Password must be 6–8 characters long, with 1 uppercase letter, 1 number, 1 special character, and no spaces.'); window.history.back();</script>";
         exit;
     }
 
@@ -39,11 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<script>alert('Password updated successfully.'); window.location.href = 'login.php';</script>";
 }
 ?>
-
 <!-- HTML Part -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Reset Password</title>
     <link rel="stylesheet" href="resetPw.css">
 </head>
@@ -55,11 +55,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <form method="POST" action="">
             <div class="password-input">
-                <input type="password" name="new_password" placeholder="New Password" required>
-                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <input type="password" name="password" placeholder="New Password" required>
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+                <small style="color: gray;">6–8 characters, 1 uppercase, 1 number, 1 symbol, no spaces</small><br><br>
                 <button type="submit">UPDATE</button>
             </div>
         </form>
     </div>
 </body>
 </html>
+

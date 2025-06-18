@@ -40,6 +40,12 @@ form {
     gap: 15px;
 }
 
+.pw-requirement {
+  line-height: 1.2;
+  display: none;
+}
+
+
 input[type="password"] {
     padding: 10px;
     border-radius: 5px;

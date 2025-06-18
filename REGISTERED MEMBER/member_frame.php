@@ -19,12 +19,12 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
     <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
 
-    <div class="admin-header">
-        <img src="account.png" alt="Admin Image"  class="acc-dash">
-        <a href = "admin_dashboard.php" class="hellouser"> HELLO ADMIN !</a>
+    <div class="regmem-header">
+        <img src="img/account.png" alt="Registered Member Image"  class="acc-dash">
+        <a href = "regmem_dashboard.php" class="hellouser"> HELLO REGISTERED MEMBER !</a>
     </div>
 
-    <a href="admin_product.php" class="menuall">
+    <a href="order.php" class="menuall">
         <img src="layout.png" class="products">
         <span class="dash-text">PRODUCTS</span>
     </a>
@@ -65,7 +65,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
 
     <nav>
         <a href="admin_dashboard.php">DASHBOARD</a>
-        <a href="../PUBLIC/about.php">ABOUT</a>
+        <a href="../PUBLIC/about.html">ABOUT</a>
         <a href="../REGISTERED MEMBER/review.html">REVIEWS</a>
     </nav>
 

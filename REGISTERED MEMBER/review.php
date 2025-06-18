@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <title>FCSIT Kiosk - Feedback</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 <style>
-  <?php include "styles.css"; ?>
+  <?php include "review.css"; ?>
 </style>
 </head>
 <body>
@@ -35,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <img src="logo.png" alt="FCSIT Kiosk" class="logo" />
       <nav>
         <a href="order.php">HOME</a>
-        <a href="#">MENU</a>
+        <a href="menu_page.html">MENU</a>
         <a href="#">ABOUT</a>
-        <a href="feedback.php" class="active">REVIEWS</a>
+        <a href="review.php" class="active">REVIEWS</a>
       </nav>
       <div class="icons">
         <input type="search" placeholder="Search" />

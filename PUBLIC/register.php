@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <span><img src="img/lock.png" class="lockIcon"></span>
               <input type="password" name="password" id="password" placeholder="Password" required />
             </div>
-            <p class="pw-requirement" id="pwRule" style="display: none;">
+            <p class="pw-requirement" id="pwRule">
               Password must be 6–8 characters long, include 1 uppercase letter, 1 number, 1 special character, and no spaces.
             </p>
             <div class="input-group">

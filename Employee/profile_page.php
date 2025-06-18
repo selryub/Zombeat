@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 require "db_connect.php";
+=======
+require "../admin/db_connect.php";
+>>>>>>> d4077a3a3ca6d54ef175d0944479cc3e80dd1035
 
 // Fetch user info
 $sql = "SELECT full_name, email FROM user WHERE user_id = ?";
@@ -36,7 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>User Profile</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="profile.css">
+=======
+>>>>>>> d4077a3a3ca6d54ef175d0944479cc3e80dd1035
     <link rel="stylesheet" href="employeestyle.css">
     <style>
       .admin-profile-section {
@@ -92,9 +99,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="alert success">Profile updated successfully!</div>
 <?php endif; ?>
 
+<<<<<<< HEAD
 <!--Employee Profile -->
 <section class="employee-profile-section">
     <div class="employee-profile-box">
+=======
+<!--Admin Profile -->
+<section class="admin-profile-section">
+    <div class="admin-profile-box">
+>>>>>>> d4077a3a3ca6d54ef175d0944479cc3e80dd1035
         <h2>User Profile</h2>
         <p><strong>Name:</strong> <span id="display-name"><?= htmlspecialchars($user["full_name"]) ?></span></p>
         <p><strong>Email:</strong> <span id="display-email"><?= htmlspecialchars($user["email"]) ?></span></p>

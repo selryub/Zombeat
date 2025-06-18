@@ -21,20 +21,20 @@ document.addEventListener("click", function (e) {
 });
 
 // Global search functionality
-document.addEventListener("DOMContentLoaded", function () {
-  const searchInput = document.getElementById("globalSearch");
-  const blocks = document.querySelectorAll(".search-block");
+// document.addEventListener("DOMContentLoaded", function () {
+//   const searchInput = document.getElementById("globalSearch");
+//   const blocks = document.querySelectorAll(".search-block");
 
-  if (!searchInput) return;
+//   if (!searchInput) return;
 
-  searchInput.addEventListener("input", function () {
-    const searchTerm = searchInput.value.toLowerCase().trim();
+//   searchInput.addEventListener("input", function () {
+//     const searchTerm = searchInput.value.toLowerCase().trim();
 
-    blocks.forEach(block => {
-      const blockText = block.innerText.toLowerCase();
-      const isMatch = blockText.includes(searchTerm);
+//     blocks.forEach(block => {
+//       const blockText = block.innerText.toLowerCase();
+//       const isMatch = blockText.includes(searchTerm);
 
-      block.style.display = isMatch || searchTerm === "" ? "" : "none";
-    });
-  });
-});
+//       block.style.display = isMatch || searchTerm === "" ? "" : "none";
+//     });
+//   });
+// });

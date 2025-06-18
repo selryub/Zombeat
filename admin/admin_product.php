@@ -9,7 +9,6 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-
 // Handle add/update
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['product_id'] ?? null;
@@ -53,6 +52,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $result = $conn->query("SELECT * FROM product WHERE is_active = 1");
+
+// Get category and search input from URL
+$category = $_GET['category'] ?? 'ALL';
+$search = $_GET['search'] ?? '';
+
+// Start building SQL query
+$sql = "SELECT * FROM product WHERE is_active=1";
+$params = [];
+$types = "";
+
+// If category is not 'All', add condition
+if ($category !== 'ALL') {
+    $sql .= " AND category = ?";
+    $params[] = $category;
+    $types .= "s";
+}
+
+// If search keyword is not empty, add condition
+if (!empty($search)) {
+    $sql .= " AND product_name LIKE ?";
+    $params[] = "%$search%";
+    $types .= "s";
+}
+
+// Prepare and bind if parameters exist
+$stmt = $conn->prepare($sql);
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
+}
+
+// Execute and fetch
+$stmt->execute();
+$result = $stmt->get_result();
+
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +121,24 @@ $result = $conn->query("SELECT * FROM product WHERE is_active = 1");
 </head>
 <body>
 <?php include "admin_frame.php"; ?>
-<button id="add-product-btn">+ Add Product</button>
+<button id="add-product-btn" class="add-product-btn">+ Add Product</button>
+<div class="menu-header-bar">
+  <h2>PRODUCT</h2>
+  <form method="GET" action="admin_product.php">
+  <input type="text" name="search" class="search-menu" placeholder=" 🔍︎ Search" value="<?php echo htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES); ?>">
+</form>
+</div>
+<div class="menu-container">
+  <div class="menu-text">
+<div class="categories">
+<?php
+$categories = ['ALL', 'HEAVY FOODS', 'SNACKS', 'DRINKS'];
+foreach ($categories as $cat) {
+    $activeClass = ($cat === $category) ? 'active-category' : '';
+    echo "<a href='?category=" . urlencode($cat) . "'><span class='$activeClass'>$cat</span></a>";
+}
+?>
+</div>
 <div class="items">
   <?php while($row = mysqli_fetch_assoc($result)): ?>
     <div class="card">
@@ -96,8 +148,10 @@ $result = $conn->query("SELECT * FROM product WHERE is_active = 1");
         <p class="item-desc"><?= htmlspecialchars($row['description']) ?></p>
         <div class="price-button">
           <strong class="price">RM <?= number_format($row['price'], 2) ?></strong>
-          <button onclick="editProduct(<?php echo htmlspecialchars(json_encode($row)); ?>)">✎</a>
-          <a href="?delete=<?= $row['product_id'] ?>" onclick="return confirm('Are you sure?')">🗑</a>
+          <div class="action-icons">
+            <button class="icon-btn edit" onclick="editProduct(<?php echo htmlspecialchars(json_encode($row)); ?>)">✎</button>
+            <a class="icon-btn delete" href="?delete=<?= $row['product_id'] ?>" onclick="return confirm('Are you sure?')">🗑</a>
+          </div>
         </div>
       </div>
     </div>
