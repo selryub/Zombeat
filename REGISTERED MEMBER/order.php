@@ -116,7 +116,7 @@ $conn->close();
   </nav>
   <div class="icons">
     <img src="img/cart.png" alt="cart" class="cart-img">
-    <a href="/Zombeat/REGISTER MEMBER/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
+    <a href="/Zombeat/PUBLIC/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
     <span class="icon"></span>
   </div>
 </header>
