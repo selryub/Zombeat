@@ -58,7 +58,7 @@ $category = $_GET['category'] ?? 'ALL';
 $search = $_GET['search'] ?? '';
 
 // Start building SQL query
-$sql = "SELECT * FROM product WHERE 1";
+$sql = "SELECT * FROM product WHERE is_active=1";
 $params = [];
 $types = "";
 

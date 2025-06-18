@@ -58,7 +58,7 @@ $category = $_GET['category'] ?? 'ALL';
 $search = $_GET['search'] ?? '';
 
 // Start building SQL query
-$sql = "SELECT * FROM product WHERE 1";
+$sql = "SELECT * FROM product WHERE is_active=1";
 $params = [];
 $types = "";
 
@@ -148,10 +148,10 @@ foreach ($categories as $cat) {
         <p class="item-desc"><?= htmlspecialchars($row['description']) ?></p>
         <div class="price-button">
           <strong class="price">RM <?= number_format($row['price'], 2) ?></strong>
-          <!-- <div class="action-icons"> -->
+          <div class="action-icons">
             <button class="icon-btn edit" onclick="editProduct(<?php echo htmlspecialchars(json_encode($row)); ?>)">✎</button>
-            <a href="?delete=<?= $row['product_id'] ?>" onclick="return confirm('Are you sure?')">🗑</a>
-          <!-- </div> -->
+            <a class="icon-btn delete" href="?delete=<?= $row['product_id'] ?>" onclick="return confirm('Are you sure?')">🗑</a>
+          </div>
         </div>
       </div>
     </div>
