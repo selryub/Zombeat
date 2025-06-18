@@ -38,11 +38,9 @@ $result = $stmt->get_result();
 $stmt->close();
 $conn->close();
 
-// Include the header with cart functionality
 include 'regmem_frame.php';
 ?>
 
-<!-- Additional CSS for menu page specific styling -->
 <link rel="stylesheet" href="../PUBLIC/menu_page.css" />
 
 <div class="page-wrapper">
