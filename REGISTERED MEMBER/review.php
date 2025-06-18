@@ -1,5 +1,5 @@
 <?php
-// feedback.php - handles rating & feedback submission
+
 
 $message = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
