@@ -11,62 +11,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    // Check user table
-    $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $userResult = $stmt->get_result();
-    $user = $userResult->fetch_assoc();
-    $stmt->close();
+    // Check user, admin, and employee roles
+    $roles = ['user' => 'user', 'admin' => 'admin', 'employees' => 'employees'];
 
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['admin_id'];
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['role'] = 'user';
+    foreach ($roles as $role => $table) {
+        $stmt = $conn->prepare("SELECT * FROM $table WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $account = $result->fetch_assoc();
+        $stmt->close();
 
-        // ✅ Handle "Remember Me"
-        if (isset($_POST['rememberMe'])) {
-            setcookie("remember_email", $email, time() + (86400 * 30), "/"); // Store for 30 days
-        } else {
-            setcookie("remember_email", "", time() - 3600, "/"); // Clear cookie
+        if ($account && password_verify($password, $account['password'])) {
+            $_SESSION['email'] = $account['email'];
+            $_SESSION['role'] = $role;
+            $_SESSION[$role . '_id'] = $account[$role . '_id'];
+
+            if (isset($_POST['rememberMe'])) {
+                setcookie("remember_email", $email, time() + (86400 * 30), "/");
+            } else {
+                setcookie("remember_email", "", time() - 3600, "/");
+            }
+
+            $redirectPage = $role === 'admin' ? '../admin/admin_dashboard.php'
+                          : ($role === 'employees' ? '../employee/employee_dashboard.php'
+                          : $redirect);
+
+            echo "<script>
+                    alert('" . ucfirst($role) . " login successful!');
+                    window.location.href = '$redirectPage';
+                  </script>";
+            $conn->close();
+            exit;
         }
-
-        echo "<script>
-                alert('User login successful!');
-                window.location.href = '$redirect';
-              </script>";
-        exit;
     }
 
-    // Check admin table
-    $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $adminResult = $stmt->get_result();
-    $admin = $adminResult->fetch_assoc();
-    $stmt->close();
     $conn->close();
 
-    if ($admin && password_verify($password, $admin['password'])) {
-        $_SESSION['admin_id'] = $admin['admin_id'];
-        $_SESSION['email'] = $admin['email'];
-        $_SESSION['role'] = 'admin';
-
-        // ✅ Handle "Remember Me"
-        if (isset($_POST['rememberMe'])) {
-            setcookie("remember_email", $email, time() + (86400 * 30), "/");
-        } else {
-            setcookie("remember_email", "", time() - 3600, "/");
-        }
-
-        echo "<script>
-                alert('Admin login successful!');
-                window.location.href = '../admin/admin_dashboard.php';
-              </script>";
-        exit;
-    }
-
-    // If both fail
+    // If login fails
     echo "<script>
             alert('Invalid email or password.');
             window.history.back();
@@ -74,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 ?>
-
 
 <!-- HTML START -->
 <!DOCTYPE html>
@@ -90,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="form-section">
       <h2>WELCOME !</h2>
       <div class="login-box">
-        <h3>USER LOGIN</h3>
+        <h3>LOGIN</h3>
    <form id="loginForm" method="POST" action="login.php">
   <div class="input-group">
     <span><img src="img/profile2.png" class="emailIcon"></span>
