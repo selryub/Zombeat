@@ -44,11 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="container">
-        <h2>Forgot Password</h2>
+        <div class="forgotPw-box">
+            <h2>FORGOT PASSWORD</h2>
+        </div>
+        
         <form method="POST" action="">
             <div class="email-input">
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <button type="submit">CONTINUE</button>
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">CONTINUE</button>
             </div>
         </form>
     </div>

@@ -124,6 +124,7 @@ button[type="submit"] {
   margin-top: 10px;
   margin-left: 120px;
   font-family: 'Times New Roman', Times, serif;
+  transition: background-color 0.3s ease;
 }
 
 .login-box p {

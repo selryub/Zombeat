@@ -53,38 +53,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <div class="container">
     <div class="form-section">
-      <h2>CREATE AN ACCOUNT</h2>
-      <div class="signup-box">
-        <h3>SIGN UP</h3>
-     <!-- Inside your register.php -->
-<form id="signupForm" method="POST" action="register.php">
-  <div class="input-group">
-    <span><img src="img/profile2.png" class="nameIcon"></span>
-    <input type="text" name="name" placeholder="Full Name" required />
-  </div>
-  <div class="input-group">
-    <span><img src="img/email.png" class="emailIcon"></span>
-    <input type="email" name="email" placeholder="Email" required />
-  </div>
-  <div class="input-group">
-  <span><img src="img/lock.png" class="lockIcon"></span>
-  <input type="password" name="password" id="password" placeholder="Password" required />
-</div>
-<p class="pw-requirement" id="pwRule" style="display: none;">
-    Password must be 6–8 characters long, include 1 uppercase letter, 1 number, 1 special character, and no spaces.
-  </p>
-  <div class="input-group">
-    <span><img src="img/lock.png" class="lockIcon"></span>
-    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required />
-  </div>
-  <button type="submit" id="submit-btn">SIGN UP</button>
-</form>
+        <h2>CREATE AN ACCOUNT</h2>
+          <div class="signup-box">
+            <h3>SIGN UP</h3>
 
+     <!-- Inside your register.php -->
+            <form id="signupForm" method="POST" action="register.php">
+            <div class="input-group">
+              <span><img src="img/profile2.png" class="nameIcon"></span>
+              <input type="text" name="name" placeholder="Full Name" required />
+            </div>
+            <div class="input-group">
+              <span><img src="img/email.png" class="emailIcon"></span>
+              <input type="email" name="email" placeholder="Email" required />
+            </div>
+            <div class="input-group">
+              <span><img src="img/lock.png" class="lockIcon"></span>
+              <input type="password" name="password" id="password" placeholder="Password" required />
+            </div>
+            <p class="pw-requirement" id="pwRule" style="display: none;">
+              Password must be 6–8 characters long, include 1 uppercase letter, 1 number, 1 special character, and no spaces.
+            </p>
+            <div class="input-group">
+              <span><img src="img/lock.png" class="lockIcon"></span>
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required />
+            </div>
+            <button type="submit" id="submit-btn">SIGN UP</button>
+            </form>
+          </div>
+          <p>Already Have An Account? <a href="login.php">Login</a></p>
       </div>
-      <p>Already Have An Account? <a href="login.php">Login</a></p>
-    </div>
     <div class="image-section">
-      <div class="image-placeholder"></div>
+      <img src="img/kiosk.jpg" class="kioskImage">
     </div>
   </div>
 

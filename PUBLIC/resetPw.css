@@ -5,25 +5,25 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-     margin: 0;
+    margin: 0;
 }
 
 .container {
     background: white;
     border-radius: 10px;
-    width: 400px;
+    width: 350px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     overflow: hidden;
 }
 
-.forgotPw-box {
+.resetPw-box {
     background-color: #003366;
     color: white;
     padding: 20px;
     text-align: center;
 }
 
-.forgotPw-box h2 {
+.resetPw-box h2 {
     margin: 0;
     font-size: 28px;
     letter-spacing: 2px;
@@ -34,13 +34,13 @@ form {
     padding: 30px 20px;
 }
 
-.email-input {
+.password-input {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-input[type="email"] {
+input[type="password"] {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -53,7 +53,7 @@ button {
     font-weight: bold;
     background-color: #f4f4f4;
     border: 2px solid #b0b0b0;
-    border-radius: 25px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-family: 'Times New Roman', Times, serif;

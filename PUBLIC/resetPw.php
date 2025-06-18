@@ -45,16 +45,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Reset Password</title>
-    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="resetPw.css">
 </head>
 <body>
     <div class="container">
-        <h2>Reset Your Password</h2>
+        <div class="resetPw-box">
+            <h2>RESET PASSWORD</h2>
+        </div>
+        
         <form method="POST" action="">
-            <input type="password" name="password" placeholder="New Password" required>
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-            <small>Password must be 6–8 characters, 1 uppercase, 1 number, 1 special char, no space</small>
-            <button type="submit">Reset Password</button>
+            <div class="password-input">
+                <input type="password" name="new_password" placeholder="New Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <button type="submit">UPDATE</button>
+            </div>
         </form>
     </div>
 </body>

@@ -129,6 +129,7 @@ button[type="submit"] {
   margin-top: 10px;
   margin-left: 120px;
   font-family: 'Times New Roman', Times, serif;
+  transition: background-color 0.3s ease;
 }
 
 .signup-box p {
@@ -144,22 +145,15 @@ button[type="submit"] {
   text-decoration: none;
 }
 
-.image-section {
-  width: 50%;
-  background-color: #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-placeholder {
-  width: 150px;
-  height: 150px;
-  background: linear-gradient(to top right, #aaa, #ccc);
-  border-radius: 20px;
-}
-
 .pw-requirement {
   line-height: 1.2;
   display: none;
+}
+
+.image-section {
+  width: 100%;
+}
+
+.kioskImage {
+  width: 100%;
 }
