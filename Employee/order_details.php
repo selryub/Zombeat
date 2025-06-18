@@ -1,101 +1,154 @@
+<?php
+require "db_connect.php";
+require "../admin/db_connect.php"
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Order Detail</title>
-    <link rel="stylesheet" href="employeestyle.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f4ff;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Detail</title>
+  <link rel="stylesheet" href="employeestyle.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #d4e3fc;
+      margin: 0;
+      padding: 0;
+    }
 
-        /* NAVBAR */
-        .navbar {
-            background: #cbd8f7;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .order-wrapper {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
 
-        .logo img {
-            height: 50px;
-        }
+    .location-section {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 30px;
+    }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-        }
+    .location-box {
+      text-align: center;
+    }
 
-        /* TRACKING BOX */
-        .track-box {
-            width: 90%;
-            max-width: 800px;
-            background: #cbd8f7;
-            margin: 50px auto;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-        }
+    .location-box img {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
 
-        .status-line {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 30px 0;
-        }
+    .order-box {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+    }
 
-        .status-step {
-            width: 18%;
-            text-align: center;
-        }
+    .order-box table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-        .status-step img {
-            width: 30px;
-            margin-bottom: 10px;
-        }
-    </style>
+    .order-box td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .order-box tr:last-child td {
+      border-bottom: none;
+    }
+
+    .order-summary {
+      text-align: right;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .btn-order-again {
+      display: block;
+      margin-top: 25px;
+      width: 100%;
+      background-color: #2c3e50;
+      color: white;
+      padding: 12px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .btn-order-again:hover {
+      background-color: #1b2838;
+    }
+  </style>
 </head>
 <body>
 
 <?php include "employee_frame.php"; ?>
 
-<!-- ORDER TRACKING SECTION -->
-<div class="track-box">
-    <h2>ORDER STATUS</h2>
-    <img src="order-id-image.png" alt="Order ID" style="max-width: 200px;">
+<div class="order-wrapper">
 
-    <div class="status-line">
-        <div class="status-step">
-            <img src="../employee/notification.png" alt="Received">
-            <p>ORDER RECEIVED</p>
-        </div>
-        <div class="status-step">
-            <img src="../employee/confirm.png" alt="Confirmed">
-            <p>ORDER CONFIRMED</p>
-        </div>
-        <div class="status-step">
-            <img src="../employee/processing.png" alt="Processing">
-            <p>ORDER PROCESSED</p>
-        </div>
-        <div class="status-step">
-            <img src="../employee/ontheway.png" alt="On the Way">
-            <p>ON THE WAY</p>
-        </div>
-        <div class="status-step">
-            <img src="../employee/check.png" alt="Delivered">
-            <p>DELIVERED</p>
-        </div>
+  <!-- Location Icons -->
+<div class="location-section" style="text-align: center; display: flex; justify-content: center; gap: 60px; align-items: center; margin-bottom: 30px;">
+  <div class="location-box">
+    <div style="font-size: 40px;">📍</div>
+    <p>Stall Location</p>
+  </div>
+
+  <div style="font-size: 24px;">➝</div>
+
+  <div class="location-box">
+    <div style="font-size: 40px;">📍</div>
+    <p>Customer Location</p>
+  </div>
+</div>
+
+
+  <!-- Order Details -->
+  <div class="order-box">
+    <h3>Order Details</h3>
+    <table>
+      <tr>
+        <td>1x Nas Lemak</td>
+        <td style="text-align:right;">RM 6.00</td>
+      </tr>
+      <tr>
+        <td>1x Nasi Goreng</td>
+        <td style="text-align:right;">RM 4.00</td>
+      </tr>
+      <tr>
+        <td>1x Mi Goreng Telur Mata</td>
+        <td style="text-align:right;">RM 5.50</td>
+      </tr>
+      <tr>
+        <td>1x Mi Jawa</td>
+        <td style="text-align:right;">RM 6.00</td>
+      </tr>
+      <tr>
+        <td>1x Kuih Apam Cheese</td>
+        <td style="text-align:right;">RM 3.50</td>
+      </tr>
+    </table>
+
+    <div class="order-summary">
+      Total = RM 25.00
     </div>
+  </div>
 
-    <p class="estimated-time">ESTIMATED TIME: <strong>12:30 PM</strong></p>
+  <!-- Button -->
+  <a href="/Zombeat/REGISTERED MEMBER/order.php" class="btn-order-again">ORDER AGAIN</a>
 </div>
 
 </body>
 </html>
+

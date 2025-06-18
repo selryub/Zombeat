@@ -1,5 +1,5 @@
 <?php
-
+// feedback.php - handles rating & feedback submission
 
 $message = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -20,73 +20,102 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>FCSIT Kiosk - Feedback</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-<style>
-  <?php include "review.css"; ?>
-</style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FCSIT Kiosk - Review Page</title>
+
+    <!-- Tailwind CSS & Plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#002f6c',
+                        secondary: '#c9dafc'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- Icons & Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="review.css">
+    <link rel="stylesheet" href="../PUBLIC/index.css">
 </head>
-<body>
-  <header>
-    <div class="nav-container">
-      <button class="menu-toggle">&#9776;</button>
-      <img src="logo.png" alt="FCSIT Kiosk" class="logo" />
-      <nav>
-        <a href="order.php">HOME</a>
-        <a href="menu_page.html">MENU</a>
-        <a href="#">ABOUT</a>
-        <a href="review.php" class="active">REVIEWS</a>
-      </nav>
-      <div class="icons">
-        <input type="search" placeholder="Search" />
-        <a href="#"><i class="fa fa-shopping-cart"></i></a>
-        <a href="#"><i class="fa fa-user"></i></a>
-      </div>
-    </div>
-  </header>
+<body class="bg-secondary min-h-screen">
 
-  <main class="feedback-main">
-    <section class="rating-feedback-box">
-      <h2>RATING &amp; FEEDBACK</h2>
-      <form method="post" action="">
-        <label for="rating">Rate your meal experience:</label><br />
-        <div class="stars">
-          <?php for ($i = 1; $i <= 5; $i++): ?>
-            <input type="radio" id="star<?php echo $i; ?>" name="rating" value="<?php echo $i; ?>" <?php if(isset($rating) && $rating == $i) echo 'checked'; ?> />
-            <label for="star<?php echo $i; ?>" title="<?php echo $i; ?> star">&#9733;</label>
-          <?php endfor; ?>
-        </div>
-        <label for="feedback">Write your feedback:</label><br />
-        <textarea id="feedback" name="feedback" rows="5" placeholder="Type here"><?php echo isset($feedback) ? $feedback : ''; ?></textarea><br />
-        <button type="submit">SUBMIT</button>
-      </form>
-      <?php if ($message): ?>
-        <p class="msg"><?php echo $message; ?></p>
-      <?php endif; ?>
+
+<main class="max-w-6xl mx-auto px-4 pt-20 pb-12 flex flex-col md:flex-row gap-8">
+    <!-- Rating & Feedback -->
+    <section class="bg-white rounded-xl border border-gray-300 max-w-md w-full shadow-sm">
+        <header class="bg-primary rounded-t-xl py-4 text-center pixel-font text-white text-lg tracking-widest select-none">
+            RATING & FEEDBACK
+        </header>
+        <form method="POST" class="p-6 space-y-6">
+            <div class="text-center text-base text-black font-serif">Rate your meal experience:</div>
+            <div class="flex justify-center space-x-1 text-gray-300 text-2xl select-none" id="stars">
+                <?php for ($i = 1; $i <= 5; $i++): ?>
+                    <i class="fas fa-star cursor-pointer" data-value="<?= $i ?>"></i>
+                <?php endfor; ?>
+            </div>
+            <input type="hidden" name="rating" id="ratingInput" value="0">
+
+            <div class="text-center text-base text-black font-serif">Write your feedback:</div>
+            <textarea name="feedback" class="w-full border border-gray-400 rounded resize-none text-xs p-2 font-serif text-black" placeholder="Type here" rows="4" required></textarea>
+
+            <div class="flex justify-center">
+                <button type="submit" class="bg-primary text-white font-bold text-xs px-6 py-1 rounded-full tracking-widest hover:opacity-90 transition">
+                    SUBMIT
+                </button>
+            </div>
+        </form>
     </section>
 
-    <section class="reviews-display">
-      <h3>What others are saying:</h3>
-      <article class="review">
-        <i class="fa fa-user-circle review-icon"></i>
-        <div class="review-stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut a pulvinar orci. Duis at pharetra quam.</p>
-      </article>
-      <article class="review">
-        <i class="fa fa-user-circle review-icon"></i>
-        <div class="review-stars">
-          <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i>
-        </div>
-        <p>Integer in pharetra erat, sit amet convallis arcu. Maecenas dignissim lorem sed nunc sodales, non tempus metus tristique.</p>
-      </article>
-      <article class="review">
-        <i class="fa fa-user-circle review-icon"></i>
-        <div class="review-stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
-        <p>Nam condimentum neque nec ipsum aliquet, in dignissim justo tristique. Curabitur id ullamcorper lectus.</p>
-      </article>
+    <!-- Feedback Display -->
+    <section class="flex-1 space-y-6 text-black font-serif text-sm">
+        <h2 class="mb-2 text-lg">What others are saying:</h2>
+        <?php foreach ($reviews as $review): ?>
+            <article class="space-y-1">
+                <div class="flex items-center space-x-2 text-gray-700">
+                    <i class="fas fa-user-circle text-xl"></i>
+                    <div class="flex space-x-1 text-yellow-600 text-lg">
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <?php if ($i <= $review['rating']): ?>
+                                <i class="fas fa-star"></i>
+                            <?php else: ?>
+                                <i class="far fa-star text-gray-400"></i>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+                <p class="text-gray-500 leading-relaxed max-w-xl"><?= htmlspecialchars($review['feedback']) ?></p>
+            </article>
+        <?php endforeach; ?>
     </section>
-  </main>
+</main>
+
+<!-- Rating JS -->
+<script>
+    const stars = document.querySelectorAll('#stars .fa-star');
+    const ratingInput = document.getElementById('ratingInput');
+
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            const rating = parseInt(star.getAttribute('data-value'));
+            ratingInput.value = rating;
+
+            stars.forEach((s, i) => {
+                s.classList.toggle('text-yellow-500', i < rating);
+                s.classList.toggle('text-gray-300', i >= rating);
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

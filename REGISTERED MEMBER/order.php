@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+include 'regmem_frame.php';
 require_once '../admin/db_connect.php';
 
 // Get category and search input from URL
@@ -533,7 +534,7 @@ function toggleCart() {
 
 function checkout() {
     // Redirect to checkout page
-    window.location.href = 'view_cart.html';
+    window.location.href = 'checkout.php';
 }
 
 // Close cart when clicking outside

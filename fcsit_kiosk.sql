@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2025 at 07:14 PM
+-- Generation Time: Jun 18, 2025 at 07:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,8 +28,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `admin_id` int(11) NOT NULL
+  `admin_id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`admin_id`, `username`, `password`, `email`, `created_at`) VALUES
+(1, '', '', NULL, '2025-06-17 20:01:58'),
+(2, 'admin', '$2y$10$NQsFSIXl1upsEFbMhhLO6uL.AnUxTUmE3wRi2JCWeICBj5hdypGnC', 'admin@zombeat.com', '2025-06-17 21:13:01');
 
 -- --------------------------------------------------------
 
@@ -68,6 +80,28 @@ INSERT INTO `employee` (`employee_id`, `user_id`, `schedule_id`, `hourly_rate`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `employees`
+--
+
+CREATE TABLE `employees` (
+  `employee_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`employee_id`, `name`, `email`, `password`, `created_at`) VALUES
+(1, 'John Employee', 'john.employee@example.com', '$$2y$10$Jcyxp0DbEBx2Azm7i3mWT.kTUPTKss0FrzEAj9Yo2pvnnCJUW1.Xa', '2025-06-18 17:11:58'),
+(3, 'Sam Employee', 'Sam.employee@example.com', '$2y$10$gTqb/yHlmmPpNPOO5B8fP.z4beWALNN6tWWKh/JPzPI8BPr2RVAia', '2025-06-18 17:30:59');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `feedback`
 --
 
@@ -94,6 +128,17 @@ CREATE TABLE `financial_report` (
   `generated_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `financial_report`
+--
+
+INSERT INTO `financial_report` (`report_id`, `report_date`, `total_sales`, `total_orders`, `total_profit`, `generated_by`) VALUES
+(3, '2025-06-18', 55.00, 10, 22.00, 1),
+(4, '2025-06-11', 310.00, 45, 125.00, 1),
+(5, '2025-05-19', 910.00, 132, 400.00, 1),
+(6, '2025-06-17', 85.50, 14, 38.00, 1),
+(7, '2025-06-03', 465.00, 63, 180.00, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -111,6 +156,17 @@ CREATE TABLE `orders` (
   `tracking_status` enum('Pending','Preparing','Out for Delivery','Complete','Cancelled') DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_id`, `processed_by`, `order_date`, `status`, `total_amount`, `payment_method`, `tracking_status`) VALUES
+(6, 2, NULL, '2025-06-18 02:10:08', 'Completed', 7.00, 'Cash', ''),
+(7, 3, NULL, '2025-06-16 02:10:08', 'Completed', 10.00, 'Cash', ''),
+(8, 6, NULL, '2025-06-13 02:10:08', 'Completed', 9.50, 'Card', ''),
+(9, 7, NULL, '2025-06-08 02:10:08', 'Completed', 13.50, 'Cash', ''),
+(11, 3, NULL, '2025-05-29 02:24:44', 'Completed', 8.00, 'Card', '');
+
 -- --------------------------------------------------------
 
 --
@@ -124,6 +180,26 @@ CREATE TABLE `order_item` (
   `quantity` int(11) DEFAULT NULL,
   `subtotal` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_item`
+--
+
+INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`, `subtotal`) VALUES
+(12, 6, 1, 1, 6.00),
+(13, 6, 9, 1, 1.00),
+(14, 11, 3, 1, 5.50),
+(15, 11, 10, 1, 1.50),
+(16, 11, 6, 1, 3.00),
+(17, 8, 5, 1, 4.50),
+(18, 8, 6, 1, 3.00),
+(19, 8, 10, 1, 1.50),
+(20, 9, 4, 1, 6.00),
+(21, 9, 8, 1, 3.50),
+(22, 9, 10, 2, 3.00),
+(23, 9, 9, 1, 1.00),
+(24, 11, 2, 1, 4.00),
+(25, 11, 7, 1, 4.00);
 
 -- --------------------------------------------------------
 
@@ -169,8 +245,35 @@ INSERT INTO `product` (`product_id`, `product_name`, `description`, `price`, `ca
 (6, 'Wantan Goreng', 'Crispy Fried Dumplings', 3.00, 'Snacks', 10, 'img/photo_b.jpg', 1),
 (7, 'Bergedil Daging', 'Fried mashed meat potato', 4.00, 'Snacks', 10, 'img/photo_b.jpg', 1),
 (8, 'Kuih Apam Cheese', 'Fluffy cake with cheese', 3.50, 'Snacks', 10, 'img/photo_a.jpg', 1),
-(9, 'Air Mineral', 'Bottled mineral water', 1.00, 'Drinks', 10, 'img/photo_c.jpg', 1),
-(10, 'Dutch Lady Strawberry Milk', 'Chilled strawberry milk drink', 1.50, 'Drinks', 10, 'img/photo_c.jpg', 1);
+(9, 'Air Mineral', 'Bottled mineral water', 2.50, 'Drinks', 10, 'img/photo_c.jpg', 1),
+(10, 'Dutch Lady Strawberry Milk', 'Chilled strawberry milk drink', 2.50, 'Drinks', 10, 'img/photo_c.jpg', 1),
+(11, 'Air Mineral', 'Bottled mineral water', 2.50, 'Drinks', NULL, 'img/drinkingwater.jpg', 1),
+(12, 'Dutch Lady Strawberry Milk', 'Chilled strawberry milk drink', 2.50, 'Drinks', NULL, 'img/strawberrymilk.jpeg', 1),
+(13, 'Bubur Ayam', 'Savory chicken rice porridge', 3.50, 'Heavy Foods', NULL, 'img/BuburAyam2.png', 1),
+(14, 'Seri Muka', 'Glutinous rice with pandan custard', 3.50, 'Snacks', NULL, 'img/SeriMuka.png', 1),
+(15, 'Sandwich Roll Egg', 'Egg sandwich roll', 3.00, 'Snacks', NULL, 'img/SandwichRoleEgg.png', 1),
+(16, 'Pavlova', 'Meringue with cream & fruit', 4.00, 'Snacks', NULL, 'img/Pavlova.png', 1),
+(17, 'Kuih Lapis', 'Colorful layered kuih', 3.50, 'Snacks', NULL, 'img/KuihLapis2.png', 1),
+(18, 'Chicken Wrap', 'Wrap with chicken & veggies', 5.50, 'Heavy Foods', NULL, 'img/ChickenWrap.png', 1),
+(19, 'Kuih Muih Campur', 'Mixed traditional kuih', 2.50, 'Snacks', NULL, 'img/KuihMuihCampur.png', 1),
+(20, 'Nasi Lemak Ayam', 'Coconut rice with sambal', 3.50, 'Heavy Foods', NULL, 'img/NasiLemakAyam.png', 1),
+(21, 'Mee Jawa', 'Javanese noodle in gravy', 4.00, 'Heavy Foods', NULL, 'img/MeeJawa.png', 1),
+(22, 'Loaded Fries', 'Fries with cheese and sauce', 4.50, 'Snacks', NULL, 'img/LoadedFries.png', 1),
+(23, 'Wantan Goreng', 'Crispy fried dumplings', 2.50, 'Snacks', NULL, 'img/WantanGoreng.png', 1),
+(24, 'Bergedil Daging', 'Fried mashed meat potato', 2.00, 'Snacks', NULL, 'img/BergedilDaging.png', 1),
+(25, 'Ice Cream Soda', 'Canned Drinks', 3.50, 'Drinks', NULL, 'img/IceCreamSoda.jpeg', 1),
+(26, 'Strawberry', 'Canned Drinks', 4.00, 'Drinks', NULL, 'img/Strawberry.jpg', 1),
+(27, 'Orange', 'Canned Drinks', 4.50, 'Drinks', NULL, 'img/Orange.png', 1),
+(28, 'Chrysanthemum Tea', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/TehBunga.jpeg', 1),
+(29, 'Nasi Lemak Ayam', 'Coconut rice with sambal', 6.00, 'Heavy Foods', NULL, 'img/NasiLemakAyam.png', 1),
+(30, 'Mee Jawa', 'Javanese noodle in gravy', 6.00, 'Heavy Foods', NULL, 'img/MeeJawa.png', 1),
+(31, 'Loaded Fries', 'Fries with cheese and sauce', 4.50, 'Snacks', NULL, 'img/LoadedFries.png', 1),
+(32, 'Wantan Goreng', 'Crispy fried dumplings', 3.00, 'Snacks', NULL, 'img/WantanGoreng.png', 1),
+(33, 'Bergedil Daging', 'Fried mashed meat potato', 4.00, 'Snacks', NULL, 'img/BergedilDaging.png', 1),
+(34, 'Ice Cream Soda', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/IceCreamSoda.jpeg', 1),
+(35, 'Strawberry', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/Strawberry.jpg', 1),
+(36, 'Orange', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/Orange.png', 1),
+(37, 'Chrysanthemum Tea', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/TehBunga.jpeg', 1);
 
 -- --------------------------------------------------------
 
@@ -230,7 +333,8 @@ INSERT INTO `user` (`user_id`, `full_name`, `email`, `password`, `user_type`, `r
 (7, 'Aqilah Jolihi', 'aqij204@gmail.com', '$2y$10$JXV2UD5mjOb9sV5Uf4RHJuHZ20XAuknjix0v5BIUbfER525DB4BKq', 'registered', '2025-06-09 20:44:36'),
 (8, '', '', '$2y$10$pEHu8FRBk1JbfkCZqtgl9upQ7KwdPOh8oBCpqDf4gNjPZpb9KkXmW', 'registered', '2025-06-10 07:25:58'),
 (9, 'Eizlyn Ismail', 'eizlynlyn@gmail.com', '$2y$10$fyMhUED6VF5d2euneGjMw.TdsWH7iB4.p5CU9dzJOV/KSxUgyv6HG', 'registered', '2025-06-10 09:06:20'),
-(10, 'Nurul Hazwani', 'nurulhazwaninh06@gmail.com', '$2y$10$UuzF.TyIIaznIft2WC1TZO3.1wRH62HzbHkHOjkF.kerwJmZ9GuiC', NULL, NULL);
+(10, 'Nurul Hazwani', 'nurulhazwaninh06@gmail.com', '$2y$10$UuzF.TyIIaznIft2WC1TZO3.1wRH62HzbHkHOjkF.kerwJmZ9GuiC', NULL, NULL),
+(11, 'Jennie Kim', 'jennie@example.com', '$2y$10$WHWI7emNWnICdRK6IWrhEO5igIl.jAJsDOfWszQmNcUE1V.TwyBWa', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -240,7 +344,8 @@ INSERT INTO `user` (`user_id`, `full_name`, `email`, `password`, `user_type`, `r
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`admin_id`);
+  ADD PRIMARY KEY (`admin_id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `attendance`
@@ -256,6 +361,13 @@ ALTER TABLE `employee`
   ADD PRIMARY KEY (`employee_id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `schedule_id` (`schedule_id`);
+
+--
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`employee_id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `feedback`
@@ -328,7 +440,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `attendance`
@@ -343,6 +455,12 @@ ALTER TABLE `employee`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `employees`
+--
+ALTER TABLE `employees`
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
@@ -352,19 +470,19 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT for table `financial_report`
 --
 ALTER TABLE `financial_report`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -376,7 +494,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `schedule`
@@ -388,7 +506,7 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
