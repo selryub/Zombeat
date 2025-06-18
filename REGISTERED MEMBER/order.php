@@ -143,7 +143,7 @@ foreach ($categories as $cat) {
 <?php if ($result && $result->num_rows > 0): ?>
     <?php while ($row = $result->fetch_assoc()): ?>
         <div class="card">
-            <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
+            <img src="/Zombeat/PUBLIC/<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
             <p class="item-name"><?= htmlspecialchars($row['product_name']) ?></p>
             <div class="card-text">
                 <p class="item-desc"><?= htmlspecialchars($row['description']) ?></p>
