@@ -1,12 +1,6 @@
 <?php
-session_start();
 require_once '../admin/db_connect.php'; // update path as needed
-
-// Redirect if not logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+include 'regmem_frame.php';
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -64,62 +58,6 @@ if ($result) {
 </head>
 <body class="bg-secondary min-h-screen">
 
-<!-- TODO: Insert your navbar here -->
- <!-- Header -->
-<header class="navbar">
-<div class="left-header">
-  <div class="menu-icon" onclick="toggleSidebar()">☰</div>
-  <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
-  <div class="logo-text">FCSIT KIOSK</div>
-</div>
-
-  <nav>
-    <a href="index.php">HOME</a>
-    <a href="menu_page.php">MENU</a>
-    <a href="about.php">ABOUT</a>
-    <a href="../REGISTERED MEMBER/review.html">REVIEWS</a>
-  </nav>
-  <div class="icons">
-    <img src="img/cart.png" alt="cart" class="cart-img">
-    <a href="/Zombeat/PUBLIC/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
-    <span class="icon"></span>
-  </div>
-</header>
-
-<div class="page-wrapper">
-<!-- Sidebar -->
-<div id="sidebar" class="sidebar">
-
-  <a href="otherpage.html">
-  <img src="img/account.png" alt="Clickable Image Button"  class="acc-dash">
-  <p class = "hellouser">HELLO USER !</p>
-  </a>
-
-  <a href="menu_page.html" class="menuall">
-    <img src="img/layout.png" class="menu">
-    <span class="dash-text">MENU</span>
-  </a>
-  <a href="#">
-    <img src="img/list.png" class="orders">
-    <span class="dash-text">ORDERS</span>
-  </a>
-  <a href="#">
-    <img src="img/card plus.png" class="billing">
-    <span class="dash-text">BILLING</span>
-  </a>
-  <a href="#">
-    <img src="img/gps.png" class="trackOrders">
-    <span class="dash-text">TRACK ORDERS</span>
-  </a>
-  <a href="#">
-    <img src="img/profile2.png" class="profile">
-    <span class="dash-text">PROFILE</span>
-  </a>
-  <a href="#">
-      <img src="img/logout.png" class="logout">
-  <span class="dash-text">LOGOUT</span>
-  </a>
-</div>
 
 <main class="max-w-6xl mx-auto px-4 pt-20 pb-12 flex flex-col md:flex-row gap-8">
     <!-- Rating & Feedback -->

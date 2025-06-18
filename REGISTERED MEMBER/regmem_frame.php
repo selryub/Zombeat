@@ -67,7 +67,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "registered member") {
         <a href="../PUBLIC/index.php">HOME</a>
         <a href="menu_page.php">MENU</a>
         <a href="about.php">ABOUT</a>
-        <a href="review.html">REVIEWS</a>
+        <a href="review.php">REVIEWS</a>
     </nav>
     <div class="icons">
     <!-- <input type="text" placeholder=" 🔍︎ Search" class="search-box"> -->

@@ -51,7 +51,7 @@ nav{
   font-size: 18px;
 }
 
-.setting-img, .noti-img, .acc-img {
+.setting-img, .noti-img, .acc-img , .cart-img{
   width: auto; 
   height: 30px;   
   object-fit: contain;
@@ -181,13 +181,6 @@ nav{
 .left-header {
   display: flex;
   align-items: center;
-}
-
-.menu-icon {
-  font-size: 24px;
-  cursor: pointer;
-  margin-right: 10px;
-  color: #000;
 }
 
 .logo-img {
