@@ -56,7 +56,7 @@
     <a href="index.php">HOME</a>
     <a href="menu_page.php">MENU</a>
     <a href="about.php">ABOUT</a>
-    <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
+    <a href="../REGISTERED MEMBER/review.html">REVIEWS</a>
   </nav>
   <div class="icons">
     <img src="img/cart.png" alt="cart" class="cart-img">
