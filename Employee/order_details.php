@@ -146,7 +146,7 @@ require "../admin/db_connect.php"
   </div>
 
   <!-- Button -->
-  <a href="fcsit_kiosk/Zombeat/REGISTERED MEMBER/order.php" class="btn-order-again">ORDER AGAIN</a>
+  <a href="/Zombeat/REGISTERED MEMBER/order.php" class="btn-order-again">ORDER AGAIN</a>
 </div>
 
 </body>
