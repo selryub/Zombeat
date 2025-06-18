@@ -86,48 +86,54 @@ $raw_data = $hist_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $hist_data = [];
 
 //Format data for Chart.js
+$hist_data = [];
 if ($period == 'daily') {
-    $hours = range(8, 17);    //hourly slots: 8 AM to PM
+    $hours = range(8, 17);
     foreach ($hours as $h) {
         $label = sprintf("%02d:00", $h);
-        $hist_data[$label] = ['revenue' => 0];
+        $hist_data[$label] = ['items_sold' => 0, 'revenue' => 0];
     }
     foreach ($raw_data as $row) {
         $hour = (new DateTime($row['label']))->format('H:00');
         if (isset($hist_data[$hour])) {
+            $hist_data[$hour]['items_sold'] += $row['items_sold'];
             $hist_data[$hour]['revenue'] += $row['revenue'];
         }
     }
 } elseif ($period == 'weekly') {
     $weekdays = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
     foreach ($weekdays as $day) {
-        $hist_data[$day] = ['revenue' => 0];
+        $hist_data[$day] = ['items_sold' => 0, 'revenue' => 0];
     }
     foreach ($raw_data as $row) {
-        $day = $row['label'];
+        $day = (new DateTime($row['label']))->format('l');
+        $hist_data[$day]['items_sold'] += $row['items_sold'];
         $hist_data[$day]['revenue'] += $row['revenue'];
     }
 } else {
     $hist_data = [
-        'Week 1' => ['revenue' => 0],
-        'Week 2' => ['revenue' => 0],
-        'Week 3' => ['revenue' => 0],
-        'Week 4' => ['revenue' => 0]
+        'Week 1' => ['items_sold' => 0, 'revenue' => 0],
+        'Week 2' => ['items_sold' => 0, 'revenue' => 0],
+        'Week 3' => ['items_sold' => 0, 'revenue' => 0],
+        'Week 4' => ['items_sold' => 0, 'revenue' => 0]
     ];
     foreach ($raw_data as $row) {
       $weekNum = (int)$row['label'];
       $week = 'Week ' . $weekNum;
+
       if (isset($hist_data[$week])) {
-          $hist_data[$week]['revenue'] += $row['revenue'];
+          $hist_data[$week]['items_sold'] += $row['items_sold'];
+          $hist_data[$week]['revenue'] += $row['revenue']; // Previously you did 'items_sold' here again — fixed!
       }
     }
 }
 
-//Convert data into array format for JavaScript
+//Prepare data array for chart display in JavaScript
 $hist_data_array = [];
 foreach ($hist_data as $label => $row) {
   $hist_data_array[] = [
     'label' => $label,
+    'items_sold' => $row['items_sold'],
     'revenue' => $row['revenue']
   ];
 }
