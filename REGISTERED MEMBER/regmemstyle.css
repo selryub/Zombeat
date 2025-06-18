@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #d4e3fc;
+  height: 100%;
 }
 
 /*navbar*/
@@ -92,14 +93,13 @@ nav{
 }
 
 .sidebar a {
-  display: flex;
+  display: block;
   align-items: center;
   gap: 10px;
   padding: 12px 20px;
   text-decoration: none;
   font-size: 17px;
   color: #000000;
-  display: block;
   transition: 0.2s;
   margin-bottom: 15px;
   line-height: 1;
@@ -191,13 +191,13 @@ nav{
 }
 
 .logo-img {
-  height: 70px;
+  height: 30px;
 }
 
 .logo-text {
   font-weight: bold;
   font-size: 28px;
-  font-family: Georgia; 
+  font-family: Arial; 
   color: #000;
   padding-left: 20px;
 }

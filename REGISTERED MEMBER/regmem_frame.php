@@ -64,14 +64,26 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "registered member") {
 </div>
 
     <nav>
-        <a href="#">HOME</a>
+        <a href="../PUBLIC/index.php">HOME</a>
         <a href="menu_page.php">MENU</a>
         <a href="about.php">ABOUT</a>
         <a href="review.html">REVIEWS</a>
     </nav>
+    <div class="icons">
+    <!-- <input type="text" placeholder=" 🔍︎ Search" class="search-box"> -->
+    <img src="img/cart.png" alt="cart" class="cart-img">
+    <a href="/Zombeat/PUBLIC/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
+    <span class="icon"></span>
+  </div>
 
 </header>
 
+
+<script>
+function confirmLogout() {
+    return confirm("Are you sure you want to log out?");
+}
+</script>
     <!--Link to JavaScript-->
     <script src="regmem.js"></script>
 

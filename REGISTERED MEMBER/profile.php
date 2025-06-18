@@ -212,7 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </style>
 </head>
 <body>
-<?php include "member_frame.php"; ?>
+<?php include "regmem_frame.php"; ?>
 
 <!-- Success Message -->
 <?php if (isset($_GET['success'])): ?>
