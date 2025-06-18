@@ -48,7 +48,7 @@
 <header class="navbar">
 <div class="left-header">
   <!-- <div class="menu-icon" onclick="toggleSidebar()">☰</div> -->
-  <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
+  <a href="/Zombeat/PUBLIC/login.php"></a><img src="img/kiosk.jpg" alt="Logo" class="logo-img">
   <div class="logo-text">FCSIT KIOSK</div>
 </div>
 
@@ -56,7 +56,7 @@
     <a href="index.php">HOME</a>
     <a href="menu_page.php">MENU</a>
     <a href="about.php">ABOUT</a>
-    <a href="#">REVIEWS</a>
+    <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
   </nav>
   <div class="icons">
     <!-- <input type="text" placeholder=" 🔍︎ Search" class="search-box"> -->

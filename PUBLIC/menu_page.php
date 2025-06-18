@@ -3,7 +3,7 @@ session_start();
 
 // If user is logged in, redirect to registered menu
 if (isset($_SESSION['user_id'])) {
-    header('Location: /Zombeat/REGISTERED MEMBER/menu_page.php');
+    header('Location: /Zombeat/REGISTERED MEMBER/order.php');
     exit;
 }
 
