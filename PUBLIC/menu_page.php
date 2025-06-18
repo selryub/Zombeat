@@ -123,12 +123,11 @@ $conn->close();
 </header>
 
 <div class="menu-header-bar">
-  <h2>MENU</h2>
+  <h2>PRODUCT</h2>
   <form method="GET" action="menu_page.php">
   <input type="text" name="search" class="search-menu" placeholder=" 🔍︎ Search" value="<?php echo htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES); ?>">
 </form>
 </div>
-
 <div class="menu-container">
   <div class="menu-text">
 <div class="categories">
@@ -150,7 +149,7 @@ foreach ($categories as $cat) {
                 <p class="item-desc"><?= htmlspecialchars($row['description']) ?></p>
                 <div class="price-button">
                     <strong class="price">RM <?= number_format($row['price'], 2) ?></strong>
-                    <button>+</button>
+                    <button class="add-to-cart-btn" data-require-login="true">+</button>
                 </div>
             </div>
         </div>
