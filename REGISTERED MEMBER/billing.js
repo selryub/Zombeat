@@ -1,4 +1,3 @@
-// Automatically run when the page is ready
 document.addEventListener('DOMContentLoaded', () => {
     const receiptElement = document.querySelector('.receipt-container');
     if (receiptElement) {

@@ -49,7 +49,7 @@
 }
 
 .categories a:hover {
-  text-decoration: underline; /* Add underline on hover if you like */
+  text-decoration: underline; 
 }
 
 .items {
