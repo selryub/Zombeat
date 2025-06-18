@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Profile</title>
+    <title>Admin - Employee List</title>
     <link rel="stylesheet" href="employeelist.css">
 </head>
 <body>
