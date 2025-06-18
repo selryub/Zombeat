@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
 
     if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['admin_id'];
+        $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = 'user';
 
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 
     if ($admin && password_verify($password, $admin['password'])) {
-        $_SESSION['admin_id'] = $admin['admin_id'];
+        $_SESSION['user_id'] = $admin['user_id'];
         $_SESSION['email'] = $admin['email'];
         $_SESSION['role'] = 'admin';
 
