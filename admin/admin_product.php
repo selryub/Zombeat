@@ -142,7 +142,7 @@ foreach ($categories as $cat) {
 <div class="items">
   <?php while($row = mysqli_fetch_assoc($result)): ?>
     <div class="card">
-      <img src="img/<?= htmlspecialchars($row['image_url']) ?>" alt="">
+      <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="">
       <p class="item-name"><?= htmlspecialchars($row['product_name']) ?></p>
       <div class="card-text">
         <p class="item-desc"><?= htmlspecialchars($row['description']) ?></p>

@@ -1,13 +1,6 @@
 <?php
-session_start();
-
-// If user is logged in, redirect to registered menu
-if (isset($_SESSION['user_id'])) {
-    header('Location: /Zombeat/REGISTERED MEMBER/order.php');
-    exit;
-}
-
-require_once '../admin/db_connect.php';
+require '../admin/db_connect.php';
+include 'regmem_frame.php';
 
 // Get category and search input from URL
 $category = $_GET['category'] ?? 'ALL';
@@ -58,69 +51,6 @@ $conn->close();
 </head>
 <body>
 
-<div class="page-wrapper">
-<!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-
-  <a href="otherpage.html">
-  <img src="img/account.png" alt="Clickable Image Button"  class="acc-dash">
-  <p class = "hellouser">HELLO USER !</p>
-  </a>
-
-  <a href="menu_page.html" class="menuall">
-    <img src="img/layout.png" class="menu">
-    <span class="dash-text">MENU</span>
-  </a>
-
-  <a href="#">
-    <img src="img/list.png" class="orders">
-    <span class="dash-text">ORDERS</span>
-  </a>
-
-  <a href="#">
-    <img src="img/card plus.png" class="billing">
-    <span class="dash-text">BILLING</span>
-  </a>
-
-  <a href="#">
-    <img src="img/gps.png" class="trackOrders">
-    <span class="dash-text">TRACK ORDERS</span>
-  </a>
-
-  <a href="#">
-    <img src="img/profile2.png" class="profile">
-    <span class="dash-text">PROFILE</span>
-  </a>
-
-  <a href="#">
-      <img src="img/logout.png" class="logout">
-  <span class="dash-text">LOGOUT</span>
-  </a>
-</div>
-
-<!-- Header -->
-<header class="navbar">
-<div class="left-header">
-  <!-- <div class="menu-icon" onclick="toggleSidebar()">☰</div> -->
-  <a href="index.php">
-  <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
-  </a>
-  <div class="logo-text">FCSIT KIOSK</div>
-</div>
-
-  <nav>
-    <a href="index.php">HOME</a>
-    <a href="menu_page.php">MENU</a>
-    <a href="about.php">ABOUT</a>
-    <a href="review.html">REVIEWS</a>
-  </nav>
-  <div class="icons">
-    <img src="img/cart.png" alt="cart" class="cart-img">
-    <a href="/Zombeat/REGISTER MEMBER/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
-    <span class="icon"></span>
-  </div>
-</header>
-
 <div class="menu-header-bar">
   <h2>MENU</h2>
   <form method="GET" action="menu_page.php">
@@ -143,13 +73,13 @@ foreach ($categories as $cat) {
 <?php if ($result && $result->num_rows > 0): ?>
     <?php while ($row = $result->fetch_assoc()): ?>
         <div class="card">
-            <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
+            <img src="/Zombeat/PUBLIC/<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
             <p class="item-name"><?= htmlspecialchars($row['product_name']) ?></p>
             <div class="card-text">
                 <p class="item-desc"><?= htmlspecialchars($row['description']) ?></p>
                 <div class="price-button">
                     <strong class="price">RM <?= number_format($row['price'], 2) ?></strong>
-                    <button>+</button>
+                    <button class="add-to-cart-btn" onclick="addToCart(<?= $row['product_id'] ?>, '<?= addslashes($row['product_name']) ?>', <?= $row['price'] ?>)">+</button>
                 </div>
             </div>
         </div>
@@ -162,7 +92,6 @@ foreach ($categories as $cat) {
 </div>
 
 </div>
-
 <footer class="footer">
   <div class="contact">
     <p>CONTACT</p>
@@ -189,7 +118,6 @@ foreach ($categories as $cat) {
   <p>SATURDAY & SUNDAY: CLOSED</p>
 </div>
 </footer>
-
 <script>
 function addToCart(productId, productName, price) {
     fetch('cart_handler.php', {
@@ -207,27 +135,12 @@ function addToCart(productId, productName, price) {
             alert(data.message || 'Error adding item to cart');
         }
     })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error adding item to cart');
-    });
 }
 
 function viewCart() {
     window.location.href = 'cart.php';
 }
 
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('active');
-}
-
-document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-    button.addEventListener('click', function () {
-        alert('Please login first to add items to your cart.');
-        window.location.href = '/Zombeat/REGISTERED MEMBER/login.php';
-    });
-});
 </script>
 </body>
 </html>
