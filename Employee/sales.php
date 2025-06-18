@@ -158,7 +158,7 @@ $popularRes = $conn->query($sql);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="adminstyle.css">
+  <link rel="stylesheet" href="employeestyle.css">
   <link rel="stylesheet" href="sales.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 </head>

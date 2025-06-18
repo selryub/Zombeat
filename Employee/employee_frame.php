@@ -20,7 +20,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
 <div id="sidebar" class="sidebar">
 
     <div class="employee-header">
-        <img src="account.png" alt="Employee Image"  class="acc-dash">
+        <img src="img/account.png" alt="Employee Image"  class="acc-dash">
         <a href = "employee_dashboard.php" class="hellouser"> HELLO EMPLOYEE !</a>
     </div>
 
@@ -50,7 +50,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
     </a>
 
     <a href="logout.php" onclick="return confirmLogout()">
-        <img src="logout.png" class="logout">
+        <img src="img/logout.png" class="logout">
         <span class="dash-text">LOGOUT</span>
     </a>
 </div>
@@ -59,7 +59,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
 <header class="navbar">
 <div class="left-header">
     <div class="menu-icon" onclick="toggleSidebar()">☰</div>
-    <img src="kiosk.jpg" alt="Logo" class="logo-img">
+    <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
     <div class="logo-text">FCSIT KIOSK</div>
 </div>
 
@@ -72,12 +72,12 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
     <div class="icons">
         <input type="text" placeholder=" 🔍︎ Search" class="search-box">
         <div class="settings-container">
-            <img src="settings.png" alt="Settings" class="setting-img" id="settings-toggle">    
+            <img src="img/settings.png" alt="Settings" class="setting-img" id="settings-toggle">    
                 </div>
         <a href="admin_noti.php">
-            <img src="notification.png" alt="noti" class="noti-img"></a>
+            <img src="img/notification.png" alt="noti" class="noti-img"></a>
         <a href="profile_page.php">
-            <img src="account.png" alt="account" class="acc-img"></a>
+            <img src="img/account.png" alt="account" class="acc-img"></a>
         <span class="icon"></span>
     </div>
 </header>
