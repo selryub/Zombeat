@@ -2,9 +2,11 @@
 require "db_connect.php";
 include "admin_frame.php";
 
+//Get period parameter
 $period = $_GET['period'] ?? 'daily';
 $now = new DateTime();
 
+//Determine start & end date based on selected period
 switch ($period) {
   case 'weekly':
     $start = $now->modify('Monday this week')->setTime(0, 0);
@@ -22,15 +24,17 @@ switch ($period) {
 $startFormatted = $start->format('Y-m-d H:i:s');
 $endFormatted = $end->format('Y-m-d H:i:s');
 
+//Get total items sold & total revenue within selected period
 $stmt = $conn->prepare("SELECT SUM(oi.quantity) AS items_sold, SUM(o.total_amount) AS revenue FROM order_item oi JOIN orders o ON oi.order_id = o.order_id WHERE o.order_date BETWEEN ? AND ?");
 $stmt->bind_param("ss", $startFormatted, $endFormatted);
 $stmt->execute();
 $data = $stmt->get_result()->fetch_assoc();
 $items_sold = $data['items_sold'] ?: 0;
 $revenue = $data['revenue'] ?: 0;
-$profit = $items_sold * 0.20;
+$profit = $items_sold * 0.20;  //Profit is RM0.20 per item sold
 
-if ($period == 'monthly') {
+//Get data history for chart (selected period)
+if ($period == 'monthly') {   //Group by week num in the month
   $query = "
     SELECT 
       FLOOR((DAY(o.order_date) - 1) / 7) + 1 AS label,
@@ -44,7 +48,7 @@ if ($period == 'monthly') {
   ";
   $hist_stmt = $conn->prepare($query);
   $hist_stmt->bind_param("ss", $startFormatted, $endFormatted);
-} elseif ($period == 'weekly') {
+} elseif ($period == 'weekly') {    //Group by day of the week
   $query = "
     SELECT 
       DAYNAME(o.order_date) AS label,
@@ -58,7 +62,7 @@ if ($period == 'monthly') {
   ";
   $hist_stmt = $conn->prepare($query);
   $hist_stmt->bind_param("ss", $startFormatted, $endFormatted);
-} else {
+} else {      //Group by hour (daily)
   $query = "
     SELECT 
       DATE_FORMAT(o.order_date, ?) AS label,
@@ -75,13 +79,15 @@ if ($period == 'monthly') {
   $hist_stmt->bind_param("sss", $dateFormat, $startFormatted, $endFormatted);
 }
 
+//Execute and get chart data
 $hist_stmt->execute();
 $raw_data = $hist_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 $hist_data = [];
 
+//Format data for Chart.js
 if ($period == 'daily') {
-    $hours = range(8, 17);
+    $hours = range(8, 17);    //hourly slots: 8 AM to PM
     foreach ($hours as $h) {
         $label = sprintf("%02d:00", $h);
         $hist_data[$label] = ['revenue' => 0];
@@ -117,6 +123,7 @@ if ($period == 'daily') {
     }
 }
 
+//Convert data into array format for JavaScript
 $hist_data_array = [];
 foreach ($hist_data as $label => $row) {
   $hist_data_array[] = [
@@ -125,7 +132,7 @@ foreach ($hist_data as $label => $row) {
   ];
 }
 
-// Recent users
+// Get most recent user registration within date range
 $stmt = $conn->prepare("SELECT full_name, registration_date FROM user WHERE registration_date >= ? ORDER BY registration_date DESC LIMIT 5");
 $stmt->bind_param("s", $startFormatted);
 $stmt->execute();
@@ -137,6 +144,7 @@ $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin - Dashboard</title>
     <link rel="stylesheet" href="admindashboard.css">
     <link rel="stylesheet" href="adminstyle.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">

@@ -1,9 +1,11 @@
 <?php
 require "db_connect.php";
 
+//Get selected period or default to daily
 $period = $_GET["period"] ?? "daily";
 $now = new DateTime();
 
+//Determine date range (selected period)
 switch ($period) {
   case 'weekly':
     $start = $now->modify('Monday this week')->setTime(0, 0);
@@ -33,12 +35,14 @@ $stmt = $conn->prepare("
 $stmt->bind_param("ss", $startFormatted, $endFormatted);
 $stmt->execute();
 $data = $stmt->get_result()->fetch_assoc();
+
+//Assign results
 $items_sold = $data['items_sold'] ?: 0;
 $revenue = $data['revenue'] ?: 0;
 $total_orders = $data['total_orders'] ?: 0;
-$profit = $items_sold * 0.20;
+$profit = $items_sold * 0.20;   //Fixed profit
 
-// Historical Chart Query
+// Get data history (selected period)
 if ($period == 'monthly') {
   $query = "
     SELECT 
@@ -136,6 +140,7 @@ foreach ($hist_data as $label => $row) {
   ];
 }
 
+//Purchase history table
 $sql = "SELECT o.order_id, o.order_date, o.total_amount, u.full_name
         FROM orders o
         JOIN user u ON o.user_id = u.user_id
@@ -158,6 +163,7 @@ $popularRes = $conn->query($sql);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - Sales</title>
   <link rel="stylesheet" href="adminstyle.css">
   <link rel="stylesheet" href="sales.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>

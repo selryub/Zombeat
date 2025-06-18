@@ -2,8 +2,11 @@
 require 'db_connect.php';
 require 'fpdf/fpdf.php';
 
+//Get selected period or default to daily
 $period = $_GET['period'] ?? 'daily';
 $now = new DateTime();
+
+//Define date range(selected period)
 switch ($period) {
   case 'weekly':
     $start = $now->modify('Monday this week')->setTime(0, 0);
@@ -23,14 +26,18 @@ switch ($period) {
 $startFormatted = $start->format('Y-m-d H:i:s');
 $endFormatted = $end->format('Y-m-d H:i:s');
 
+//Query to calculate total items & revenue
 $stmt = $conn->prepare("SELECT SUM(oi.quantity) AS items_sold, SUM(o.total_amount) AS revenue FROM order_item oi JOIN orders o ON oi.order_id = o.order_id WHERE o.order_date BETWEEN ? AND ?");
 $stmt->bind_param("ss", $startFormatted, $endFormatted);
 $stmt->execute();
 $data = $stmt->get_result()->fetch_assoc();
+
+//If no data, set to 0
 $items_sold = $data['items_sold'] ?: 0;
 $revenue = $data['revenue'] ?: 0;
-$profit = $items_sold * 0.20;
+$profit = $items_sold * 0.20;   //Fixed profit: RM0.20 per item
 
+//Get data history for Chart.js (selected period)
 if ($period == 'monthly') {
   $query = "
     SELECT 
@@ -77,9 +84,11 @@ else {
   $hist_stmt->bind_param("sss", $dateFormat, $startFormatted, $endFormatted);
 }
 
+//Execute data history query and fetch all rows
 $hist_stmt->execute();
 $raw_data = $hist_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
+//Initialize data history based on period
 $hist_data = [];
 if ($period == 'daily') {
     $hours = range(8, 17);
@@ -122,6 +131,7 @@ if ($period == 'daily') {
     }
 }
 
+//Generate PDF
 if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
   $pdf = new FPDF();
   $pdf->AddPage();
@@ -129,6 +139,7 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
   $pdf->Cell(0, 10, 'FCSIT Kiosk Financial Report (' . ucfirst($period) . ')', 0, 1, 'C');
   $pdf->Ln(10);
 
+  //Summary Section
   $pdf->SetFont('Arial', '', 12);
   $pdf->Cell(50, 10, 'Items Sold :', 0, 0);
   $pdf->Cell(40, 10, $items_sold, 0, 1);
@@ -138,6 +149,7 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
   $pdf->Cell(40, 10, number_format($profit, 2), 0, 1);
   $pdf->Ln(10);
 
+  //Table header
   $pdf->SetFont('Arial', 'B', 12);
   $pdf->Cell(40, 10, 'Date', 1, align:'C');
   $pdf->Cell(40, 10, 'Items Sold', 1, align:'C');
@@ -145,6 +157,7 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
   $pdf->Cell(50, 10, 'Profit (RM)', 1, align:'C');
   $pdf->Ln();
 
+  //Table rows
   $pdf->SetFont('Arial', '', 12);
   foreach ($hist_data as $label => $r) {
     $date_profit = $r['items_sold'] * 0.20;
@@ -155,10 +168,12 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
     $pdf->Ln();
   }
 
+  //Output and force download of PDF
   $pdf->Output('D', 'financial_report_' . $period . '.pdf');
   exit;
 }
 
+//Prepare data array for chart display in JavaScript
 $hist_data_array = [];
 foreach ($hist_data as $label => $row) {
   $hist_data_array[] = [
@@ -174,7 +189,7 @@ foreach ($hist_data as $label => $row) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Financial Report</title>
+  <title>Admin - Financial Report</title>
   <link rel="stylesheet" href="financial.css">
   <link rel="stylesheet" href="adminstyle.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
