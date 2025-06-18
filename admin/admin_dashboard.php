@@ -173,32 +173,38 @@ $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         </div>
 
         <div class="dashboard-middle">
-            <div class="chart-container">
+            <div class="left-panel">
+                <div class="chart-container">
                 <canvas id="salesChart" width="1000" height="500"></canvas>
+                </div>
             </div>
-            <div class="calendar-container">
-                <div id="calendar"></div>
+            <div class="right-panel">
+                <div class="calendar-container">
+                    <div id="calendar"></div>
+                </div>
+                <div class="registration-container">
+                    <h3>Recent Registrations</h3>
+                            <div class="table-scroll">
+                                <table class="user-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Registered On</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($users as $u): ?>
+                                            <tr>
+                                                <td><?= htmlspecialchars($u['full_name']) ?></td>
+                                                <td><?= htmlspecialchars($u['registration_date']) ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                </div>
+                
             </div>
-        </div>
-
-        <h3>Recent Registrations</h3>
-        <div class="table-scroll">
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Registered On</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($users as $u): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($u['full_name']) ?></td>
-                            <td><?= htmlspecialchars($u['registration_date']) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
         </div>
 
         <script>

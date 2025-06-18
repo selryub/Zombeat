@@ -1,5 +1,6 @@
 .content { 
     padding: 20px; 
+    font-family: Verdana;
 }
 
 .filters {
@@ -35,8 +36,10 @@
 
 .cards { 
     display: flex;
+    flex-wrap: wrap;
     gap: 20px; 
     margin-bottom: 30px;
+    justify-content:space-around;
 }
 
 .card { 
@@ -46,6 +49,7 @@
     border-radius: 8px; 
     text-align: center; 
     font-size: 1.2em;
+    flex-direction: column;
 }
 
 .card-link {
@@ -56,63 +60,82 @@
 .card-link:hover .card {
     background-color: #e0e0e0;
     cursor: pointer;
-    flex-wrap: wrap;
+}
+
+#salesChart {
+  width: 70%;
+  max-width: 900px;
+}
+
+#calendar {
+  width: 30%;
+  min-width: 50px;
+  margin-top: auto;
+} 
+
+.dashboard-middle {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  align-items: flex-start;
+}
+
+.left-panel {
+  flex: 2;
+}
+
+.right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .chart-container {
-  margin: 30px;
-} 
-
-.recent-users { 
-    list-style: disc; 
-    padding-left: 20px; 
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
-.table-scroll {
-  max-height: 200px; 
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.registration-container {
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  text-align: center;
 }
 
 .user-table {
   width: 100%;
   border-collapse: collapse;
-  margin-left: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.user-table thead {
+  background-color: #a19353; 
+  color: white;
 }
 
 .user-table th, .user-table td {
-  padding: 10px;
+  padding: 5px;
   border-bottom: 1px solid #ddd;
-  background-color: #fff;
 }
 
-.user-table th {
-  background-color: #f0f0f0;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+.user-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.dashboard-middle {
-  gap: 5px;
-  justify-content: center;
-}
-
-
-
-/*.calendar-container {
-  margin-top: auto;
-  margin-right: 20px;
-  background-color: #fff;
-  padding: 15px;
+.table-scroll {
+  max-height: 100px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  max-width: 200px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 @media (max-width: 768px) {
   .cards {
     flex-direction: column;
   }
-} */
+} 

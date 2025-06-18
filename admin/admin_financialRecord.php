@@ -126,32 +126,32 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
   $pdf = new FPDF();
   $pdf->AddPage();
   $pdf->SetFont('Arial', 'B', 16);
-  $pdf->Cell(0, 10, 'Financial Report (' . ucfirst($period) . ')', 0, 1, 'C');
+  $pdf->Cell(0, 10, 'FCSIT Kiosk Financial Report (' . ucfirst($period) . ')', 0, 1, 'C');
   $pdf->Ln(10);
 
   $pdf->SetFont('Arial', '', 12);
-  $pdf->Cell(50, 10, 'Items Sold:', 0, 0);
+  $pdf->Cell(50, 10, 'Items Sold :', 0, 0);
   $pdf->Cell(40, 10, $items_sold, 0, 1);
-  $pdf->Cell(50, 10, 'Revenue (RM):', 0, 0);
+  $pdf->Cell(50, 10, 'Revenue (RM) :', 0, 0);
   $pdf->Cell(40, 10, number_format($revenue, 2), 0, 1);
-  $pdf->Cell(50, 10, 'Net Profit (RM):', 0, 0);
+  $pdf->Cell(50, 10, 'Net Profit (RM) :', 0, 0);
   $pdf->Cell(40, 10, number_format($profit, 2), 0, 1);
   $pdf->Ln(10);
 
   $pdf->SetFont('Arial', 'B', 12);
-  $pdf->Cell(40, 10, 'Date', 1);
-  $pdf->Cell(40, 10, 'Items Sold', 1);
-  $pdf->Cell(50, 10, 'Revenue (RM)', 1);
-  $pdf->Cell(50, 10, 'Profit (RM)', 1);
+  $pdf->Cell(40, 10, 'Date', 1, align:'C');
+  $pdf->Cell(40, 10, 'Items Sold', 1, align:'C');
+  $pdf->Cell(50, 10, 'Revenue (RM)', 1, align:'C');
+  $pdf->Cell(50, 10, 'Profit (RM)', 1, align:'C');
   $pdf->Ln();
 
   $pdf->SetFont('Arial', '', 12);
   foreach ($hist_data as $label => $r) {
     $date_profit = $r['items_sold'] * 0.20;
-    $pdf->Cell(40, 10, $label, 1);
-    $pdf->Cell(40, 10, $r['items_sold'], 1);
-    $pdf->Cell(50, 10, number_format($r['revenue'], 2), 1);
-    $pdf->Cell(50, 10, number_format($date_profit, 2), 1);
+    $pdf->Cell(40, 10, $label, 1, align:'C');
+    $pdf->Cell(40, 10, $r['items_sold'], 1, align:'C');
+    $pdf->Cell(50, 10, number_format($r['revenue'], 2), 1, align:'C');
+    $pdf->Cell(50, 10, number_format($date_profit, 2), 1, align:'C');
     $pdf->Ln();
   }
 
