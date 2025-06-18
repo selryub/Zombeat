@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <p>Already Have An Account? <a href="login.php">Login</a></p>
       </div>
     <div class="image-section">
-      <img src="img/kiosk.jpg" class="kioskImage">
+      <img src="img/FIT.JPG" class="kioskImage">
     </div>
   </div>
 

@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <p>Don't have an account? <a href="register.php">Sign Up</a></p>
     </div>
     <div class="image-section">
-      <div class="image-placeholder"></div>
+      <img src="img/kiosk2.JPG" class="logoImage">
     </div>
   </div>
 

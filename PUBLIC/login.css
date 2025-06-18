@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #f0f2f5;
+  background-color: #ffffff;
 }
 
 .container {
@@ -139,16 +139,16 @@ button[type="submit"] {
 }
 
 .image-section {
-  width: 50%;
-  background-color: #e0e0e0;
+  flex: 1;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  overflow: hidden;
 }
 
-.image-placeholder {
-  width: 150px;
-  height: 150px;
-  background: linear-gradient(to top right, #aaa, #ccc);
-  border-radius: 20px;
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensures it covers the area */
 }

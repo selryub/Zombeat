@@ -81,7 +81,7 @@
       <img src="img/photo_b.jpg">
     </div>
     <div class="card">
-      <img src="img/photo_c.jpg">
+      <img src="img/ChickenWrap.png">
     </div>
   </section>
 

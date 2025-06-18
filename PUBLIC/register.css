@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #f0f2f5;
+  background-color: #ffffff;
 }
 
 .container {
@@ -151,9 +151,16 @@ button[type="submit"] {
 }
 
 .image-section {
-  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  overflow: hidden;
 }
 
 .kioskImage {
   width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensures it covers the area */
 }
