@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2025 at 07:51 PM
+-- Generation Time: Jun 19, 2025 at 01:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -102,16 +102,24 @@ INSERT INTO `employees` (`employee_id`, `name`, `email`, `password`, `created_at
 -- --------------------------------------------------------
 
 --
--- Table structure for table `feedback`
+-- Table structure for table `feedbacks`
 --
 
-CREATE TABLE `feedback` (
-  `feedback_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `comment` text DEFAULT NULL,
-  `rating` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL
+CREATE TABLE `feedbacks` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `feedback` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedbacks`
+--
+
+INSERT INTO `feedbacks` (`id`, `user_id`, `rating`, `feedback`, `created_at`) VALUES
+(1, 11, 5, 'Excellent service!', '2025-06-18 20:59:23'),
+(2, 11, 5, 'Fast delivery!', '2025-06-18 21:05:11');
 
 -- --------------------------------------------------------
 
@@ -137,7 +145,8 @@ INSERT INTO `financial_report` (`report_id`, `report_date`, `total_sales`, `tota
 (4, '2025-06-11', 310.00, 45, 125.00, 1),
 (5, '2025-05-19', 910.00, 132, 400.00, 1),
 (6, '2025-06-17', 85.50, 14, 38.00, 1),
-(7, '2025-06-03', 465.00, 63, 180.00, 1);
+(7, '2025-06-03', 465.00, 63, 180.00, 1),
+(8, '2025-06-16', 109.50, 15, 40.00, 1);
 
 -- --------------------------------------------------------
 
@@ -165,7 +174,37 @@ INSERT INTO `orders` (`order_id`, `user_id`, `processed_by`, `order_date`, `stat
 (7, 3, NULL, '2025-06-16 02:10:08', 'Completed', 10.00, 'Cash', ''),
 (8, 6, NULL, '2025-06-13 02:10:08', 'Completed', 9.50, 'Card', ''),
 (9, 7, NULL, '2025-06-08 02:10:08', 'Completed', 13.50, 'Cash', ''),
-(11, 3, NULL, '2025-05-29 02:24:44', 'Completed', 8.00, 'Card', '');
+(11, 3, NULL, '2025-05-29 02:24:44', 'Completed', 8.00, 'Card', ''),
+(42, 2, NULL, '2025-06-01 00:00:00', 'Completed', 9.50, 'Cash', ''),
+(43, 3, NULL, '2025-06-02 00:00:00', 'Completed', 7.00, 'Card', ''),
+(44, 4, NULL, '2025-06-03 00:00:00', 'Completed', 11.00, 'Cash', ''),
+(45, 6, NULL, '2025-06-04 00:00:00', 'Completed', 6.00, 'Cash', ''),
+(46, 7, NULL, '2025-06-05 00:00:00', 'Completed', 7.00, 'Card', ''),
+(47, 8, NULL, '2025-06-06 00:00:00', 'Completed', 5.50, 'Cash', ''),
+(48, 9, NULL, '2025-06-07 00:00:00', 'Completed', 9.50, 'Cash', ''),
+(49, 10, NULL, '2025-06-08 00:00:00', 'Completed', 8.00, 'Card', ''),
+(50, 11, NULL, '2025-06-09 00:00:00', 'Completed', 6.00, 'Cash', ''),
+(51, 2, NULL, '2025-06-10 00:00:00', 'Completed', 6.50, 'Card', ''),
+(52, 3, NULL, '2025-06-11 00:00:00', 'Completed', 4.00, 'Cash', ''),
+(53, 4, NULL, '2025-06-12 00:00:00', 'Completed', 8.00, 'Card', ''),
+(54, 6, NULL, '2025-06-13 00:00:00', 'Completed', 9.00, 'Cash', ''),
+(55, 7, NULL, '2025-06-14 00:00:00', 'Completed', 6.50, 'Cash', ''),
+(56, 8, NULL, '2025-06-15 00:00:00', 'Completed', 10.00, 'Card', ''),
+(57, 2, NULL, '2025-06-10 00:00:00', 'Completed', 9.00, 'Cash', ''),
+(58, 3, NULL, '2025-06-11 00:00:00', 'Completed', 8.00, 'Card', ''),
+(59, 4, NULL, '2025-06-12 00:00:00', 'Completed', 6.50, 'Cash', ''),
+(60, 6, NULL, '2025-06-13 00:00:00', 'Completed', 10.00, 'Card', ''),
+(61, 7, NULL, '2025-06-14 00:00:00', 'Completed', 7.50, 'Cash', ''),
+(62, 8, NULL, '2025-06-16 00:00:00', 'Completed', 8.00, 'Cash', ''),
+(63, 9, NULL, '2025-06-16 00:00:00', 'Completed', 6.00, 'Card', ''),
+(64, 10, NULL, '2025-06-16 00:00:00', 'Completed', 9.50, 'Cash', ''),
+(65, 11, NULL, '2025-06-16 00:00:00', 'Completed', 7.00, 'Card', ''),
+(66, 2, NULL, '2025-06-16 00:00:00', 'Completed', 10.50, 'Cash', ''),
+(67, 2, NULL, '2025-06-18 00:00:00', 'Completed', 9.00, 'Cash', ''),
+(68, 3, NULL, '2025-06-18 00:00:00', 'Completed', 7.00, 'Card', ''),
+(69, 4, NULL, '2025-06-18 00:00:00', 'Completed', 6.50, 'Cash', ''),
+(70, 6, NULL, '2025-06-18 00:00:00', 'Completed', 8.00, 'Cash', ''),
+(71, 7, NULL, '2025-06-18 00:00:00', 'Completed', 9.50, 'Card', '');
 
 -- --------------------------------------------------------
 
@@ -186,20 +225,65 @@ CREATE TABLE `order_item` (
 --
 
 INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`, `subtotal`) VALUES
-(12, 6, 1, 1, 6.00),
-(13, 6, 9, 1, 1.00),
-(14, 11, 3, 1, 5.50),
-(15, 11, 10, 1, 1.50),
-(16, 11, 6, 1, 3.00),
-(17, 8, 5, 1, 4.50),
-(18, 8, 6, 1, 3.00),
-(19, 8, 10, 1, 1.50),
-(20, 9, 4, 1, 6.00),
-(21, 9, 8, 1, 3.50),
-(22, 9, 10, 2, 3.00),
-(23, 9, 9, 1, 1.00),
-(24, 11, 2, 1, 4.00),
-(25, 11, 7, 1, 4.00);
+(32, 42, 29, 1, 6.00),
+(33, 42, 11, 1, 2.50),
+(34, 42, 34, 1, 1.00),
+(35, 43, 30, 1, 6.00),
+(36, 43, 35, 1, 1.00),
+(39, 44, 31, 1, 4.50),
+(40, 44, 12, 1, 2.50),
+(41, 44, 33, 1, 4.00),
+(42, 45, 13, 1, 3.50),
+(43, 45, 11, 1, 2.50),
+(44, 46, 30, 1, 6.00),
+(45, 46, 36, 1, 1.00),
+(46, 47, 32, 1, 3.00),
+(47, 47, 15, 1, 2.50),
+(48, 48, 18, 1, 5.50),
+(49, 48, 12, 1, 2.50),
+(50, 48, 11, 1, 1.50),
+(51, 49, 13, 1, 3.50),
+(52, 49, 19, 1, 2.50),
+(53, 49, 11, 1, 2.00),
+(54, 50, 29, 1, 6.00),
+(55, 51, 17, 1, 3.50),
+(56, 51, 11, 1, 3.00),
+(57, 52, 33, 1, 4.00),
+(58, 53, 31, 1, 4.50),
+(59, 53, 11, 1, 2.50),
+(60, 53, 35, 1, 1.00),
+(61, 54, 30, 1, 6.00),
+(62, 54, 37, 1, 2.00),
+(63, 55, 18, 1, 5.50),
+(64, 55, 11, 1, 1.00),
+(65, 56, 29, 1, 6.00),
+(66, 56, 11, 1, 2.50),
+(67, 56, 34, 1, 1.50),
+(68, 57, 29, 1, 6.00),
+(69, 57, 11, 1, 2.50),
+(70, 57, 34, 1, 0.50),
+(71, 58, 30, 1, 6.00),
+(72, 58, 35, 1, 2.00),
+(73, 59, 31, 1, 4.50),
+(74, 59, 36, 1, 2.00),
+(75, 60, 32, 1, 3.00),
+(76, 60, 15, 1, 3.00),
+(77, 60, 34, 1, 4.00),
+(78, 61, 18, 1, 5.50),
+(79, 61, 12, 1, 2.00),
+(80, 62, 33, 1, 4.00),
+(81, 62, 11, 1, 2.50),
+(82, 62, 35, 1, 1.50),
+(83, 63, 14, 1, 3.50),
+(84, 63, 12, 1, 2.50),
+(85, 64, 13, 1, 3.50),
+(86, 64, 19, 1, 2.50),
+(87, 64, 34, 1, 3.50),
+(88, 65, 37, 1, 2.50),
+(89, 65, 29, 1, 4.50),
+(90, 66, 29, 1, 6.00),
+(91, 66, 36, 1, 2.50),
+(92, 66, 11, 1, 2.00);
 
 -- --------------------------------------------------------
 
@@ -237,16 +321,6 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `description`, `price`, `category`, `stock_quantity`, `image_url`, `is_active`) VALUES
-(1, 'Nasi Lemak', 'Coconut Rice With Sambal', 6.00, 'Heavy Foods', 10, 'img/photo_a.jpg', 1),
-(2, 'Nasi Goreng', 'Fried rice with egg', 4.00, 'Heavy Foods', 10, 'img/photo_a.jpg', 1),
-(3, 'Mi Goreng Telur Mata', 'Fried Noodles with egg', 5.50, 'Heavy Foods', 10, 'img/photo_a.jpg', 1),
-(4, 'Mi Jawa', 'Javanese noodle in gravy', 6.00, 'Heavy Foods', 10, 'img/photo_a.jpg', 1),
-(5, 'Loaded Fries', 'Fries with cheese and mayonnaise', 4.50, 'Snacks', 10, 'img/photo_a.jpg', 1),
-(6, 'Wantan Goreng', 'Crispy Fried Dumplings', 3.00, 'Snacks', 10, 'img/photo_b.jpg', 1),
-(7, 'Bergedil Daging', 'Fried mashed meat potato', 4.00, 'Snacks', 10, 'img/photo_b.jpg', 1),
-(8, 'Kuih Apam Cheese', 'Fluffy cake with cheese', 3.50, 'Snacks', 10, 'img/photo_a.jpg', 1),
-(9, 'Air Mineral', 'Bottled mineral water', 2.50, 'Drinks', 10, 'img/photo_c.jpg', 1),
-(10, 'Dutch Lady Strawberry Milk', 'Chilled strawberry milk drink', 2.50, 'Drinks', 10, 'img/photo_c.jpg', 1),
 (11, 'Air Mineral', 'Bottled mineral water', 2.50, 'Drinks', NULL, 'img/drinkingwater.jpg', 1),
 (12, 'Dutch Lady Strawberry Milk', 'Chilled strawberry milk drink', 2.50, 'Drinks', NULL, 'img/strawberrymilk.jpeg', 1),
 (13, 'Bubur Ayam', 'Savory chicken rice porridge', 3.50, 'Heavy Foods', NULL, 'img/BuburAyam2.png', 1),
@@ -256,15 +330,6 @@ INSERT INTO `product` (`product_id`, `product_name`, `description`, `price`, `ca
 (17, 'Kuih Lapis', 'Colorful layered kuih', 3.50, 'Snacks', NULL, 'img/KuihLapis2.png', 1),
 (18, 'Chicken Wrap', 'Wrap with chicken & veggies', 5.50, 'Heavy Foods', NULL, 'img/ChickenWrap.png', 1),
 (19, 'Kuih Muih Campur', 'Mixed traditional kuih', 2.50, 'Snacks', NULL, 'img/KuihMuihCampur.png', 1),
-(20, 'Nasi Lemak Ayam', 'Coconut rice with sambal', 3.50, 'Heavy Foods', NULL, 'img/NasiLemakAyam.png', 1),
-(21, 'Mee Jawa', 'Javanese noodle in gravy', 4.00, 'Heavy Foods', NULL, 'img/MeeJawa.png', 1),
-(22, 'Loaded Fries', 'Fries with cheese and sauce', 4.50, 'Snacks', NULL, 'img/LoadedFries.png', 1),
-(23, 'Wantan Goreng', 'Crispy fried dumplings', 2.50, 'Snacks', NULL, 'img/WantanGoreng.png', 1),
-(24, 'Bergedil Daging', 'Fried mashed meat potato', 2.00, 'Snacks', NULL, 'img/BergedilDaging.png', 1),
-(25, 'Ice Cream Soda', 'Canned Drinks', 3.50, 'Drinks', NULL, 'img/IceCreamSoda.jpeg', 1),
-(26, 'Strawberry', 'Canned Drinks', 4.00, 'Drinks', NULL, 'img/Strawberry.jpg', 1),
-(27, 'Orange', 'Canned Drinks', 4.50, 'Drinks', NULL, 'img/Orange.png', 1),
-(28, 'Chrysanthemum Tea', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/TehBunga.jpeg', 1),
 (29, 'Nasi Lemak Ayam', 'Coconut rice with sambal', 6.00, 'Heavy Foods', NULL, 'img/NasiLemakAyam.png', 1),
 (30, 'Mee Jawa', 'Javanese noodle in gravy', 6.00, 'Heavy Foods', NULL, 'img/MeeJawa.png', 1),
 (31, 'Loaded Fries', 'Fries with cheese and sauce', 4.50, 'Snacks', NULL, 'img/LoadedFries.png', 1),
@@ -285,6 +350,27 @@ CREATE TABLE `report_order` (
   `report_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `report_order`
+--
+
+INSERT INTO `report_order` (`report_id`, `order_id`) VALUES
+(6, 42),
+(6, 43),
+(6, 44),
+(6, 45),
+(6, 46),
+(6, 47),
+(6, 48),
+(6, 49),
+(6, 50),
+(6, 51),
+(6, 52),
+(6, 53),
+(6, 54),
+(6, 55),
+(6, 56);
 
 -- --------------------------------------------------------
 
@@ -370,10 +456,10 @@ ALTER TABLE `employees`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `feedback`
+-- Indexes for table `feedbacks`
 --
-ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`feedback_id`),
+ALTER TABLE `feedbacks`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
@@ -461,28 +547,28 @@ ALTER TABLE `employees`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `feedback`
+-- AUTO_INCREMENT for table `feedbacks`
 --
-ALTER TABLE `feedback`
-  MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `feedbacks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `financial_report`
 --
 ALTER TABLE `financial_report`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -526,10 +612,10 @@ ALTER TABLE `employee`
   ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`schedule_id`);
 
 --
--- Constraints for table `feedback`
+-- Constraints for table `feedbacks`
 --
-ALTER TABLE `feedback`
-  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+ALTER TABLE `feedbacks`
+  ADD CONSTRAINT `feedbacks_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
 -- Constraints for table `financial_report`

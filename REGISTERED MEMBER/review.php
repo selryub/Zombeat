@@ -1,18 +1,33 @@
 <?php
-// feedback.php - handles rating & feedback submission
+session_start();
+require_once '../admin/db_connect.php'; // update path as needed
 
-$message = '';
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Collect and sanitize input
-    $rating = isset($_POST['rating']) ? intval($_POST['rating']) : 0;
-    $feedback = isset($_POST['feedback']) ? htmlspecialchars(trim($_POST['feedback'])) : '';
+// Redirect if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
-    // Simple validation and processing (to be extended: save to DB)
-    if ($rating > 0 && !empty($feedback)) {
-        $message = 'Thank you for your feedback!';
-        // Here you can add code to save data to DB
-    } else {
-        $message = 'Please provide a rating and feedback.';
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $rating = $_POST['rating'] ?? 0;
+    $feedback = trim($_POST['feedback'] ?? '');
+    $user_id = $_SESSION['user_id'];
+
+    if ($rating >= 1 && $rating <= 5 && !empty($feedback)) {
+        $stmt = $conn->prepare("INSERT INTO feedbacks (user_id, rating, feedback) VALUES (?, ?, ?)");
+        $stmt->bind_param("iis", $user_id, $rating, $feedback);
+        $stmt->execute();
+        $stmt->close();
+    }
+}
+
+// Fetch all feedbacks
+$reviews = [];
+$result = $conn->query("SELECT rating, feedback FROM feedbacks ORDER BY id DESC");
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $reviews[] = $row;
     }
 }
 ?>
@@ -45,10 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="review.css">
-    <link rel="stylesheet" href="../PUBLIC/index.css">
 </head>
 <body class="bg-secondary min-h-screen">
 
+<!-- TODO: Insert your navbar here -->
 
 <main class="max-w-6xl mx-auto px-4 pt-20 pb-12 flex flex-col md:flex-row gap-8">
     <!-- Rating & Feedback -->
