@@ -1,27 +1,18 @@
 <?php
-require_once '../admin/db_connect.php'; // update path as needed
-include 'regmem_frame.php';
+// feedback.php - handles rating & feedback submission
 
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $rating = $_POST['rating'] ?? 0;
-    $feedback = trim($_POST['feedback'] ?? '');
-    $user_id = $_SESSION['user_id'];
+$message = '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Collect and sanitize input
+    $rating = isset($_POST['rating']) ? intval($_POST['rating']) : 0;
+    $feedback = isset($_POST['feedback']) ? htmlspecialchars(trim($_POST['feedback'])) : '';
 
-    if ($rating >= 1 && $rating <= 5 && !empty($feedback)) {
-        $stmt = $conn->prepare("INSERT INTO feedbacks (user_id, rating, feedback) VALUES (?, ?, ?)");
-        $stmt->bind_param("iis", $user_id, $rating, $feedback);
-        $stmt->execute();
-        $stmt->close();
-    }
-}
-
-// Fetch all feedbacks
-$reviews = [];
-$result = $conn->query("SELECT rating, feedback FROM feedbacks ORDER BY id DESC LIMIT 5");
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
-        $reviews[] = $row;
+    // Simple validation and processing (to be extended: save to DB)
+    if ($rating > 0 && !empty($feedback)) {
+        $message = 'Thank you for your feedback!';
+        // Here you can add code to save data to DB
+    } else {
+        $message = 'Please provide a rating and feedback.';
     }
 }
 ?>

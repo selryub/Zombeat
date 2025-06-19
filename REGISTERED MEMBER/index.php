@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FCSIT Kiosk</title>
   <link rel="stylesheet" href="index.css"/>
-  <link rel="stylesheet" href="about.css"/>
 </head>
 <body>
   
 <div class="page-wrapper">
 <!-- Sidebar -->
-<div id="sidebar" class="sidebar">
+<!-- <div id="sidebar" class="sidebar">
 
   <a href="otherpage.html">
   <img src="img/account.png" alt="Clickable Image Button"  class="acc-dash">
@@ -42,40 +41,60 @@
       <img src="img/logout.png" class="logout">
   <span class="dash-text">LOGOUT</span>
   </a>
-</div>
+</div> -->
+
 
 <!-- Header -->
 <header class="navbar">
 <div class="left-header">
-  <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+  <!-- <div class="menu-icon" onclick="toggleSidebar()">☰</div> -->
   <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
   <div class="logo-text">FCSIT KIOSK</div>
 </div>
 
   <nav>
     <a href="index.php">HOME</a>
-    <a href="menu_page.html" class="menu">MENU</a>
-    <a href="about.html">ABOUT</a>
-    <a href="review.html">REVIEWS</a>
+    <a href="menu_page.php">MENU</a>
+    <a href="about.php">ABOUT</a>
+    <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
   </nav>
   <div class="icons">
-    <input type="text" placeholder=" 🔍︎ Search" class="search-box">
     <img src="img/cart.png" alt="cart" class="cart-img">
-    <img src="img/account.png" alt="account" class="acc-img">
+    <a href="/Zombeat/PUBLIC/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
     <span class="icon"></span>
   </div>
 </header>
 
- <main class="story-section">
-    <div class="story-image">
-      <img src="https://via.placeholder.com/250" alt="Our Story Image" />
+  <section class="slider">
+<div class="slideshow-container">
+
+  <div class="slide fade">
+    <img src="img/vs2.png" alt="welcome">
+  </div>
+
+  <div class="slide fade">
+    <img src="img/welcome.png" alt="vs1">
+  </div>
+
+  <div class="slide fade">
+    <img src="img/vs1.png" alt="vs2">
+  </div>
+
+</div>
+
+  </section>
+
+  <section class="cards">
+    <div class="card">
+      <img src="img/SandwichRollEgg.png">
     </div>
-    <div class="story-text">
-      <h2>OUR STORY</h2>
-      <p>FCSIT Kiosk, operated by PERTEKMA (student organization of FCSIT-UNIMAS), is a food and beverages kiosk located at Block B, Faculty of Computer Science and Information Technology (FCSIT) at University Malaysia Sarawak (UNIMAS). Provide quick and affordable meals designed to meet the needs of students, lecturers, and staff with busy schedules. </p>
-      <p>FCSIT Kiosk Website is a web system that people can use to buy products from the kiosk. Students and staff can purchase a product by registering and logging into the system.</p>
+    <div class="card">
+      <img src="img/BuburAyam2.png">
     </div>
-  </main>
+    <div class="card">
+      <img src="img/ChickenWrap.png ">
+    </div>
+  </section>
 
 <footer class="footer">
   <div class="contact">
@@ -104,7 +123,49 @@
 </div>
 </footer>
 
-<!-- <script src="index.js"></script> -->
+<script>
+// Toggle sidebar open and close
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+
+  // If sidebar is open (250px), close it
+  if (sidebar.style.width === "250px") {
+    sidebar.style.width = "0";
+  } 
+  // Else, open it
+  else {
+    sidebar.style.width = "250px";
+  }
+}
+
+// Auto-slide functionality for a carousel
+let slideIndex = 0;
+const slides = document.querySelectorAll('.slide');
+
+function showSlides() {
+  slides.forEach(slide => slide.classList.remove('active'));
+  slideIndex = (slideIndex + 1) % slides.length;
+  slides[slideIndex].classList.add('active');
+}
+
+showSlides(); // Show the first slide
+setInterval(showSlides, 3000); // Change slide every 3 seconds
+
+// Close sidebar if clicked outside it
+document.addEventListener("click", function (e) {
+  const sidebar = document.getElementById("sidebar");
+  const menuIcon = document.querySelector(".menu-icon");
+
+  // If sidebar is open AND click is outside sidebar AND menu icon
+  if (
+    sidebar.style.width === "250px" &&
+    !sidebar.contains(e.target) &&
+    !menuIcon.contains(e.target)
+  ) {
+    sidebar.style.width = "0"; // then close sidebar
+  }
+});
+</script>
 
 </body>
 </html>

@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Member Profile</title>
     <link rel="stylesheet" href="profile.css">
-    <link rel="stylesheet" href="memberstyle.css">
+    <link rel="stylesheet" href="regmemstyle.css">
     <style>
       .member-profile-section {
           padding: 30px;
@@ -316,6 +316,6 @@ document.getElementById("new_password").addEventListener("input", function() {
 });
 </script>
 
-<script src="member.js"></script>
+<script src="regmem.js"></script>
 </body>
 </html>

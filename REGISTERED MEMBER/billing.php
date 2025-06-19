@@ -1,5 +1,4 @@
 <?php
-// send_email.php
 
 // Set content type to JSON
 header('Content-Type: application/json');
@@ -48,8 +47,6 @@ $headers = [
 ];
 
 try {
-    // Send email using PHP's mail function
-    // Note: For production, consider using PHPMailer or similar library
     $success = mail($to, $subject, $emailHTML, implode("\r\n", $headers));
     
     if ($success) {
