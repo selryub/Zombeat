@@ -68,8 +68,19 @@
 
 .items {
     display: grid;
-    grid-template-columns: repeat(4, 200px);
-    gap: 100px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    padding: 10px 0 20px 0px;
+    justify-content: center;
+    margin-top: 20px;
+    max-width: 1200px;
+    margin: 20px auto 0 auto;
+}
+
+.items-alternative {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap: 30px;
     padding: 10px 0 20px 0px;
     justify-content: center;
     margin-top: 20px;
@@ -84,6 +95,7 @@
     flex-direction: column;
     gap: 10px;
     height: 220px;
+    position: relative;
 }
 
 .card img {
@@ -105,6 +117,7 @@
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
+    position: relative;
 }
 
 .item-desc {
@@ -126,8 +139,36 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    position: relative; 
+    z-index: 5; 
 }
 
+.price-button button {
+    background-color: #0a58ca;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    z-index: 10; 
+    position: relative; 
+    pointer-events: auto; 
+}
+
+.price-button button:hover {
+    background-color: #084298;
+    transform: scale(1.1);
+}
+
+.price-button button:active {
+    transform: scale(0.95);
+}
 
 .add-to-cart-btn {
   background-color: #0a58ca;   
@@ -148,15 +189,66 @@
   background-color: #084298;  
 }
 
-@media (max-width: 768px) {
+.cart-toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #4BB543; /* green like Shopee */
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
 
-    .menu-container {
-        flex-direction: column;
+.cart-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.cart-icon-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-count {
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 10;
+}
+
+
+@media (max-width: 768px) {
+    .items {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 20px;
+        padding: 10px 20px;
     }
 
     .menu-header-bar {
         padding: 5px 20px;
+        gap: 20px;
+        flex-direction: column;
+        text-align: center;
+    }
 
+    .menu-header-bar input {
+        width: 100%;
+        margin-top: 10px;
     }
 
     .menu-header-bar h2 {

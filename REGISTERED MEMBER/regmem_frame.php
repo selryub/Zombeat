@@ -5,16 +5,21 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "registered member") {
     exit(); 
 } 
 
-// Calculate cart total and count for header display
-$cart_total = 0;
-$cart_count = 0;
-if (isset($_SESSION['cart'])) {
-    foreach ($_SESSION['cart'] as $item) {
-        $cart_total += $item['price'] * $item['quantity'];
-        $cart_count += $item['quantity'];
-    }
-}
-?>  
+$currentPage = basename($_SERVER['PHP_SELF']);
+if ($currentPage === 'order.php'): ?>
+  <div id="cart-sidebar" class="cart-sidebar">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="close-cart" onclick="toggleCart()">&times;</button>
+  </div>
+  <div id="cart-items" class="cart-content"></div>
+  <div class="cart-footer">
+    <p>Total: RM <span id="cart-total">0.00</span></p>
+    <a href="view_cart.php" class="checkout-btn">Proceed to Checkout</a>
+  </div>
+</div>
+
+<?php endif; ?>
 
 <!DOCTYPE html> 
 <html lang="en"> 
@@ -22,8 +27,8 @@ if (isset($_SESSION['cart'])) {
     <meta charset="UTF-8" />     
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     
     <link rel="stylesheet" href="regmemstyle.css">
+
     <style>
-        /* Cart functionality styles for the header */
         .cart-container {
             position: relative;
             display: inline-block;
@@ -43,14 +48,12 @@ if (isset($_SESSION['cart'])) {
             text-align: center;
         }
         
-        /* Ensure icons section can accommodate cart functionality */
         .icons {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        /* Cart sidebar styles - same as your menu page */
+
         .cart-sidebar {
             position: fixed;
             right: -400px;
@@ -183,28 +186,16 @@ if (isset($_SESSION['cart'])) {
             cursor: pointer;
         }
         
-        /* Notification animations */
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(100%); }
+            to { opacity: 1; transform: translateX(0); }
         }
-        
-        @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
+
+        @keyframes fadeOutRight {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(100%); }
         }
+
     </style>
 </head> 
 <body>      
@@ -263,14 +254,11 @@ if (isset($_SESSION['cart'])) {
     </nav>     
     
     <div class="icons">     
-        <!-- Cart with functionality -->
         <div class="cart-container" onclick="toggleCart()">
             <img src="img/cart.png" alt="cart" class="cart-img">
-            <?php if ($cart_count > 0): ?>
-                <span class="cart-count" id="cart-count"><?= $cart_count ?></span>
-            <?php endif; ?>
+            <span id="cart-count" class="cart-count">0</span>
         </div>
-        
+
         <!-- Profile link -->
         <a href="profile.php">
             <img src="img/account.png" alt="account" class="acc-img">
@@ -313,6 +301,8 @@ if (isset($_SESSION['cart'])) {
     </div>
 </div>
 
+<div id="toast-container" style="position: fixed; top: 80px; right: 20px; z-index: 9999;"></div>
+
 <script> 
 function confirmLogout() {     
     return confirm("Are you sure you want to log out?"); 
@@ -327,7 +317,7 @@ function addToCart(productId, productName, price, imageUrl) {
     formData.append('price', price);
     formData.append('image_url', imageUrl);
     
-    fetch('cart_handler.php', {
+    fetch('order.php', {
         method: 'POST',
         body: formData
     })
@@ -406,6 +396,7 @@ function updateQuantity(productId, quantity) {
 }
 
 function updateCartDisplay() {
+
     // Refresh the cart sidebar content
     fetch('get_cart_content.php')
         .then(response => response.text())
@@ -439,36 +430,62 @@ function updateCartCount(count) {
 }
 
 function showNotification(message, type = 'success') {
-    // Remove existing notifications
-    const existingNotifications = document.querySelectorAll('.notification');
-    existingNotifications.forEach(notif => notif.remove());
+    const container = document.getElementById('toast-container');
+    if (!container) return;
     
-    // Create and show notification
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 20px;
-        background: ${type === 'error' ? '#dc3545' : '#28a745'};
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    toast.style.cssText = `
+        background-color: ${type === 'error' ? '#dc3545' : '#28a745'};
         color: white;
+        padding: 12px 20px;
+        margin-top: 10px;
         border-radius: 5px;
-        z-index: 10000;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        animation: slideInRight 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        opacity: 0;
+        transform: translateX(100%);
+        animation: fadeInRight 0.5s forwards;
     `;
-    
-    document.body.appendChild(notification);
-    
+
+    container.appendChild(toast);
+
     setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
-    }, 3000);
+        toast.style.animation = 'fadeOutRight 0.5s forwards';
+        setTimeout(() => toast.remove(), 500);
+    }, 2000);
 }
+
+function displayCartItemsFromStorage() {
+  const cartItems = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
+  const cartContainer = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  let html = '';
+  let total = 0;
+
+  cartItems.forEach(item => {
+    total += item.price * item.quantity;
+    html += `
+      <div class="cart-item">
+        <img src="${item.image}" alt="${item.name}">
+        <div class="cart-item-details">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">RM ${item.price.toFixed(2)} x ${item.quantity}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  cartContainer.innerHTML = html || '<p>Your cart is empty.</p>';
+  cartTotal.textContent = total.toFixed(2);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.pathname.includes('order.php')) {
+    displayCartItemsFromStorage();
+    updateCartCount(); // optional, to update the red bubble
+  }
+});
 
 function toggleCart() {
     const sidebar = document.getElementById('cart-sidebar');

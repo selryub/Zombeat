@@ -1,5 +1,5 @@
 <?php
-require "db_connect.php";
+require_once '../admin/db_connect.php';
 
 // Fetch member info
 $sql = "SELECT full_name, email FROM user WHERE user_id = ?";
