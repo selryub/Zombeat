@@ -19,22 +19,3 @@ document.addEventListener("click", function (e) {
     sidebar.style.width = "0";
   }
 });
-
-// Global search functionality
-// document.addEventListener("DOMContentLoaded", function () {
-//   const searchInput = document.getElementById("globalSearch");
-//   const blocks = document.querySelectorAll(".search-block");
-
-//   if (!searchInput) return;
-
-//   searchInput.addEventListener("input", function () {
-//     const searchTerm = searchInput.value.toLowerCase().trim();
-
-//     blocks.forEach(block => {
-//       const blockText = block.innerText.toLowerCase();
-//       const isMatch = blockText.includes(searchTerm);
-
-//       block.style.display = isMatch || searchTerm === "" ? "" : "none";
-//     });
-//   });
-// });

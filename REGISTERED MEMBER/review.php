@@ -2,12 +2,6 @@
 session_start();
 require_once '../admin/db_connect.php'; // update path as needed
 
-// Redirect if not logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rating = $_POST['rating'] ?? 0;

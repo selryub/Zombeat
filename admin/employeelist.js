@@ -1,17 +1,3 @@
-// document.addEventListener('DOMContentLoaded', ()=> {
-//     fetch('admin_employee.php')
-//     .then(res => res.json())
-//     .then(data => populateTable(data.employees))
-//     .catch(err => console.error('Error:', err));
-// });
-
-// function populateTable(employees) {
-//     const tbody = document.querySelector('#EmployeeTable tbody');
-//     employees.forEach(emp => {
-//         const tr = document.createElement("tr");S
-//         tbody.appendChild(tr);
-//     });
-// }
 
 document.addEventListener("DOMContentLoaded", () => {
     fetch("admin_employee.php")

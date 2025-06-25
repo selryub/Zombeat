@@ -34,7 +34,7 @@
   transition: background 0.2s ease;
 }
 
-/* Responsive font size for small screens */
+
 @media (max-width: 600px) {
   #EmployeeTable th, #EmployeeTable td {
     padding: 10px;

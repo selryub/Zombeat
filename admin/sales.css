@@ -4,38 +4,55 @@
 }
 
 .filters {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding: 5px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-family: Verdana;
 }
 
-.filters a {
-    padding: 2px 20px;
-    text-decoration: none;
-    background-color: #ffeef2;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    font-weight: 500;
+/* Dropdowns and input */
+.filters select,
+.filters input[type="date"] {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.filters a:hover {
-  background-color: #e0e3e7;
-  color: #000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.filters a.active {
-  background-color: #007bff;
-  color: white;
+.filters select:focus,
+.filters input[type="date"]:focus {
   border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  outline: none;
 }
 
-.chart-container {
-    margin: 5px 30px;
+.filters button[type="submit"] {
+  background: linear-gradient(135deg, #4CAF50, #6ccf63);
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  letter-spacing: 0.5px;
 }
+
+.filters button[type="submit"]:hover {
+  background: linear-gradient(135deg, #45a049, #57d06c);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 14px rgba(76, 175, 80, 0.4);
+}
+
 
 .history, .history th, .history td {
     border: 1px solid #ccc;
@@ -81,7 +98,7 @@ table.history tbody {
     background-color: burlywood;
 }
 
-/* Top 5 products list */
+
 ul.popular {
   list-style: none;
   padding: 0;
@@ -106,4 +123,25 @@ ul.popular li:last-child {
 
 ul.popular li:nth-child(odd) {
   background-color: #f9fafc;
+}
+
+.back {
+    float: left; 
+    background-color: #4e65e4; 
+    color: white;
+    padding: 8px 15px;
+    margin-top: 20px;
+    margin-left: 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.back:hover {
+    background-color: #4e65f8;
+    transform: scale(1.05);
 }

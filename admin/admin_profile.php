@@ -68,11 +68,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           box-sizing: border-box;
       }
       .admin-profile-box button {
+        background-color: #4e65e4; 
+        color: white;
+        padding: 8px 15px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .admin-profile-box button:hover {
+        background-color: #4e65f8;
+        transform: scale(1.05);
+    }
+      /* .admin-profile-box button {
           padding: 8px 15px;
           margin-top: 10px;
           cursor: pointer;
           border-radius: 10px;
-      }
+      } */
       .alert.success {
           background: #d4edda;
           color: #155724;
@@ -82,6 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           border-radius: 5px;
           max-width: 500px;
       }
+      
     </style>
 </head>
 <body>

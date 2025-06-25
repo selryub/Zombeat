@@ -68,12 +68,3 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-flatpickr("#calendar", {
-  inline: true,
-  defaultDate: new Date(),
-  onChange: function(selectedDates, dateStr) {
-    if (dateStr) {
-      window.location.href = '?period=daily&date=' + dateStr;
-    }
-  }
-});

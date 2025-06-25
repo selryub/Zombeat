@@ -28,29 +28,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         move_uploaded_file($image_tmp, $targetDir . $finalImage);
     }
 
+    
     if ($id) {
         // Update: if no new image uploaded, keep old image
+        $stock_quantity = $_POST['stock_quantity'];
         if ($image) {
-            $sql = "UPDATE product SET product_name=?, description=?, category=?, price=?, image_url=? WHERE product_id=?";
+            $sql = "UPDATE product SET product_name=?, description=?, category=?, price=?, image_url=?, stock_quantity=? WHERE product_id=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssisi", $name, $desc, $category, $price, $finalImage, $id);
+            $stmt->bind_param("sssisi", $name, $desc, $category, $price, $finalImage, $stock_quantity, $id);
         } else {
-            $sql = "UPDATE product SET product_name=?, description=?, category=?, price=? WHERE product_id=?";
+            $sql = "UPDATE product SET product_name=?, description=?, category=?, price=?, stock_quantity=? WHERE product_id=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssdi", $name, $desc, $category, $price, $id);
+            $stmt->bind_param("sssidi", $name, $desc, $category, $price, $stock_quantity, $id);
         }
-    } else {
-        // Insert new
-        $sql = "INSERT INTO product (product_name, description, category, price, image_url, is_active) VALUES (?, ?, ?, ?, ?, 1)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssis", $name, $desc, $category, $price, $finalImage);
+
+      $stmt->execute();
+      header("Location: admin_product.php");
+      exit;
     }
-
-    $stmt->execute();
-    header("Location: admin_product.php");
-    exit;
 }
-
 $result = $conn->query("SELECT * FROM product WHERE is_active = 1");
 
 // Get category and search input from URL
@@ -122,6 +118,9 @@ $conn->close();
 <body>
 <?php include "admin_frame.php"; ?>
 <button id="add-product-btn" class="add-product-btn">+ Add Product</button>
+<a href="admin_sales.php" class="card-link">
+  <button id="purchase-history" class="purchase-history">Purchase History</button>
+</a>
 <div class="menu-header-bar">
   <h2>PRODUCT</h2>
   <form method="GET" action="admin_product.php">
@@ -144,14 +143,17 @@ foreach ($categories as $cat) {
     <div class="card">
       <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="">
       <p class="item-name"><?= htmlspecialchars($row['product_name']) ?></p>
-      <div class="card-text">
-        <p class="item-desc"><?= htmlspecialchars($row['description']) ?></p>
-        <div class="price-button">
-          <strong class="price">RM <?= number_format($row['price'], 2) ?></strong>
+        <div class="stock-action-row">
+          <small class="stock-info">Stock: <?= htmlspecialchars($row['stock_quantity']) ?></small>
           <div class="action-icons">
             <button class="icon-btn edit" onclick="editProduct(<?php echo htmlspecialchars(json_encode($row)); ?>)">✎</button>
             <a class="icon-btn delete" href="?delete=<?= $row['product_id'] ?>" onclick="return confirm('Are you sure?')">🗑</a>
           </div>
+        </div>
+      <div class="card-text">
+        <p class="item-desc"><?= htmlspecialchars($row['description']) ?></p>
+        <div class="price-button">
+          <strong class="price">RM <?= number_format($row['price'], 2) ?></strong>
         </div>
       </div>
     </div>
@@ -166,6 +168,7 @@ foreach ($categories as $cat) {
     <input type="text" name="category" id="category" placeholder="Category" required>
     <textarea name="description" id="description" placeholder="Description" required></textarea>
     <input type="number" name="price" id="price" placeholder="Price" step="0.01" required>
+    <input type="number" name="stock_quantity" id="stock_quantity" placeholder="Stock Quantity" min="0" required>
     <input type="file" name="image">
     <button type="submit">Save Product</button>
     <button type="button" onclick="closeForm()">Cancel</button>
@@ -189,6 +192,7 @@ function editProduct(data) {
     document.getElementById('description').value = data.description;
     document.getElementById('category').value = data.category;
     document.getElementById('price').value = data.price;
+    document.getElementById('stock_quantity').value = data.stock_quantity;
 }
 </script>
     <!--Link to JavaScript-->

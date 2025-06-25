@@ -85,7 +85,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 220px;
+    height: 230px;
 }
 
 .card img {
@@ -99,7 +99,8 @@
 .item-name {
     font-weight: bold;
     font-size: 16px;
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .card-text {
@@ -107,6 +108,7 @@
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
+    margin-top: 0;
 }
 
 .item-desc {
@@ -123,25 +125,91 @@
     font-weight: bold;
     text-align: right;
 }
+
 .price-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#product-form {
+#product-form-popup {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
   background: #fff;
-  padding: 20px;
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  max-width: 500px;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  z-index: 999;
+  width: 400px;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-#product-form input, textarea {
+#product-form-popup h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+  color: #333;
+}
+
+#product-form input[type="text"],
+#product-form input[type="number"],
+#product-form input[type="file"],
+#product-form textarea {
   width: 100%;
-  margin: 8px 0;
-  padding: 8px;
+  padding: 10px 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+  align-items: center;
+}
+
+#product-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+#product-form input:focus,
+#product-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+#product-form button[type="submit"],
+#product-form button[type="button"] {
+  width: 48%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-items: center;
+}
+
+#product-form button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#product-form button[type="submit"]:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+#product-form button[type="button"] {
+  background-color: #ccc;
+  color: #333;
+}
+
+#product-form button[type="button"]:hover {
+  background-color: #bbb;
+  transform: scale(1.05);
 }
 
 .add-product-btn {
@@ -165,21 +233,26 @@
     transform: scale(1.05);
 }
 
-.action-icons {
-  display:flex ;
-  gap: 10px;
+.purchase-history {
+    float: right; 
+    background-color: #a89647; 
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.icon-btn {
-  background: none;
-  border: none;
-  font-size: 1.2em;
-  cursor: pointer;
-  padding: 5px;
-  transition: background-color 0.2s, transform 0.2s;
-  border-radius: 5px;
+.purchase-history:hover {
+    background-color: #9ea045;
+    transform: scale(1.05);
 }
-
 
 .icon-btn.edit {
   color: #007bff;
@@ -187,6 +260,37 @@
 
 .icon-btn.delete {
   color: #dc3545;
+}
+
+.stock-action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0;
+}
+
+.stock-info {
+  font-size: 0.75em;
+  color: #555;
+}
+
+.action-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
+  color: #333;
+  padding: 2px;
+  transition: color 0.2s ease;
+}
+
+.icon-btn:hover {
+  color: #d00;
 }
 
 @media (max-width: 768px) {

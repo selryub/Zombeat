@@ -20,37 +20,38 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
 <div id="sidebar" class="sidebar">
 
     <div class="admin-header">
-        <img src="account.png" alt="Admin Image"  class="acc-dash">
+        <img src="img/account.png" alt="Admin Image"  class="acc-dash">
         <a href = "admin_dashboard.php" class="hellouser"> HELLO ADMIN !</a>
     </div>
 
+    <a href="admin_dashboard.php">
+        <img src="img/sales.png" class="sales">
+        <span class="dash-text">DASHBOARD</span>
+    </a>
+
     <a href="admin_product.php" class="menuall">
-        <img src="layout.png" class="products">
+        <img src="img/layout.png" class="products">
         <span class="dash-text">PRODUCTS</span>
     </a>
     
     <a href="admin_employee.php">
-        <img src="employees.png" class="employees">
+        <img src="img/employees.png" class="employees">
         <span class="dash-text">EMPLOYEES</span>
     </a>
   
-    <a href="admin_sales.php">
-        <img src="sales.png" class="sales">
-        <span class="dash-text">SALES</span>
-    </a>
 
     <a href="admin_financialRecord.php">
-        <img src="financialrecord.png" class="financialRecord">
+        <img src="img/financialrecord.png" class="financialRecord">
         <span class="dash-text">FINANCIAL RECORD</span>
     </a>
 
     <a href="admin_profile.php">
-        <img src="profile2.png" class="profile">
+        <img src="img/profile2.png" class="profile">
         <span class="dash-text">PROFILE</span>
     </a>
 
     <a href="logout.php" onclick="return confirmLogout()">
-        <img src="logout.png" class="logout">
+        <img src="img/logout.png" class="logout">
     <span class="dash-text">LOGOUT</span>
     </a>
 </div>
@@ -59,8 +60,8 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
 <header class="navbar">
 <div class="left-header">
     <div class="menu-icon" onclick="toggleSidebar()">☰</div>
-    <img src="kiosk.jpg" alt="Logo" class="logo-img">
-    <div class="logo-text">FCSIT KIOSK</div>
+    <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
+    <div class="logo-text">FCSIT KIOSK - Project Demo</div>
 </div>
 
     <nav>
@@ -70,17 +71,14 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
     </nav>
 
     <div class="icons">
-        <input type="text" id="globalSearch" placeholder=" 🔍︎ Search" class="search-box"/>
         <div class="settings-container">
-            <img src="settings.png" alt="Settings" class="setting-img" id="settings-toggle">    
-                </div>
-        <a href="admin_noti.php">
-            <img src="notification.png" alt="noti" class="noti-img"></a>
-        <a href="admin_profile.php">
-            <img src="account.png" alt="account" class="acc-img"></a>
+            <img src="img/settings.png" alt="Settings" class="setting-img" id="settings-toggle"></div>    
+            <a href="admin_profile.php">
+            <img src="img/account.png" alt="account" class="acc-img"></a>
         <span class="icon"></span>
     </div>
 </header>
+
 <script>
 function confirmLogout() {
     return confirm("Are you sure you want to log out?");
