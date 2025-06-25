@@ -28,11 +28,6 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
         <img src="img/details.png" class="products">
         <span class="dash-text">ORDER DETAILS</span>
     </a>
-    
-    <a href="sales.php">
-        <img src="img/sales.png" class="sales">
-        <span class="dash-text">SALES</span>
-    </a>
   
     <a href="schedule.php">
         <img src="img/schedule.png" class="schedule">
@@ -49,7 +44,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
         <span class="dash-text">PROFILE</span>
     </a>
 
-    <a href="logout.php" onclick="return confirmLogout()">
+    <a href="../admin/logout.php" onclick="return confirmLogout()">
         <img src="img/logout.png" class="logout">
         <span class="dash-text">LOGOUT</span>
     </a>
@@ -64,23 +59,25 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
 </div>
 
     <nav>
-        <a href="employee_dashboard.php">DASHBOARD</a>
+        <a href="product.php">PRODUCT</a>
         <a href="../PUBLIC/about.php">ABOUT</a>
         <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
     </nav>
 
     <div class="icons">
-        <input type="text" placeholder=" 🔍︎ Search" class="search-box">
         <div class="settings-container">
             <img src="img/settings.png" alt="Settings" class="setting-img" id="settings-toggle">    
-                </div>
-        <a href="admin_noti.php">
-            <img src="img/notification.png" alt="noti" class="noti-img"></a>
+        </div>
         <a href="profile_page.php">
             <img src="img/account.png" alt="account" class="acc-img"></a>
         <span class="icon"></span>
     </div>
 </header>
+<script>
+function confirmLogout() {
+    return confirm("Are you sure you want to log out?");
+}
+</script>
 
     <!--Link to JavaScript-->
     <script src="employee.js"></script>

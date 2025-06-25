@@ -1,5 +1,5 @@
 <?php
-require "db_connect.php";
+require "../admin/db_connect.php";
 ?>
 
 <!DOCTYPE html>

@@ -85,12 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         background-color: #4e65f8;
         transform: scale(1.05);
     }
-      /* .admin-profile-box button {
-          padding: 8px 15px;
-          margin-top: 10px;
-          cursor: pointer;
-          border-radius: 10px;
-      } */
+      
       .alert.success {
           background: #d4edda;
           color: #155724;

@@ -85,7 +85,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 220px;
+    height: 230px;
 }
 
 .card img {
@@ -99,7 +99,8 @@
 .item-name {
     font-weight: bold;
     font-size: 16px;
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .card-text {
@@ -107,6 +108,7 @@
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
+    margin-top: 0;
 }
 
 .item-desc {
@@ -123,61 +125,11 @@
     font-weight: bold;
     text-align: right;
 }
+
 .price-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-#product-form {
-  background: #fff;
-  padding: 20px;
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  max-width: 500px;
-}
-
-#product-form input, textarea {
-  width: 100%;
-  margin: 8px 0;
-  padding: 8px;
-}
-
-.add-product-btn {
-    float: right; 
-    background-color: #4CAF50; 
-    color: white;
-    padding: 10px 20px;
-    margin-top: 20px;
-    margin-right: 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.add-product-btn:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-}
-
-.action-icons {
-  display:flex ;
-  gap: 10px;
-}
-
-.icon-btn {
-  background: none;
-  border: none;
-  font-size: 1.2em;
-  cursor: pointer;
-  padding: 5px;
-  transition: background-color 0.2s, transform 0.2s;
-  border-radius: 5px;
 }
 
 
@@ -187,6 +139,51 @@
 
 .icon-btn.delete {
   color: #dc3545;
+}
+
+.middle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0;
+}
+
+.stock-info {
+  font-size: 0.75em;
+  color: #555;
+}
+
+.icon-btn.purchase {
+  background-color: #007bff;        
+  color: white;                     
+  border: none;                     
+  width: 30px;                      
+  height: 30px;
+  border-radius: 50%;            
+  font-size: 20px;                
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.icon-btn.purchase:hover {
+  background-color: #0056b3;       
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
+  color: #333;
+  padding: 2px;
+  transition: color 0.2s ease;
+}
+
+.icon-btn:hover {
+  color: #d00;
 }
 
 @media (max-width: 768px) {
