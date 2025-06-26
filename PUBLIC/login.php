@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             $redirectPage = $role === 'admin' ? '../admin/admin_dashboard.php'
-                          : ($role === 'employees' ? '../employee/employee_dashboard.php'
+                          : ($role === 'employees' ? '../employee/employee_frame.php'
                           : $redirect);
 
             echo "<script>
