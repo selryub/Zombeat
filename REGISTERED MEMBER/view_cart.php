@@ -247,6 +247,7 @@ function checkout() {
     };
 
     localStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+    localStorage.setItem('selectedDelivery', currentDeliveryOption);
     
     // Redirect to transaction page
     window.location.href = 'transaction.php';
