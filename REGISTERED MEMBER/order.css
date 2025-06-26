@@ -193,7 +193,7 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color: #4BB543; /* green like Shopee */
+  background-color: #4BB543; 
   color: white;
   padding: 10px 16px;
   border-radius: 6px;
@@ -202,8 +202,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  z-index: 9999;
+  transition: opacity 0.5s ease, transform 0.5s ease;
   pointer-events: none;
 }
 
@@ -230,7 +229,6 @@
   font-weight: bold;
   z-index: 10;
 }
-
 
 @media (max-width: 768px) {
     .items {

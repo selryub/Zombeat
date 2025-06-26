@@ -136,14 +136,15 @@ if ($currentPage === 'order.php'): ?>
         }
         
         .remove-btn {
-            background: #dc3545;
+            background-color: #dc3545;
             color: white;
             border: none;
             padding: 5px 10px;
-            border-radius: 4px;
+            margin-top: 8px;
             cursor: pointer;
-            margin-left: 10px;
+            border-radius: 5px;
         }
+
         
         .cart-total {
             text-align: center;
@@ -269,35 +270,32 @@ if ($currentPage === 'order.php'): ?>
 
 <!-- Cart Sidebar -->
 <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
-<div class="cart-sidebar" id="cart-sidebar">
+<div id="cart-sidebar" class="cart-sidebar">
     <div class="cart-header">
         <h3>My Cart</h3>
         <button class="close-cart" onclick="toggleCart()">&times;</button>
     </div>
-    <div class="cart-content" id="cart-content">
-        <?php if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0): ?>
-            <?php foreach ($_SESSION['cart'] as $item): ?>
-                <div class="cart-item" id="cart-item-<?= $item['product_id'] ?>">
-                    <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['product_name']) ?>">
-                    <div class="cart-item-details">
-                        <div class="cart-item-name"><?= htmlspecialchars($item['product_name']) ?></div>
-                        <div class="cart-item-price">RM <?= number_format($item['price'], 2) ?></div>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="updateQuantity(<?= $item['product_id'] ?>, <?= $item['quantity'] - 1 ?>)">-</button>
-                            <input type="number" class="quantity-input" value="<?= $item['quantity'] ?>" min="1" onchange="updateQuantity(<?= $item['product_id'] ?>, this.value)">
-                            <button class="quantity-btn" onclick="updateQuantity(<?= $item['product_id'] ?>, <?= $item['quantity'] + 1 ?>)">+</button>
-                            <button class="remove-btn" onclick="removeFromCart(<?= $item['product_id'] ?>)">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-            <div class="cart-total">
-                <h3>Total: RM <span id="cart-total"><?= number_format($cart_total, 2) ?></span></h3>
-                <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    <div class="cart-content" id="cart-items">
+        <p>Your cart is empty.</p>
+    </div>
+    <div class="cart-footer">
+  <p>Total: RM <span id="cart-total">0.00</span></p>
+  <a href="view_cart.php" class="checkout-btn">Proceed to Checkout</a>
+</div>
+
+    <div class="cart-item">
+        <<img src="${item.image}" alt="${item.name}">
+        <div class="cart-item-details">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">RM ${item.price.toFixed(2)} x ${item.quantity}</div>
+            <div class="quantity-controls">
+                <button class="quantity-btn" onclick="updateQuantity(<?= $item['product_id'] ?>, <?= $item['quantity'] - 1 ?>)">-</button>
+                <input type="number" class="quantity-input" value="<?= $item['quantity'] ?>" min="1" onchange="updateQuantity(<?= $item['product_id'] ?>, this.value)">
+                <button class="quantity-btn" onclick="updateQuantity(<?= $item['product_id'] ?>, <?= $item['quantity'] + 1 ?>)">+</button>
+                <button class="remove-btn" onclick="removeFromCart(<?= $item['product_id'] ?>)">Remove</button>
             </div>
-        <?php else: ?>
-            <p>Your cart is empty.</p>
-        <?php endif; ?>
+        </div>
+    </div>
     </div>
 </div>
 
@@ -309,126 +307,6 @@ function confirmLogout() {
 } 
 
 // Cart functionality
-function addToCart(productId, productName, price, imageUrl) {
-    const formData = new FormData();
-    formData.append('action', 'add_to_cart');
-    formData.append('product_id', productId);
-    formData.append('product_name', productName);
-    formData.append('price', price);
-    formData.append('image_url', imageUrl);
-    
-    fetch('order.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            updateCartDisplay();
-            updateCartCount(data.cart_count);
-            showNotification(data.message);
-        } else {
-            showNotification('Error adding item to cart', 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showNotification('Error adding item to cart', 'error');
-    });
-}
-
-function removeFromCart(productId) {
-    if (confirm('Are you sure you want to remove this item from cart?')) {
-        const formData = new FormData();
-        formData.append('action', 'remove_from_cart');
-        formData.append('product_id', productId);
-        
-        fetch('cart_handler.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                updateCartDisplay();
-                updateCartCount(data.cart_count);
-                showNotification(data.message);
-            } else {
-                showNotification('Error removing item from cart', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Error removing item from cart', 'error');
-        });
-    }
-}
-
-function updateQuantity(productId, quantity) {
-    if (quantity < 1) {
-        removeFromCart(productId);
-        return;
-    }
-    
-    const formData = new FormData();
-    formData.append('action', 'update_cart');
-    formData.append('product_id', productId);
-    formData.append('quantity', quantity);
-    
-    fetch('cart_handler.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            updateCartDisplay();
-            updateCartCount(data.cart_count);
-            showNotification(data.message);
-        } else {
-            showNotification('Error updating cart', 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showNotification('Error updating cart', 'error');
-    });
-}
-
-function updateCartDisplay() {
-
-    // Refresh the cart sidebar content
-    fetch('get_cart_content.php')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('cart-content').innerHTML = html;
-        })
-        .catch(error => {
-            console.error('Error updating cart display:', error);
-        });
-}
-
-function updateCartCount(count) {
-    const cartCountElement = document.getElementById('cart-count');
-    if (count > 0) {
-        if (cartCountElement) {
-            cartCountElement.textContent = count;
-        } else {
-            // Create cart count element if it doesn't exist
-            const cartContainer = document.querySelector('.cart-container');
-            const countSpan = document.createElement('span');
-            countSpan.className = 'cart-count';
-            countSpan.id = 'cart-count';
-            countSpan.textContent = count;
-            cartContainer.appendChild(countSpan);
-        }
-    } else {
-        if (cartCountElement) {
-            cartCountElement.remove();
-        }
-    }
-}
-
 function showNotification(message, type = 'success') {
     const container = document.getElementById('toast-container');
     if (!container) return;
@@ -455,37 +333,6 @@ function showNotification(message, type = 'success') {
         setTimeout(() => toast.remove(), 500);
     }, 2000);
 }
-
-function displayCartItemsFromStorage() {
-  const cartItems = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
-  const cartContainer = document.getElementById('cart-items');
-  const cartTotal = document.getElementById('cart-total');
-  let html = '';
-  let total = 0;
-
-  cartItems.forEach(item => {
-    total += item.price * item.quantity;
-    html += `
-      <div class="cart-item">
-        <img src="${item.image}" alt="${item.name}">
-        <div class="cart-item-details">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-price">RM ${item.price.toFixed(2)} x ${item.quantity}</div>
-        </div>
-      </div>
-    `;
-  });
-
-  cartContainer.innerHTML = html || '<p>Your cart is empty.</p>';
-  cartTotal.textContent = total.toFixed(2);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.location.pathname.includes('order.php')) {
-    displayCartItemsFromStorage();
-    updateCartCount(); // optional, to update the red bubble
-  }
-});
 
 function toggleCart() {
     const sidebar = document.getElementById('cart-sidebar');

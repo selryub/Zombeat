@@ -35,27 +35,6 @@ $conn->close();
 ?>
 
 <link rel="stylesheet" href="order.css" />
-<style>
-.cart-toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #28a745;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 4px;
-  display: none;
-  z-index: 9999;
-}
-.cart-toast.show {
-  display: block;
-  animation: fadeout 1.5s ease forwards;
-}
-@keyframes fadeout {
-  0% { opacity: 1; }
-  100% { opacity: 0; display: none; }
-}
-</style>
 
 <div class="page-wrapper">
   <div class="menu-header-bar">
@@ -88,7 +67,12 @@ $conn->close();
                         <p class="item-desc"><?= htmlspecialchars($row['description']) ?></p>
                         <div class="price-button">
                             <strong class="price">RM <?= number_format($row['price'], 2) ?></strong>
-                            <button onclick="addToCart(<?= $row['product_id'] ?>, '<?= htmlspecialchars($row['product_name'], ENT_QUOTES) ?>', <?= $row['price'] ?>, '<?= htmlspecialchars($row['image_url'], ENT_QUOTES) ?>')">+</button>
+                            <button onclick="addToCart(
+                              <?= $row['product_id'] ?>,
+                              '<?= htmlspecialchars($row['product_name'], ENT_QUOTES) ?>',
+                              '<?= number_format($row['price'], 2) ?>',
+                              '<?= htmlspecialchars($row['image_url'], ENT_QUOTES) ?>'
+                            )">+</button>
                         </div>
                     </div>
                 </div>
@@ -130,17 +114,77 @@ $conn->close();
 </footer>
 
 <script>
-function addToCart(productId, productName, price, imageUrl) {
-  let cart = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
-  const index = cart.findIndex(item => item.id === productId);
-  if (index !== -1) {
-    cart[index].quantity += 1;
-  } else {
-    cart.push({ id: productId, name: productName, price: price, image: imageUrl, quantity: 1 });
+function addToCart(productId, productName, priceStr, imageUrl) {
+  const price = parseFloat(priceStr);
+  if (isNaN(price)) {
+    alert(`Invalid price for ${productName}`);
+    return;
   }
+
+  let cart = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
+  const existingItem = cart.find(item => item.id === productId);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ 
+      id: productId,
+      name: productName, 
+      price: price,
+      quantity: 1,
+      image: imageUrl
+    });
+  }
+
   localStorage.setItem('fcsit_kiosk_cart', JSON.stringify(cart));
   updateCartCount();
+  displayCartItemsFromStorage();
   showToast();
+}
+
+
+function displayCartItemsFromStorage() {
+    const cartItems = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
+    const cartContainer = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    let html = '';
+    let total = 0;
+
+    cartItems.forEach(item => {
+        total += item.price * item.quantity;
+        html += `
+            <div class="cart-item">
+                <img src="${item.image}" alt="${item.name}">
+                <div class="cart-item-details">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">RM ${item.price.toFixed(2)} x ${item.quantity}</div>
+                    <button onclick="removeFromLocalCart(${item.id})" class="remove-btn">Remove</button>
+                </div>
+            </div>
+        `;
+    });
+
+    cartContainer.innerHTML = html || '<p>Your cart is empty.</p>';
+    cartTotal.textContent = total.toFixed(2);
+}
+
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const countSpan = document.getElementById('cart-count');
+    if (countSpan) {
+        countSpan.textContent = count;
+        countSpan.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+}
+
+function removeFromLocalCart(productId) {
+    let cart = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
+    cart = cart.filter(item => item.id !== productId);
+    localStorage.setItem('fcsit_kiosk_cart', JSON.stringify(cart));
+    displayCartItemsFromStorage();
+    updateCartCount();
+    showToast("Item removed from cart");
 }
 
 function showToast() {
@@ -150,17 +194,13 @@ function showToast() {
   setTimeout(() => toast.classList.remove('show'), 1500);
 }
 
-function updateCartCount() {
-  const cart = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
-  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const countSpan = document.getElementById('cart-count');
-  if (countSpan) countSpan.textContent = count;
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   updateCartCount();
+  displayCartItemsFromStorage(); 
 });
+
 </script>
 
 </body>
 </html>
+
