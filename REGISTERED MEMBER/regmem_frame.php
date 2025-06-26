@@ -208,12 +208,12 @@ if ($currentPage === 'order.php'): ?>
         <a href="regmem_dashboard.php" class="hellouser"> HELLO USER !</a>     
     </div>      
 
-    <a href="menu_page.php">      
+    <a href="../PUBLIC/menu_page.php">      
         <img src="img/layout.png" class="sidebar-icon">         
         <span class="dash-text">MENU</span>     
     </a>          
 
-    <a href="order.php">         
+    <a href="track_order.php">         
         <img src="img/list.png" class="sidebar-icon">         
         <span class="dash-text">ORDERS</span>     
     </a>        
