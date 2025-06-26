@@ -46,24 +46,30 @@
 
 <!-- Header -->
 <header class="navbar">
-<div class="left-header">
-  <!-- <div class="menu-icon" onclick="toggleSidebar()">☰</div> -->
-  <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
-  <div class="logo-text">FCSIT KIOSK</div>
-</div>
+  <div class="left-header">
+    <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
+    <div class="logo-text">
+      <span class="main-title">FCSIT KIOSK</span>
+      <span class="sub-title">TMI 2104 WEB BASED SYSTEM  <br>
+     DEVELOPMENT PROJECT DEMO</span>
+    </div>
+  </div>
 
   <nav>
     <a href="index.php">HOME</a>
-    <a href="../REGISTERED MEMBER/order.php">MENU</a>
+    <a href="user_dashboard.php">MENU</a>
     <a href="about.php">ABOUT</a>
-    <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
+    <a href="review.php">REVIEWS</a>
   </nav>
+
   <div class="icons">
     <img src="img/cart.png" alt="cart" class="cart-img">
-    <a href="/Zombeat/PUBLIC/login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
+    <a href="login.php"><img src="img/account.png" alt="account" class="acc-img"></a>
     <span class="icon"></span>
   </div>
 </header>
+
+
 
   <section class="slider">
 <div class="slideshow-container">
