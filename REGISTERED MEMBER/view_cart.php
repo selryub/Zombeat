@@ -207,6 +207,7 @@ function saveCartToStorage() {
 
 function checkout() {
     const cart = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
+    
     if (cart.length === 0) {
         alert('Your cart is empty!');
         return;
@@ -220,56 +221,46 @@ function checkout() {
         }
     }
 
+    let subtotal = 0;
+    const checkoutItems = cart.map(item => {
+        const itemTotal = parseFloat(item.price) * parseInt(item.quantity);
+        subtotal += itemTotal;
+        return {
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.image
+        };
+    });
+
+
+    const deliveryFee = currentDeliveryOption === 'delivery' ? 0.50 : 0;
+    const total = subtotal + deliveryFee;
+
     // Store checkout data for next page
     const checkoutData = {
-        items: cart,
+        items: checkoutItems,
         deliveryOption: currentDeliveryOption,
-        subtotal: parseFloat(document.getElementById('subtotal').textContent.replace('RM', '').trim()),
-        deliveryFee: currentDeliveryOption === 'delivery' ? 0.50 : 0,
-        total: parseFloat(document.getElementById('total').textContent.replace('RM', '').trim())
+        subtotal: subtotal,
+        deliveryFee: deliveryFee,
+        total: subtotal + deliveryFee
     };
-    
+
     localStorage.setItem('checkoutData', JSON.stringify(checkoutData));
     
     // Redirect to transaction page
     window.location.href = 'transaction.php';
 }
 
-// Load delivery locations from server
-function loadDeliveryLocations() {
-    fetch('get_locations.php')
-        .then(response => response.json())
-        .then(locations => {
-            const select = document.getElementById('location-select');
-            select.innerHTML = '<option value="">Select your delivery location...</option>'; // reset
-            locations.forEach(loc => {
-                const option = document.createElement('option');
-                option.value = loc;
-                option.textContent = loc;
-                select.appendChild(option);
-            });
-        })
-        .catch(error => {
-            console.error('Failed to load locations:', error);
-        });
-}
-
-window.onload = function() {
-    loadCartFromStorage();
-    loadDeliveryLocations();  
-};
-
-// Load cart when page loads
-window.onload = function() {
-    loadCartFromStorage();
-};
-
 document.addEventListener('DOMContentLoaded', () => {
+    loadCartFromStorage();
+
     const locationSelect = document.getElementById('location-select');
 
     fetch('get_locations.php')
         .then(response => response.json())
         .then(locations => {
+            locationSelect.innerHTML = '<option value="">Select your delivery location...</option>'; // reset options
             locations.forEach(location => {
                 const option = document.createElement('option');
                 option.value = location;
@@ -281,8 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Failed to load locations:', error);
         });
 });
-
 </script>
-
 </body>
 </html>

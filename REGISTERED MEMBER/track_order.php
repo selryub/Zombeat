@@ -1,55 +1,23 @@
+<?php include 'regmem_frame.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FCSIT Kiosk - Track Order Page</title>
+    <title>FCSIT Kiosk - Track Order</title>
     <link rel="stylesheet" href="track_order.css">
 </head>
 <body>
-
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-
-            <!-- Mobile Menu Button -->
-            <button class="mobile-menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <!-- Logo -->
-            <div class="logo">
-                <img src="img/kiosk.JPG" alt="FCSIT Kiosk Logo" class="logo-icon">
-                <span class="logo-text">FCSIT KIOSK</span>
-            </div>
-            
-            <!-- Navigation -->
-            <nav class="nav">
-                <a href="index.php" class="nav-link active">HOME</a>
-                <a href="menu_page.php" class="nav-link">MENU</a>
-                <a href="about.php" class="nav-link">ABOUT</a>
-                <a href="review.php" class="nav-link">REVIEWS</a>
-            </nav>
-            
-            <!-- Search and Icons -->
-            <div class="header-actions">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search...">
-                    <button class="search-btn">
-                        <img src="img/search.png" alt="Search">
-                    </button>
-                </div>
-                <button class="cart-btn">
-                    <img src="img/cart.png" alt="Cart" width="24" height="24">
-                </button>
-                <button class="profile-btn">
-                    <img src="img/profile2.png" alt="Profile" width="24" height="24">
-                </button>
+    <div class="receipt-container">
+        <h1 class="receipt-title">ORDER STATUS</h1>
+        <div class="receipt-content">
+            <div class="cart-section" style="grid-column: span 2;">
+                <h2 class="section-title">Thank you!</h2>
+                <p>Your order is being prepared. Please check your email for the receipt.</p>
+                <p>If your order includes delivery, it will be on its way shortly.</p>
+                <a href="order.php" class="btn btn-primary" style="margin-top: 20px;">Back to Menu</a>
             </div>
         </div>
-    </header>
+    </div>
 
     <!-- Main Content -->
     <main class="main">
@@ -135,5 +103,7 @@
             document.querySelector('.order-status-card').style.display = 'none';
         });
     </script>
+    
 </body>
 </html>
+

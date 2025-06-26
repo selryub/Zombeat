@@ -11,11 +11,6 @@ body {
     color: #333;
 }
 
-/* Remove the cart header that was showing "FCSIT KIOSK MENU" */
-.cart-header {
-    display: none;
-}
-
 /* Progress Steps */
 .progress-steps {
     background: white;
