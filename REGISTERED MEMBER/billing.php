@@ -46,7 +46,7 @@ $user_name = $_SESSION['username'] ?? 'Customer';
       </div>
       <div class="order-details">
         <div class="detail-row"><span class="detail-label">Customer Name:</span><span class="detail-value"><?= htmlspecialchars($user_name) ?></span></div>
-        <div class="detail-row"><span class="detail-label">Order ID:</span><span class="detail-value" id="orderId">#<?= rand(10000, 99999) ?></span></div>
+        <div class="detail-row"><span class="detail-label">Order ID:</span><span class="detail-value" id="orderId"></span></div>
         <div class="detail-row"><span class="detail-label">Date & Time:</span><span class="detail-value"><?= date('Y-m-d H:i:s') ?></span></div>
         <div class="detail-row"><span class="detail-label">Payment Method:</span><span class="detail-value" id="paymentMethod">-</span></div>
         <div class="detail-row"><span class="detail-label">Order Type:</span><span class="detail-value" id="orderType">-</span></div>
@@ -74,6 +74,16 @@ $user_name = $_SESSION['username'] ?? 'Customer';
 </div>
 
 <script>
+
+// ✅ Generate or reuse Order ID
+let orderId = localStorage.getItem('orderId');
+if (!orderId) {
+  orderId = "#" + Math.floor(Math.random() * 90000 + 10000); // like #12345
+  localStorage.setItem('orderId', orderId);
+}
+document.getElementById('orderId').textContent = orderId;
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const data = JSON.parse(localStorage.getItem('checkoutData')) || {};
   const cart = Array.isArray(data.items) ? data.items : [];
