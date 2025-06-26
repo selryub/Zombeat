@@ -133,72 +133,93 @@ $conn->close();
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const data = JSON.parse(localStorage.getItem('checkoutData')) || {};
+    const cart = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
 
-    // Display totals
-    document.getElementById('subtotalDisplay').textContent = 'RM ' + (data.subtotal ? parseFloat(data.subtotal).toFixed(2) : '0.00');
-    document.getElementById('deliveryFeeDisplay').textContent = 'RM ' + (data.deliveryFee ? parseFloat(data.deliveryFee).toFixed(2) : '0.00');
-    document.getElementById('totalDisplay').textContent = 'RM ' + (data.total ? parseFloat(data.total).toFixed(2) : '0.00');
-
-    // Order Items
-    const container = document.getElementById('orderItems');
-    container.innerHTML = '';
-    if (data.items?.length) {
-        data.items.forEach(item => {
-            container.innerHTML += `
-                <div class="order-item">
-                    <img src="${item.image}" alt="${item.name}" style="width:60px;height:60px;border-radius:8px;">
-                    <div class="item-details">
-                        <div class="item-name">${item.name}</div>
-                        <div class="item-price">RM ${parseFloat(item.price).toFixed(2)}</div>
-                    </div>
-                </div>`;
-        });
-    } else {
-        container.innerHTML = '<div>No items found</div>';
-    }
-
-    // Format credit card inputs
-    document.querySelector('.card-number')?.addEventListener('input', function () {
-        let val = this.value.replace(/\D/g, '').substring(0, 16);
-        val = val.replace(/(\d{4})(?=\d)/g, '$1 ');
-        this.value = val;
+    // Render cart items
+    const cartContainer = document.getElementById('orderItems');
+    cartContainer.innerHTML = '';
+    cart.forEach(item => {
+        cartContainer.innerHTML += `
+            <div class="cart-item">
+                <div class="item-image"><img src="${item.image}" alt="${item.name}" width="60" height="60" style="border-radius:10px;"></div>
+                <div class="item-details">
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-price">RM ${parseFloat(item.price).toFixed(2)}</div>
+                </div>
+                <div class="item-quantity">
+                    <span class="quantity-label">Quantity:</span>
+                    <span class="quantity-value">${item.quantity}</span>
+                </div>
+            </div>
+        `;
     });
 
-    document.querySelector('.expiry')?.addEventListener('input', function () {
-        let val = this.value.replace(/\D/g, '').substring(0, 4);
-        if (val.length >= 3) val = val.replace(/(\d{2})(\d{1,2})/, '$1/$2');
-        this.value = val;
+    // Fill order summary
+    let subtotal = 0;
+    cart.forEach(item => {
+        subtotal += item.price * item.quantity;
     });
 
-    document.querySelector('.cvv')?.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '').substring(0, 3);
-    });
+    const selectedDelivery = localStorage.getItem('selectedDelivery') || 'pickup';
+    const delivery = selectedDelivery === 'delivery' ? 0.50 : 0.00;
+    const total = subtotal + delivery;
 
-    // Update payment method on change
-    document.querySelectorAll('input[name="payment"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-            document.getElementById('payment-method').value = radio.value;
-        });
-    });
-
-    document.querySelector('.btn.btn-primary')?.addEventListener('click', function (e) {
-    e.preventDefault();
-
-    const data = JSON.parse(localStorage.getItem('checkoutData')) || {};
-
-    // Get selected payment method
-    const selectedPayment = document.querySelector('input[name="payment"]:checked')?.value || 'Credit Card';
-    data.paymentMethod = selectedPayment;
-
-    // If you have delivery radio buttons, add this
-    const selectedDelivery = document.querySelector('input[name="delivery"]:checked')?.value;
-    if (selectedDelivery) data.deliveryOption = selectedDelivery;
-
-    localStorage.setItem('checkoutData', JSON.stringify(data));
-    window.location.href = 'billing.php';
+    document.getElementById('subtotalDisplay').textContent = 'RM ' + subtotal.toFixed(2);
+    document.getElementById('deliveryFeeDisplay').textContent = 'RM ' + delivery.toFixed(2);
+    document.getElementById('totalDisplay').textContent = 'RM ' + total.toFixed(2);
 });
 
+// Format credit card inputs
+document.querySelector('.card-number')?.addEventListener('input', function () {
+    let val = this.value.replace(/\D/g, '').substring(0, 16);
+    val = val.replace(/(\d{4})(?=\d)/g, '$1 ');
+    this.value = val;
+});
+
+document.querySelector('.expiry')?.addEventListener('input', function () {
+    let val = this.value.replace(/\D/g, '').substring(0, 4);
+    if (val.length >= 3) val = val.replace(/(\d{2})(\d{1,2})/, '$1/$2');
+    this.value = val;
+});
+
+document.querySelector('.cvv')?.addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '').substring(0, 3);
+});
+
+// Payment selection logic
+document.querySelectorAll('input[name="payment"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        document.getElementById('payment-method').value = radio.value;
+    });
+});
+
+// Handle Pay now
+document.querySelector('.btn.btn-primary')?.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const selectedPayment = document.querySelector('input[name="payment"]:checked')?.value || 'Credit Card';
+    const selectedDelivery = localStorage.getItem('selectedDelivery') || 'pickup';
+    const cart = JSON.parse(localStorage.getItem('fcsit_kiosk_cart')) || [];
+
+    let subtotal = 0;
+    cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+    });
+
+    const delivery = selectedDelivery === 'delivery' ? 0.50 : 0.00;
+    const total = subtotal + delivery;
+
+    const checkoutData = {
+    paymentMethod: selectedPayment,
+    deliveryOption: selectedDelivery,
+    subtotal: subtotal,
+    deliveryFee: delivery, 
+    total: total,
+    items: cart
+    };
+
+    localStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+    window.location.href = 'billing.php';
 });
 </script>
 </body>
