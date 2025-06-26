@@ -6,7 +6,7 @@ require "../admin/db_connect.php";
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Employee Schedule</title>
+    <title>Part-time Schedule</title>
     <link rel="stylesheet" href="employeestyle.css"> 
     <style>
         body {
@@ -84,13 +84,13 @@ require "../admin/db_connect.php";
 <?php include "employee_frame.php"; ?> 
 
 <div class="schedule-container">
-    <h2>Employee Work Schedule</h2>
+    <h2>Part-time Work Schedule</h2>
 
     <!-- Employee Selection Dropdown -->
     <form method="GET" action="">
-        <label for="employee">Employee's name:</label>
+        <label for="employee">Part-timer's name:</label>
         <select id="employee" name="employee" onchange="this.form.submit()">
-            <option value="">-- Choose Employee --</option>
+            <option value="">-- Choose name --</option>
             <option value="eizlyn" <?= ($_GET['employee'] ?? '') == 'eizlyn' ? 'selected' : '' ?>>Eizlyn Ismail</option>
             <option value="epa" <?= ($_GET['employee'] ?? '') == 'epa' ? 'selected' : '' ?>>Epa Haryanee</option>
             <option value="selma" <?= ($_GET['employee'] ?? '') == 'selma' ? 'selected' : '' ?>>Selma</option>

@@ -21,7 +21,7 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
 
     <div class="employee-header">
         <img src="img/account.png" alt="Employee Image"  class="acc-dash">
-        <a href = "employee_dashboard.php" class="hellouser"> HELLO EMPLOYEE !</a>
+        <a href = "employee_dashboard.php" class="hellouser"> HELLO PART_TIMER !</a>
     </div>
 
     <a href="order_details.php" class="menuall">
