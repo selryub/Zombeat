@@ -208,7 +208,7 @@ if ($currentPage === 'order.php'): ?>
         <a href="regmem_dashboard.php" class="hellouser"> HELLO USER !</a>     
     </div>      
 
-    <a href="../PUBLIC/menu_page.php">      
+    <a href="user_dashboard.php">      
         <img src="img/layout.png" class="sidebar-icon">         
         <span class="dash-text">MENU</span>     
     </a>          
@@ -282,21 +282,7 @@ if ($currentPage === 'order.php'): ?>
   <p>Total: RM <span id="cart-total">0.00</span></p>
   <a href="view_cart.php" class="checkout-btn">Proceed to Checkout</a>
 </div>
-
-    <div class="cart-item">
-        <<img src="${item.image}" alt="${item.name}">
-        <div class="cart-item-details">
-            <div class="cart-item-name">${item.name}</div>
-            <div class="cart-item-price">RM ${item.price.toFixed(2)} x ${item.quantity}</div>
-            <div class="quantity-controls">
-                <button class="quantity-btn" onclick="updateQuantity(<?= $item['product_id'] ?>, <?= $item['quantity'] - 1 ?>)">-</button>
-                <input type="number" class="quantity-input" value="<?= $item['quantity'] ?>" min="1" onchange="updateQuantity(<?= $item['product_id'] ?>, this.value)">
-                <button class="quantity-btn" onclick="updateQuantity(<?= $item['product_id'] ?>, <?= $item['quantity'] + 1 ?>)">+</button>
-                <button class="remove-btn" onclick="removeFromCart(<?= $item['product_id'] ?>)">Remove</button>
-            </div>
-        </div>
-    </div>
-    </div>
+</div>
 </div>
 
 <div id="toast-container" style="position: fixed; top: 80px; right: 20px; z-index: 9999;"></div>

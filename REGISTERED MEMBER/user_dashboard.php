@@ -93,7 +93,7 @@ $conn->close();
     <p>Exco Keusahawanan (Kiosk)
     <br>Persatuan Teknologi Maklumat (PERTEKMA)
     <br>Fakulti Sains Komputer dan Teknologi Maklumat
-    <br>Univeristi Malaysia Sarawak
+    <br>Universiti Malaysia Sarawak
     </p>
   </div>
 
