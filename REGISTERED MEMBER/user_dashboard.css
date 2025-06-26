@@ -230,43 +230,121 @@
   z-index: 10;
 }
 
+/* Footer */
 footer {
   background-color: #f9f9f9;
-  padding: 40px 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
-  gap: 30px;
-  text-align: left;
+  padding: 15px 20px;
+  font-family: "Times New Roman", Times, serif;
+  border-top: 2px solid #333;
 }
 
-footer .contact,
-footer .hours {
-  max-width: 300px;
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+footer .contact {
   flex: 1;
+  min-width: 280px;
+}
+
+footer .contact p:first-child {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+footer .contact p:last-child {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #666;
+  margin: 0;
 }
 
 footer .map-container {
-  flex: 1 1 400px;
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+  position: relative;
 }
 
-footer iframe {
+footer .map-container iframe {
   width: 100%;
-  height: 300px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  height: 160px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
-footer .straightline {
+footer .map-container::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #333;
+}
+
+footer .hours {
+  flex: 1;
+  min-width: 200px;
+  text-align: right;
+}
+
+footer .hours p:first-child {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+footer .hours p:not(:first-child) {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #666;
+  margin: 2px 0;
+}
+
+.footer-separator {
   width: 100%;
   text-align: center;
-  margin-top: 20px;
+  margin: 15px 0 0 0;
+  padding-top: 15px;
 }
 
-footer .straightline img {
+.footer-separator img {
   width: 80%;
-  max-width: 600px;
+  max-width: 800px;
+  height: 2px;
+  object-fit: cover;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  footer .hours {
+    text-align: center;
+  }
+  
+  footer .map-container iframe {
+    height: 250px;
+  }
+  
+  .footer-separator img {
+    width: 90%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -321,6 +399,9 @@ footer .straightline img {
     }
 
 }
+
+
+
 
 
 

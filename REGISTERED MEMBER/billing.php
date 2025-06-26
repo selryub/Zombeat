@@ -127,44 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('remarksDisplay').textContent = remarks;
     }
 
-    const itemList = cart.map(item =>
-      `${item.name} x${item.quantity} — RM ${parseFloat(item.price).toFixed(2)}`
-    ).join("<br>");
-
-    const message = `
-      <h2>Thank you for your order, <?= htmlspecialchars($user_name) ?>!</h2>
-      <p><strong>Order Summary:</strong></p>
-      <p>${itemList}</p>
-      <p><strong>Subtotal:</strong> RM ${subtotal.toFixed(2)}<br>
-         <strong>Delivery Fee:</strong> RM ${deliveryFee.toFixed(2)}<br>
-         <strong>Total:</strong> RM ${total.toFixed(2)}</p>
-      <p>We’ll notify you once your order is ready.</p>
-      <p><em>FCSIT Kiosk</em></p>
-    `;
-
-    fetch('send_email.php', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: new URLSearchParams({
-        email: '<?= $user_email ?>',
-        message: message
-      })
-    })
-    .then(res => res.text())
-    .then(response => {
-      console.log('Email response:', response);
-      localStorage.removeItem('checkoutData');
-      window.location.href = 'track_order.php';
-    })
-    .catch(error => {
-      console.error('Email error:', error);
-      alert('Failed to send receipt. Please try again.');
-    });
+    localStorage.removeItem('checkoutData');
+    window.location.href = 'track_order.php';
   });
 });
 </script>
-
 </body>
 </html>
+
 
 
