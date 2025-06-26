@@ -208,12 +208,12 @@ if ($currentPage === 'order.php'): ?>
         <a href="regmem_dashboard.php" class="hellouser"> HELLO USER !</a>     
     </div>      
 
-    <a href="menu_page.php" class="menuall">         
+    <a href="user_dashboard.php" class="menuall">
         <img src="#" class="menu">         
         <span class="dash-text">MENU</span>     
     </a>          
 
-    <a href="order.php">         
+    <a href="user_dashboard.php" class="menuall">       
         <img src="#" class="sales">         
         <span class="dash-text">ORDERS</span>     
     </a>        
@@ -223,7 +223,7 @@ if ($currentPage === 'order.php'): ?>
         <span class="dash-text">BILLING</span>     
     </a>      
 
-    <a href="track_order.html" class="menuall">         
+    <a href="track_order.php" class="menuall">
         <img src="#" class="track-orders">         
         <span class="dash-text">TRACK ORDERS</span>     
     </a>      
@@ -249,8 +249,8 @@ if ($currentPage === 'order.php'): ?>
 
     <nav>         
         <a href="../PUBLIC/about.php">HOME</a>         
-        <a href="../PUBLIC/menu_page.php">MENU</a>         
-        <a href="about.php">ABOUT</a>         
+        <a href="user_dashboard.php">MENU</a>
+        <a href="../PUBLIC/about.php">ABOUT</a>         
         <a href="review.php">REVIEWS</a>     
     </nav>     
     

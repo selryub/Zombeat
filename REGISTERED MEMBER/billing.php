@@ -37,7 +37,7 @@ $user_name = $_SESSION['username'] ?? 'Customer';
 <div class="receipt-container">
     <h1 class="receipt-title">ORDER RECEIPT</h1>
 
-    <div class="receipt-content">
+    <div class="receipt-content-row">
         <!-- CART -->
         <div class="cart-section">
             <h2 class="section-title">CART</h2>
@@ -77,7 +77,6 @@ $user_name = $_SESSION['username'] ?? 'Customer';
                 </div>
             </div>
 
-            <!-- SUMMARY -->
             <h3 class="subsection-title">ORDER SUMMARY</h3>
             <div class="order-summary">
                 <div class="summary-row">
@@ -106,6 +105,9 @@ $user_name = $_SESSION['username'] ?? 'Customer';
             </div>
         </div>
     </div>
+</div>
+
+
 </div>
 
 <script>
