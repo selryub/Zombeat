@@ -16,19 +16,22 @@ body > .menu-container {
   flex-direction: column;
 }
 
-nav{
-    margin-left: 40%;
+nav {
+  display: flex;
+  gap: 10px; /* spacing between links */
+  flex-shrink: 0; /* prevents nav from shrinking too much */
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 30px;
+  padding: 10px 20px;
   height: 50px;
   background-color: #fff;
   border-bottom: 1px solid #ccc;
   font-family: 'Times New Roman', Times, serif;
+  flex-wrap: nowrap;
 }
 
 .navbar nav a {
@@ -46,6 +49,11 @@ text-decoration: underline;
   align-items: center;
 }
 
+.left-header {
+  display: flex;
+  align-items: center;
+}
+
 /* .search-box {
   padding: 5px;
   margin-right: 10px;
@@ -55,19 +63,20 @@ text-decoration: underline;
   border-color: #545050;
 } */
 
-.icon {
-  margin: 0 5px 0 50px;
+.icons {
   font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .cart-img {
-  width: auto; 
+  width: 30px; 
   height: 30px;   
   object-fit: contain;
-  margin-left: 20px;
 }
 .acc-img {
-  width: auto; 
+  width: 30px; 
   height: 30px;   
   object-fit: contain;
   margin-left: 20px;
@@ -294,4 +303,25 @@ text-decoration: underline;
   font-family: Arial, Helvetica, sans-serif; 
   color: #000;
   padding-left: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo-text .subtitle {
+  font-size: 0.85rem;
+  font-weight: normal;
+  color: #555;
+}
+
+.main-title {
+  font-weight: bold;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.sub-title {
+  font-size: small;
+  color: #555555;
+  margin-left: 50px;
 }
