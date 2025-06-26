@@ -34,7 +34,7 @@ $stmt->close();
 $conn->close();
 ?>
 
-<link rel="stylesheet" href="order.css" />
+<link rel="stylesheet" href="user_dashboard.css" />
 
 <div class="page-wrapper">
   <div class="menu-header-bar">
@@ -93,24 +93,25 @@ $conn->close();
     <p>Exco Keusahawanan (Kiosk)
     <br>Persatuan Teknologi Maklumat (PERTEKMA)
     <br>Fakulti Sains Komputer dan Teknologi Maklumat
-    <br>Univeristi Malaysia Sarawak</p>
+    <br>Univeristi Malaysia Sarawak
+    </p>
   </div>
 
   <div class="map-container">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.28178855754!2d110.42879137977478!3d1.4681128239800552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31fba3ce88e3a469%3A0xf0983c853635b29!2sFaculty%20of%20Computer%20Science%20%26%20Information%20Technology%20(FCSIT)!5e0!3m2!1sen!2smy!4v1748969425700!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.28178855754!2d110.42879137977478!3d1.4681128239800552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31fba3ce88e3a469%3A0xf0983c853635b29!2sFaculty%20of%20Computer%20Science%20%26%20Information%20Technology%20(FCSIT)!5e0!3m2!1sen!2smy!4v1748969425700!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
 
-  <div class="straightline">
-    <img src="../PUBLIC/img/blackline.png">
-  </div>
+<div class="straightline">
+  <img src="img/blackline.png">
+</div>
 
-  <div class="hours">
-    <p>OPENING HOURS</p>
-    <p>MON - FRI: 8AM - 6PM</p>
-    <p>SATURDAY & SUNDAY: CLOSED</p>
-  </div>
+<div class="hours">
+  <p>OPENING HOURS</p>
+  <p>MON - FRI: 8AM - 6PM</p>
+  <p>SATURDAY & SUNDAY: CLOSED</p>
+</div>
 </footer>
 
 <script>

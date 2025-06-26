@@ -208,33 +208,33 @@ if ($currentPage === 'order.php'): ?>
         <a href="regmem_dashboard.php" class="hellouser"> HELLO USER !</a>     
     </div>      
 
-    <a href="menu_page.php" class="menuall">         
-        <img src="#" class="menu">         
+    <a href="../PUBLIC/menu_page.php">         
+        <img src="img/layout.png" class="sidebar-icon">         
         <span class="dash-text">MENU</span>     
     </a>          
 
-    <a href="order.php">         
-        <img src="#" class="sales">         
+    <a href="user_dashboard.php">         
+        <img src="img/list.png" class="sidebar-icon">         
         <span class="dash-text">ORDERS</span>     
     </a>        
 
     <a href="billing.php">         
-        <img src="billing" class="billing">         
+        <img src="img/card plus.png" class="sidebar-icon">         
         <span class="dash-text">BILLING</span>     
     </a>      
 
-    <a href="track_order.html" class="menuall">         
-        <img src="#" class="track-orders">         
+    <a href="track_order.php">       
+        <img src="img/gps.png" class="sidebar-icon">         
         <span class="dash-text">TRACK ORDERS</span>     
     </a>      
 
     <a href="profile.php">         
-        <img src="img/profile2.png" class="profile">         
+        <img src="img/profile2.png" class="sidebar-icon">         
         <span class="dash-text">PROFILE</span>     
     </a>      
 
     <a href="../admin/logout.php" onclick="return confirmLogout()">
-        <img src="img/logout.png" class="logout">
+        <img src="img/logout.png" class="sidebar-icon">
         <span class="dash-text">LOGOUT</span>
     </a>
 </div>
