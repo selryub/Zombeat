@@ -213,7 +213,7 @@ if ($currentPage === 'order.php'): ?>
         <span class="dash-text">MENU</span>     
     </a>          
 
-    <a href="track_order.php">         
+    <a href="user_dashboard.php">         
         <img src="img/list.png" class="sidebar-icon">         
         <span class="dash-text">ORDERS</span>     
     </a>        
@@ -223,7 +223,7 @@ if ($currentPage === 'order.php'): ?>
         <span class="dash-text">BILLING</span>     
     </a>      
 
-    <a href="track_order.html">         
+    <a href="track_order.php">         
         <img src="img/gps.png" class="sidebar-icon">         
         <span class="dash-text">TRACK ORDERS</span>     
     </a>      
