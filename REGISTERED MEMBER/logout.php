@@ -5,5 +5,5 @@ session_destroy();
 
 
 
-header("Location: ../REGISTERED MEMBER/login.php");
+header("Location: ../PUBLIC/login.php");
 exit();
