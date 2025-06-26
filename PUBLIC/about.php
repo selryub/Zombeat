@@ -53,12 +53,11 @@
 </div>
 
   <nav>
-    <a href="index.php">HOME</a>
-    <a href="menu_page.php">MENU</a>
-    <a href="about.php">ABOUT</a>
-    <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
-    <a href="../REGISTERED%20MEMBER/order.php">ORDERS</a>
-  </nav>
+  <a href="index.php">HOME</a>
+  <a href="../REGISTERED MEMBER/order.php">MENU</a>
+  <a href="about.php">ABOUT</a>
+  <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
+</nav>
   <div class="icons">
     <!-- <input type="text" placeholder=" 🔍︎ Search" class="search-box"> -->
     <img src="img/cart.png" alt="cart" class="cart-img">
