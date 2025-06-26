@@ -156,46 +156,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Button handler
     document.getElementById('trackOrderBtn').addEventListener('click', () => {
-        const remarks = document.getElementById('remarks').value.trim();
-        if (remarks) remarksDisplay.textContent = remarks;
+    const remarks = document.getElementById('remarks').value.trim();
+    if (remarks) {
+        document.getElementById('remarksDisplay').textContent = remarks;
+    }
 
-        const itemList = cart.map(item =>
-            `${item.name} x${item.quantity} — RM ${parseFloat(item.price).toFixed(2)}`
-        ).join("<br>");
+    const data = JSON.parse(localStorage.getItem('checkoutData')) || {};
+    const cart = data.items || [];
 
-        const message = `
-            <h2>Thank you for your order, <?= htmlspecialchars($user_name) ?>!</h2>
-            <p><strong>Order Summary:</strong></p>
-            <p>${itemList}</p>
-            <p><strong>Subtotal:</strong> RM ${parseFloat(data.subtotal).toFixed(2)}<br>
-               <strong>Delivery Fee:</strong> RM ${parseFloat(data.deliveryFee).toFixed(2)}<br>
-               <strong>Total:</strong> RM ${parseFloat(data.total).toFixed(2)}</p>
-            <p>We’ll notify you once your order is ready.</p>
-            <p><em>FCSIT Kiosk</em></p>
-        `;
+    const itemList = cart.map(item =>
+        `${item.name} x${item.quantity} — RM ${parseFloat(item.price).toFixed(2)}`
+    ).join("<br>");
 
-        fetch('send_email.php', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: new URLSearchParams({
-                email: '<?= $user_email ?>',
-                message: message
-            })
+    const message = `
+        <h2>Thank you for your order, <?= htmlspecialchars($user_name) ?>!</h2>
+        <p><strong>Order Summary:</strong></p>
+        <p>${itemList}</p>
+        <p><strong>Subtotal:</strong> RM ${parseFloat(data.subtotal).toFixed(2)}<br>
+           <strong>Delivery Fee:</strong> RM ${parseFloat(data.deliveryFee).toFixed(2)}<br>
+           <strong>Total:</strong> RM ${parseFloat(data.total).toFixed(2)}</p>
+        <p>We’ll notify you once your order is ready.</p>
+        <p><em>FCSIT Kiosk</em></p>
+    `;
+
+    // Send email
+    fetch('send_email.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({
+            email: '<?= $user_email ?>',
+            message: message
         })
-        .then(res => res.text())
-        .then(response => {
-            if (response.trim() === 'success') {
-                document.getElementById("toast").classList.add("show");
-                setTimeout(() => {
-                    localStorage.removeItem('checkoutData');
-                    window.location.href = 'track_order.php';
+    })
+    .then(res => res.text())
+    .then(response => {
+        console.log('Email response:', response); // Debugging
+    })
+    .catch(error => {
+        console.error('Email error:', error); // Debugging
+    })
+    .finally(() => {
+        localStorage.removeItem('checkoutData');
+        window.location.href = 'track_order.php'; // ✅ Always redirect
+    
                 }, 3000);
             } else {
                 alert('Failed to send receipt. Please try again.');
             }
         });
-    });
-});
+
 </script>
 </body>
 </html>
