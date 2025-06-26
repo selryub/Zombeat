@@ -59,7 +59,7 @@
     <a href="index.php">HOME</a>
     <a href="../REGISTERED MEMBER/user_dashboard.php">MENU</a>
     <a href="about.php">ABOUT</a>
-    <a href="review.php">REVIEWS</a>
+    <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
   </nav>
 
   <div class="icons">
@@ -108,7 +108,7 @@
     <p>Exco Keusahawanan (Kiosk)
     <br>Persatuan Teknologi Maklumat (PERTEKMA)
     <br>Fakulti Sains Komputer dan Teknologi Maklumat
-    <br>Univeristi Malaysia Sarawak
+    <br>Universiti Malaysia Sarawak
     </p>
   </div>
 
