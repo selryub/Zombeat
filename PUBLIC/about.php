@@ -57,6 +57,7 @@
     <a href="menu_page.php">MENU</a>
     <a href="about.php">ABOUT</a>
     <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
+    <a href="../REGISTERED%20MEMBER/order.php">ORDERS</a>
   </nav>
   <div class="icons">
     <!-- <input type="text" placeholder=" 🔍︎ Search" class="search-box"> -->
