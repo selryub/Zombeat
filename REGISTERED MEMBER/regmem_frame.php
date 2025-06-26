@@ -233,11 +233,11 @@ if ($currentPage === 'order.php'): ?>
         <span class="dash-text">PROFILE</span>     
     </a>      
 
-    <a href="logout.php" onclick="return confirmLogout()">         
-        <img src="img/logout.png" class="logout">         
-        <span class="dash-text">LOGOUT</span>     
-    </a> 
-</div>  
+    <a href="../admin/logout.php" onclick="return confirmLogout()">
+        <img src="img/logout.png" class="logout">
+        <span class="dash-text">LOGOUT</span>
+    </a>
+</div>
 
 <!-- Header --> 
 <header class="navbar"> 
@@ -363,7 +363,11 @@ document.addEventListener('click', function(event) {
         }
     }
 });
-</script>     
 
-<!--Link to JavaScript-->     
-<script src="regmem.js"></script>
+function confirmLogout() {
+    return confirm("Are you sure you want to log out?");
+}
+</script>
+
+    <!--Link to JavaScript-->
+    <script src="regmem.js"></script>

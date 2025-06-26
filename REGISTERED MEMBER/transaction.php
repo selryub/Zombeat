@@ -183,18 +183,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelector('.btn.btn-primary')?.addEventListener('click', function (e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        // Get selected payment method
-        const selectedPayment = document.querySelector('input[name="payment"]:checked')?.value || 'Credit Card';
-        data.paymentMethod = selectedPayment;
+    const data = JSON.parse(localStorage.getItem('checkoutData')) || {};
 
-        // Save back to localStorage
-        localStorage.setItem('checkoutData', JSON.stringify(data));
+    // Get selected payment method
+    const selectedPayment = document.querySelector('input[name="payment"]:checked')?.value || 'Credit Card';
+    data.paymentMethod = selectedPayment;
 
-        // Redirect without POST (so no resubmit warning)
-        window.location.href = 'billing.php';
-    });
+    // If you have delivery radio buttons, add this
+    const selectedDelivery = document.querySelector('input[name="delivery"]:checked')?.value;
+    if (selectedDelivery) data.deliveryOption = selectedDelivery;
+
+    localStorage.setItem('checkoutData', JSON.stringify(data));
+    window.location.href = 'billing.php';
+});
+
 });
 </script>
 </body>

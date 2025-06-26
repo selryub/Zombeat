@@ -12,48 +12,24 @@ $user_name = $_SESSION['username'] ?? 'Customer';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>FCSIT Kiosk - Billing Page</title>
-    <link rel="stylesheet" href="transaction.css"/>
-    <style>
-        .toast {
-            visibility: hidden;
-            min-width: 250px;
-            margin-left: -125px;
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            border-radius: 12px;
-            padding: 16px;
-            position: fixed;
-            z-index: 999;
-            left: 50%;
-            bottom: 30px;
-            font-size: 16px;
-        }
-        .toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-        @keyframes fadein {
-            from {bottom: 0; opacity: 0;}
-            to {bottom: 30px; opacity: 1;}
-        }
-        @keyframes fadeout {
-            from {bottom: 30px; opacity: 1;}
-            to {bottom: 0; opacity: 0;}
-        }
-    </style>
+    <link rel="stylesheet" href="billing.css"/>
+
 </head>
 <body>
 
-<!-- Toast Message -->
-<div id="toast" class="toast">Email sent successfully!</div>
-
 <!-- Progress Steps -->
-<div class="progress-wrapper">
-    <div class="progress-steps">
-        <div class="step"><div class="step-number">1</div><div class="step-label">CART</div></div>
-        <div class="step"><div class="step-number">2</div><div class="step-label">TRANSACTION</div></div>
-        <div class="step active"><div class="step-number">3</div><div class="step-label">BILLING</div></div>
+<div class="progress-steps">
+    <div class="step">
+        <div class="step-number">1</div>
+        <span>CART</span>
+    </div>
+    <div class="step">
+        <div class="step-number">2</div>
+        <span>TRANSACTION</span>
+    </div>
+    <div class="step active">
+        <div class="step-number">3</div>
+        <span>BILLING</span>
     </div>
 </div>
 
@@ -93,11 +69,11 @@ $user_name = $_SESSION['username'] ?? 'Customer';
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Payment Method:</span>
-                    <span class="detail-value" id="paymentMethod">Cash</span>
+                    <span class="detail-value" id="paymentMethod">-</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Order Type:</span>
-                    <span class="detail-value">Takeaway</span>
+                    <span class="detail-value" id="orderType">-</span>
                 </div>
             </div>
 
@@ -125,6 +101,7 @@ $user_name = $_SESSION['username'] ?? 'Customer';
             </div>
 
             <div class="action-buttons">
+                <button class="btn btn-secondary" onclick="window.print()">PRINT RECEIPT</button>
                 <button class="btn btn-primary" id="trackOrderBtn">TRACK ORDER</button>
             </div>
         </div>
@@ -135,6 +112,17 @@ $user_name = $_SESSION['username'] ?? 'Customer';
 document.addEventListener('DOMContentLoaded', () => {
     const data = JSON.parse(localStorage.getItem('checkoutData')) || {};
     const cart = data.items || [];
+
+    // Set Payment Method
+    const paymentElement = document.getElementById('paymentMethod');
+    paymentElement.textContent = data.paymentMethod || 'Not specified';
+
+    // Set Order Type (based on deliveryOption: "pickup" or "delivery")
+    const orderTypeElement = document.getElementById('orderType');
+    orderTypeElement.textContent = data.deliveryOption === 'pickup' ? 'Pickup'
+                            : data.deliveryOption === 'delivery' ? 'Delivery'
+                            : 'Not specified';
+
 
     const cartContainer = document.getElementById('cartItems');
     const remarksDisplay = document.getElementById('remarksDisplay');

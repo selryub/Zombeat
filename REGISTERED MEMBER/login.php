@@ -24,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = 'user';
 
-        // ✅ Handle "Remember Me"
         if (isset($_POST['rememberMe'])) {
             setcookie("remember_email", $email, time() + (86400 * 30), "/"); // Store for 30 days
         } else {
