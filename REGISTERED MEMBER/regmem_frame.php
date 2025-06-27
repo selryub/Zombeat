@@ -244,7 +244,7 @@ if ($currentPage === 'order.php'): ?>
     <div class="left-header">     
         <div class="menu-icon" onclick="toggleSidebar()">☰</div>     
         <img src="img/kiosk.jpg" alt="Logo" class="logo-img">     
-        <div class="logo-text">FCSIT KIOSK</div> 
+        <div class="logo-text">FCSIT KIOSK - Project Demo</div>
     </div>      
 
     <nav>         
