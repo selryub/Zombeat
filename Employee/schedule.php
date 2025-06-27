@@ -159,7 +159,7 @@ if (isset($_GET['delete_id'])) {
 <body>
 
 <div class="schedule-container">
-  <h2>Submit Available Shift</h2>
+  <h2>Available Shift</h2>
 
   <?php if (!empty($_SESSION['message'])): ?>
     <div class="alert alert-success"><?= $_SESSION['message']; unset($_SESSION['message']); ?></div>
@@ -180,7 +180,7 @@ if (isset($_GET['delete_id'])) {
     <input type="date" name="work_date" required>
     <input type="time" name="start_time" required>
     <input type="time" name="end_time" required>
-    <button type="submit" name="submit_schedule">Submit</button>
+    <button type="submit" name="submit_schedule">Check In</button>
   </form>
 
   <table>
