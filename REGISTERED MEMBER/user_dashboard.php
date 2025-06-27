@@ -39,7 +39,7 @@ $conn->close();
 <div class="page-wrapper">
   <div class="menu-header-bar">
     <h2>MENU</h2>
-    <form method="GET" action="menu_page.php">
+    <form method="GET" action="user_dashboard.php">
       <input type="hidden" name="category" value="<?php echo htmlspecialchars($category); ?>">
       <input type="text" name="search" class="search-menu" placeholder=" 🔍︎ Search" value="<?php echo htmlspecialchars($search, ENT_QUOTES); ?>">
     </form>
