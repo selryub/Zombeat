@@ -5,7 +5,6 @@ include 'regmem_frame.php';
 $user_email = $_SESSION['email'] ?? 'user@example.com';
 $user_name = $_SESSION['username'] ?? 'Customer';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +46,7 @@ $user_name = $_SESSION['username'] ?? 'Customer';
       <div class="order-details">
         <div class="detail-row"><span class="detail-label">Customer Name:</span><span class="detail-value"><?= htmlspecialchars($user_name) ?></span></div>
         <div class="detail-row"><span class="detail-label">Order ID:</span><span class="detail-value" id="orderId"></span></div>
-        <div class="detail-row"><span class="detail-label">Date & Time:</span><span class="detail-value"><?= date('Y-m-d H:i:s') ?></span></div>
+        <div class="detail-row"><span class="detail-label">Date & Time:</span><span class="detail-value" id="orderDateTime"><?= date('Y-m-d H:i:s') ?></span></div>
         <div class="detail-row"><span class="detail-label">Payment Method:</span><span class="detail-value" id="paymentMethod">-</span></div>
         <div class="detail-row"><span class="detail-label">Order Type:</span><span class="detail-value" id="orderType">-</span></div>
       </div>
@@ -74,33 +73,27 @@ $user_name = $_SESSION['username'] ?? 'Customer';
 </div>
 
 <script>
-
 // ✅ Generate or reuse Order ID
 let orderId = localStorage.getItem('orderId');
 if (!orderId) {
-  orderId = "#" + Math.floor(Math.random() * 90000 + 10000); // like #12345
+  orderId = "#" + Math.floor(Math.random() * 90000 + 10000);
   localStorage.setItem('orderId', orderId);
 }
 document.getElementById('orderId').textContent = orderId;
-
 
 document.addEventListener('DOMContentLoaded', () => {
   const data = JSON.parse(localStorage.getItem('checkoutData')) || {};
   const cart = Array.isArray(data.items) ? data.items : [];
 
-  // Set Payment Method
   document.getElementById('paymentMethod').textContent = data.paymentMethod || 'Not specified';
 
-  // Set Order Type
   const orderType = data.deliveryOption === 'pickup' ? 'Pickup'
                   : data.deliveryOption === 'delivery' ? 'Delivery'
                   : 'Not specified';
   document.getElementById('orderType').textContent = orderType;
 
-  // Fill cart
   const cartContainer = document.getElementById('cartItems');
   cartContainer.innerHTML = '';
-
   if (cart.length > 0) {
     cart.forEach(item => {
       cartContainer.innerHTML += `
@@ -121,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cartContainer.innerHTML = `<p>Your cart is empty.</p>`;
   }
 
-  // Set totals
   const subtotal = parseFloat(data.subtotal) || 0;
   const deliveryFee = parseFloat(data.deliveryFee) || 0;
   const total = parseFloat(data.total) || 0;
@@ -130,20 +122,46 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('summaryDelivery').textContent = 'RM ' + deliveryFee.toFixed(2);
   document.getElementById('summaryTotal').textContent = 'RM ' + total.toFixed(2);
 
-  // Track Order Button
   document.getElementById('trackOrderBtn').addEventListener('click', () => {
     const remarks = document.getElementById('remarks').value.trim();
     if (remarks) {
       document.getElementById('remarksDisplay').textContent = remarks;
     }
 
+    const orderData = {
+      orderId: orderId.replace('#', ''),
+      username: "<?= $user_name ?>",
+      paymentMethod: document.getElementById("paymentMethod").textContent,
+      deliveryOption: document.getElementById("orderType").textContent,
+      deliveryAddress: data.deliveryAddress || "-",
+      subtotal: subtotal,
+      deliveryFee: deliveryFee,
+      total: total,
+      remarks: remarks || "No remarks",
+      status: "In Progress",
+      order_date: document.getElementById("orderDateTime").textContent,
+      items: cart // ✅ Include cart items for employee view
+    };
+
+    // ✅ Save to session for EMPLOYEE
+    fetch('../Employee/save_order_session.php', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderData)
+    })
+    .then(res => res.text())
+    .then(result => {
+      console.log("Save status:", result);
+      if (result === "success") {
+        window.location.href = "../REGISTERED MEMBER/track_order.php"; // ✅ Still go to track_order
+      } else {
+        alert("Failed to save order to session.");
+      }
+    });
+
     localStorage.removeItem('checkoutData');
-    window.location.href = 'track_order.php';
   });
 });
 </script>
 </body>
 </html>
-
-
-
