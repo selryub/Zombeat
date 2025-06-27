@@ -288,10 +288,6 @@ if ($currentPage === 'order.php'): ?>
 <div id="toast-container" style="position: fixed; top: 80px; right: 20px; z-index: 9999;"></div>
 
 <script> 
-function confirmLogout() {     
-    return confirm("Are you sure you want to log out?"); 
-} 
-
 // Cart functionality
 function showNotification(message, type = 'success') {
     const container = document.getElementById('toast-container');
@@ -350,10 +346,11 @@ document.addEventListener('click', function(event) {
     }
 });
 
-function confirmLogout() {
-    return confirm("Are you sure you want to log out?");
-}
+    function confirmLogout() {     
+        return confirm("Are you sure you want to log out?"); 
+    } 
+
 </script>
 
-    <!--Link to JavaScript-->
-    <script src="regmem.js"></script>
+<!--Link to JavaScript-->
+<script src="regmem.js"></script>
