@@ -66,8 +66,8 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
 
     <nav>
         <a href="admin_dashboard.php">DASHBOARD</a>
-        <a href="../PUBLIC/about.php">ABOUT</a>
-        <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
+        <a href="../about.php">ABOUT</a>
+        <a href="../review.php">REVIEWS</a>
     </nav>
 
     <div class="icons">

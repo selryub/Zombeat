@@ -233,7 +233,7 @@ if ($currentPage === 'order.php'): ?>
         <span class="dash-text">PROFILE</span>     
     </a>      
 
-    <a href="../admin/logout.php" onclick="return confirmLogout()">
+    <a href="admin/logout.php" onclick="return confirmLogout()">
         <img src="img/logout.png" class="sidebar-icon">
         <span class="dash-text">LOGOUT</span>
     </a>
@@ -248,9 +248,9 @@ if ($currentPage === 'order.php'): ?>
     </div>      
 
     <nav>         
-        <a href="../PUBLIC/about.php">HOME</a>         
+        <a href="about.php">HOME</a>         
         <a href="user_dashboard.php">MENU</a>
-        <a href="../PUBLIC/about.php">ABOUT</a>         
+        <a href="about.php">ABOUT</a>         
         <a href="review.php">REVIEWS</a>     
     </nav>     
     

@@ -1,8 +1,8 @@
 <?php
 
 $databaseHost = 'localhost';
-$databaseName = 'fcsit_kiosk';
-$databaseUsername = 'Zombeat123';
+$databaseName = 'u965875395_fcsit_kiosk';
+$databaseUsername = 'u965875395_Zombeat123';
 $databasePassword = 'Zombeat123';
 $charset = 'utf8mb4';
 

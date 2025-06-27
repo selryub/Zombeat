@@ -1,5 +1,5 @@
 <?php
-require_once '../admin/db_connect.php';
+require_once 'admin/db_connect.php';
 include 'regmem_frame.php';
 
 $user_email = $_SESSION['email'] ?? 'user@example.com';
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ✅ Save to session for EMPLOYEE
-    fetch('../Employee/save_order_session.php', {
+    fetch('Employee/save_order_session.php', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData)
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(result => {
       console.log("Save status:", result);
       if (result === "success") {
-        window.location.href = "../REGISTERED MEMBER/track_order.php"; // ✅ Still go to track_order
+        window.location.href = "track_order.php"; // ✅ Still go to track_order
       } else {
         alert("Failed to save order to session.");
       }

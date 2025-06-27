@@ -1,5 +1,5 @@
 <?php
-require_once '../admin/db_connect.php';
+require_once 'admin/db_connect.php';
 include 'regmem_frame.php';
 
 if (session_status() === PHP_SESSION_NONE) {

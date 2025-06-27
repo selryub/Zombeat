@@ -1,6 +1,6 @@
 <?php
 
-require_once '../admin/db_connect.php';
+require_once 'admin/db_connect.php';
 include 'regmem_frame.php';
 
 $category = $_GET['category'] ?? 'ALL';

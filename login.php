@@ -33,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 setcookie("remember_email", "", time() - 3600, "/");
             }
 
-            $redirectPage = $role === 'admin' ? '../admin/admin_dashboard.php'
-                          : ($role === 'employees' ? '../employee/employee_frame.php'
+            $redirectPage = $role === 'admin' ? 'admin/admin_dashboard.php'
+                          : ($role === 'employees' ? 'Employee/employee_frame.php'
                           : $redirect);
 
             echo "<script>
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="email" name="email" placeholder="Email" value="<?php echo isset($_COOKIE['remember_email']) ? $_COOKIE['remember_email'] : ''; ?>" required />
   </div>
   <div class="input-group">
-    <span><img src="img/lock.png" class="lockIcon" /></span>
+    <span><img src="/Zombeat/img/lock.png" class="lockIcon" /></span>
     <input type="password" name="password" id="password" placeholder="Password" required />
   </div>
   <div class="forgotPassword">
