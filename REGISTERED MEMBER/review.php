@@ -1,22 +1,30 @@
 <?php
-require_once '../admin/db_connect.php'; // update path as needed
-include 'regmem_frame.php';
+require_once '../admin/db_connect.php';
 
-// Handle form submission
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$user_id = $_SESSION['user_id'] ?? null;
+
+// ✅ Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rating = $_POST['rating'] ?? 0;
     $feedback = trim($_POST['feedback'] ?? '');
-    $user_id = $_SESSION['user_id'];
 
     if ($rating >= 1 && $rating <= 5 && !empty($feedback)) {
         $stmt = $conn->prepare("INSERT INTO feedbacks (user_id, rating, feedback) VALUES (?, ?, ?)");
         $stmt->bind_param("iis", $user_id, $rating, $feedback);
         $stmt->execute();
         $stmt->close();
+
+        // ✅ Don't redirect — just stay on page
+        // Optional: set success message
+        $success = true;
     }
 }
 
-// Fetch all feedbacks
+// ✅ Fetch all feedbacks
 $reviews = [];
 $result = $conn->query("SELECT rating, feedback FROM feedbacks ORDER BY id DESC");
 if ($result) {
