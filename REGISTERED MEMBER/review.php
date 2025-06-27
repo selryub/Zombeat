@@ -1,6 +1,6 @@
 <?php
-session_start();
 require_once '../admin/db_connect.php'; // update path as needed
+include 'regmem_frame.php';
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
