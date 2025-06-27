@@ -2,8 +2,8 @@
 
 $databaseHost = 'localhost';
 $databaseName = 'fcsit_kiosk';
-$databaseUsername = 'root';
-$databasePassword = '';
+$databaseUsername = 'Zombeat123';
+$databasePassword = 'Zombeat123';
 $charset = 'utf8mb4';
 
 $conn = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, $databaseName);

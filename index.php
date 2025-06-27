@@ -57,9 +57,9 @@
 
   <nav>
     <a href="index.php">HOME</a>
-    <a href="../REGISTERED MEMBER/user_dashboard.php">MENU</a>
+    <a href="user_dashboard.php">MENU</a>
     <a href="about.php">ABOUT</a>
-    <a href="../REGISTERED MEMBER/review.php">REVIEWS</a>
+    <a href="review.php">REVIEWS</a>
   </nav>
 
   <div class="icons">
