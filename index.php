@@ -47,7 +47,7 @@
 <!-- Header -->
 <header class="navbar">
   <div class="left-header">
-    <img src="img/kiosk.jpg" alt="Logo" class="logo-img">
+    <img src="img/kiosk.JPG" alt="Logo" class="logo-img">
     <div class="logo-text">
       <span class="main-title">FCSIT KIOSK</span>
       <span class="sub-title">TMI 2104 WEB BASED SYSTEM  <br>

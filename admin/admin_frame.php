@@ -60,7 +60,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
 <header class="navbar">
 <div class="left-header">
     <div class="menu-icon" onclick="toggleSidebar()">☰</div>
-    <img src="img/kiosk.JPG" alt="Logo" class="logo-img">
+    <img src="../img/kiosk.JPG" alt="Logo" class="logo-img">
     <div class="logo-text">FCSIT KIOSK - Project Demo</div>
 </div>
 

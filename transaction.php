@@ -46,7 +46,7 @@ $conn->close();
                     <label for="credit-card" class="payment-card">
                         <div class="payment-header">
                             <span class="payment-title">Credit Card</span>
-                            <img src="img/creditcard.png" alt="Credit Card" class="payment-icon">
+                            <img src="creditcard.png" alt="Credit Card" class="payment-icon">
                         </div>
                         <div class="card-visual">
                             <div class="card-lines">
@@ -72,7 +72,7 @@ $conn->close();
                     <label for="paypal" class="payment-card">
                         <div class="payment-header">
                             <span class="payment-title">PayPal</span>
-                            <img src="img/paypal.png" alt="PayPal" class="paypal-logo">
+                            <img src="paypal.png" alt="PayPal" class="paypal-logo">
                         </div>
                         <div class="paypal-placeholder">
                             <div class="placeholder-lines">
@@ -91,7 +91,7 @@ $conn->close();
                         <div class="payment-header">
                             <span class="payment-title">Cash</span>
                             <div class="cash-icon">
-                                <img src="img/cash.png" alt="Cash Payment" width="40" height="30">
+                                <img src="cash.png" alt="Cash Payment" width="40" height="30">
                             </div>
                         </div>
                     </label>
