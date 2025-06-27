@@ -250,7 +250,7 @@ function checkout() {
     localStorage.setItem('selectedDelivery', currentDeliveryOption);
     
     // Redirect to transaction page
-    window.location.href = '/Zombeat/transaction.php';
+    window.location.href = 'transaction.php';
 }
 
 document.addEventListener('DOMContentLoaded', () => {

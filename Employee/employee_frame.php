@@ -61,8 +61,8 @@ if (isset($_SESSION["username"]) && $_SESSION["role"] !== "employee") {
 
     <nav>
         <a href="product.php">PRODUCT</a>
-        <a href="about.php">ABOUT</a>
-        <a href="review.php">REVIEWS</a>
+        <a href="../about.php">ABOUT</a>
+        <a href="../review.php">REVIEWS</a>
     </nav>
 
     <div class="icons">
