@@ -1,5 +1,9 @@
 <?php
-require "../admin/db_connect.php"
+require "../admin/db_connect.php";
+include "employee_frame.php";
+
+$user_email = $_SESSION['email'] ?? 'user@example.com';
+$user_name = $_SESSION['username'] ?? 'Customer';
 ?>
 
 <!DOCTYPE html>
@@ -44,32 +48,102 @@ require "../admin/db_connect.php"
       object-fit: cover;
     }
 
-    .order-box {
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 20px;
-    }
+.order-info-section {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f9fbff;
+}
 
-    .order-box table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
 
-    .order-box td {
-      padding: 10px;
-      border-bottom: 1px solid #eee;
-    }
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+}
 
-    .order-box tr:last-child td {
-      border-bottom: none;
-    }
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
 
-    .order-summary {
-      text-align: right;
-      margin-top: 15px;
-      font-weight: bold;
-      font-size: 16px;
-    }
+.order-details {
+  margin-bottom: 20px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 16px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.detail-value {
+  color: #444;
+}
+
+.subsection-title {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.summary-row, .total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 16px;
+}
+
+.summary-label, .total-label {
+  font-weight: bold;
+}
+
+.total-row {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #1a1a1a;
+}
+
+.summary-divider {
+  border-top: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.final-remarks {
+  margin-top: 15px;
+}
+
+.remarks-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.remarks-display {
+  background: #f1f5fc;
+  padding: 10px;
+  border-radius: 6px;
+  color: #333;
+  min-height: 40px;
+}
 
     .btn-order-again {
       display: block;
@@ -93,7 +167,6 @@ require "../admin/db_connect.php"
 </head>
 <body>
 
-<?php include "employee_frame.php"; ?>
 
 <div class="order-wrapper">
 
@@ -114,35 +187,31 @@ require "../admin/db_connect.php"
 
 
   <!-- Order Details -->
-  <div class="order-box">
-    <h3>Order Details</h3>
-    <table>
-      <tr>
-        <td>1x Nas Lemak</td>
-        <td style="text-align:right;">RM 6.00</td>
-      </tr>
-      <tr>
-        <td>1x Nasi Goreng</td>
-        <td style="text-align:right;">RM 4.00</td>
-      </tr>
-      <tr>
-        <td>1x Mi Goreng Telur Mata</td>
-        <td style="text-align:right;">RM 5.50</td>
-      </tr>
-      <tr>
-        <td>1x Mi Jawa</td>
-        <td style="text-align:right;">RM 6.00</td>
-      </tr>
-      <tr>
-        <td>1x Kuih Apam Cheese</td>
-        <td style="text-align:right;">RM 3.50</td>
-      </tr>
-    </table>
+    <div class="order-info-section">
+      <div class="section-header">
+        <h2 class="section-title">ORDER INFO</h2>
+        <button class="close-btn">×</button>
+      </div>
+      <div class="order-details">
+        <div class="detail-row"><span class="detail-label">Customer Name:</span><span class="detail-value"><?= htmlspecialchars($user_name) ?></span></div>
+        <div class="detail-row"><span class="detail-label">Order ID:</span><span class="detail-value" id="orderId"></span></div>
+        <div class="detail-row"><span class="detail-label">Date & Time:</span><span class="detail-value"><?= date('Y-m-d H:i:s') ?></span></div>
+        <div class="detail-row"><span class="detail-label">Payment Method:</span><span class="detail-value" id="paymentMethod">-</span></div>
+        <div class="detail-row"><span class="detail-label">Order Type:</span><span class="detail-value" id="orderType">-</span></div>
+      </div>
 
-    <div class="order-summary">
-      Total = RM 25.00
-    </div>
-  </div>
+      <h3 class="subsection-title">ORDER SUMMARY</h3>
+      <div class="order-summary">
+        <div class="summary-row"><span class="summary-label">Subtotal:</span><span class="summary-value" id="summarySubtotal">RM 0.00</span></div>
+        <div class="summary-row"><span class="summary-label">Delivery Fee:</span><span class="summary-value" id="summaryDelivery">RM 0.00</span></div>
+        <div class="summary-divider"></div>
+        <div class="total-row"><span class="total-label">TOTAL:</span><span class="total-value" id="summaryTotal">RM 0.00</span></div>
+      </div>
+
+      <div class="final-remarks">
+        <label class="remarks-label">Remarks:</label>
+        <div class="remarks-display" id="remarksDisplay"></div>
+      </div>
 
   <!-- Button -->
   <a href="../REGISTERED MEMBER/user_dashboard.php" class="btn-order-again">ORDER AGAIN</a>
