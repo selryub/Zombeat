@@ -1,7 +1,6 @@
 <?php
 require "../admin/db_connect.php";
 include "employee_frame.php";
-session_start();
 
 $user_email = $_SESSION['email'] ?? 'user@example.com';
 $user_name = $_SESSION['username'] ?? 'Customer';
