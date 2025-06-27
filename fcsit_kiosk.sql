@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2025 at 01:22 AM
+-- Generation Time: Jun 27, 2025 at 09:34 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,6 +59,34 @@ CREATE TABLE `attendance` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `delivery_locations`
+--
+
+CREATE TABLE `delivery_locations` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `delivery_locations`
+--
+
+INSERT INTO `delivery_locations` (`id`, `name`) VALUES
+(1, 'FCSIT Lobby'),
+(2, 'Student Pavilion'),
+(3, 'PeTARY'),
+(4, 'Kolej Allamanda'),
+(5, 'Kolej Cempaka'),
+(6, 'Kolej Sakura'),
+(7, 'Kolej Dahlia'),
+(8, 'Kolej Bunga Raya'),
+(9, 'Kolej Tun Ahmad Zaidi'),
+(10, 'Kolej Seroja'),
+(11, 'Kolej Kenanga');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `employee`
 --
 
@@ -107,7 +135,7 @@ INSERT INTO `employees` (`employee_id`, `name`, `email`, `password`, `created_at
 
 CREATE TABLE `feedbacks` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `rating` int(11) NOT NULL,
   `feedback` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -119,7 +147,12 @@ CREATE TABLE `feedbacks` (
 
 INSERT INTO `feedbacks` (`id`, `user_id`, `rating`, `feedback`, `created_at`) VALUES
 (1, 11, 5, 'Excellent service!', '2025-06-18 20:59:23'),
-(2, 11, 5, 'Fast delivery!', '2025-06-18 21:05:11');
+(2, 11, 5, 'Fast delivery!', '2025-06-18 21:05:11'),
+(3, NULL, 5, 'dsdasdad', '2025-06-27 07:26:30'),
+(4, NULL, 5, 'dsdwdw', '2025-06-27 07:26:34'),
+(5, NULL, 5, 'ddwqdwq', '2025-06-27 07:26:38'),
+(6, NULL, 5, 'ddwdwqd', '2025-06-27 07:27:27'),
+(7, NULL, 5, 'sadsadqd', '2025-06-27 07:28:29');
 
 -- --------------------------------------------------------
 
@@ -227,11 +260,8 @@ CREATE TABLE `order_item` (
 INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`, `subtotal`) VALUES
 (32, 42, 29, 1, 6.00),
 (33, 42, 11, 1, 2.50),
-(34, 42, 34, 1, 1.00),
 (35, 43, 30, 1, 6.00),
-(36, 43, 35, 1, 1.00),
 (39, 44, 31, 1, 4.50),
-(40, 44, 12, 1, 2.50),
 (41, 44, 33, 1, 4.00),
 (42, 45, 13, 1, 3.50),
 (43, 45, 11, 1, 2.50),
@@ -240,7 +270,6 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (46, 47, 32, 1, 3.00),
 (47, 47, 15, 1, 2.50),
 (48, 48, 18, 1, 5.50),
-(49, 48, 12, 1, 2.50),
 (50, 48, 11, 1, 1.50),
 (51, 49, 13, 1, 3.50),
 (52, 49, 19, 1, 2.50),
@@ -251,35 +280,24 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (57, 52, 33, 1, 4.00),
 (58, 53, 31, 1, 4.50),
 (59, 53, 11, 1, 2.50),
-(60, 53, 35, 1, 1.00),
 (61, 54, 30, 1, 6.00),
-(62, 54, 37, 1, 2.00),
 (63, 55, 18, 1, 5.50),
 (64, 55, 11, 1, 1.00),
 (65, 56, 29, 1, 6.00),
 (66, 56, 11, 1, 2.50),
-(67, 56, 34, 1, 1.50),
 (68, 57, 29, 1, 6.00),
 (69, 57, 11, 1, 2.50),
-(70, 57, 34, 1, 0.50),
 (71, 58, 30, 1, 6.00),
-(72, 58, 35, 1, 2.00),
 (73, 59, 31, 1, 4.50),
 (74, 59, 36, 1, 2.00),
 (75, 60, 32, 1, 3.00),
 (76, 60, 15, 1, 3.00),
-(77, 60, 34, 1, 4.00),
 (78, 61, 18, 1, 5.50),
-(79, 61, 12, 1, 2.00),
 (80, 62, 33, 1, 4.00),
 (81, 62, 11, 1, 2.50),
-(82, 62, 35, 1, 1.50),
 (83, 63, 14, 1, 3.50),
-(84, 63, 12, 1, 2.50),
 (85, 64, 13, 1, 3.50),
 (86, 64, 19, 1, 2.50),
-(87, 64, 34, 1, 3.50),
-(88, 65, 37, 1, 2.50),
 (89, 65, 29, 1, 4.50),
 (90, 66, 29, 1, 6.00),
 (91, 66, 36, 1, 2.50),
@@ -321,11 +339,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `description`, `price`, `category`, `stock_quantity`, `image_url`, `is_active`) VALUES
-(11, 'Air Mineral', 'Bottled mineral water', 2.50, 'Drinks', NULL, 'img/drinkingwater.jpg', 1),
-(12, 'Dutch Lady Strawberry Milk', 'Chilled strawberry milk drink', 2.50, 'Drinks', NULL, 'img/strawberrymilk.jpeg', 1),
+(11, 'Air Mineral', 'Bottled mineral water', 2.50, 'Drinks', NULL, 'img/Mineral.png', 1),
 (13, 'Bubur Ayam', 'Savory chicken rice porridge', 3.50, 'Heavy Foods', NULL, 'img/BuburAyam2.png', 1),
 (14, 'Seri Muka', 'Glutinous rice with pandan custard', 3.50, 'Snacks', NULL, 'img/SeriMuka.png', 1),
-(15, 'Sandwich Roll Egg', 'Egg sandwich roll', 3.00, 'Snacks', NULL, 'img/SandwichRoleEgg.png', 1),
+(15, 'Sandwich Roll Egg', 'Egg sandwich roll', 3.00, 'Snacks', NULL, 'img/SandwichRollEgg.png', 1),
 (16, 'Pavlova', 'Meringue with cream & fruit', 4.00, 'Snacks', NULL, 'img/Pavlova.png', 1),
 (17, 'Kuih Lapis', 'Colorful layered kuih', 3.50, 'Snacks', NULL, 'img/KuihLapis2.png', 1),
 (18, 'Chicken Wrap', 'Wrap with chicken & veggies', 5.50, 'Heavy Foods', NULL, 'img/ChickenWrap.png', 1),
@@ -335,10 +352,12 @@ INSERT INTO `product` (`product_id`, `product_name`, `description`, `price`, `ca
 (31, 'Loaded Fries', 'Fries with cheese and sauce', 4.50, 'Snacks', NULL, 'img/LoadedFries.png', 1),
 (32, 'Wantan Goreng', 'Crispy fried dumplings', 3.00, 'Snacks', NULL, 'img/WantanGoreng.png', 1),
 (33, 'Bergedil Daging', 'Fried mashed meat potato', 4.00, 'Snacks', NULL, 'img/BergedilDaging.png', 1),
-(34, 'Ice Cream Soda', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/IceCreamSoda.jpeg', 1),
-(35, 'Strawberry', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/Strawberry.jpg', 1),
-(36, 'Orange', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/Orange.png', 1),
-(37, 'Chrysanthemum Tea', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/TehBunga.jpeg', 1);
+(36, 'F&N Orange', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/Orange.png', 1),
+(38, 'Soya Milk', 'Soy milk in a convenient carton', 2.50, 'Drinks', NULL, 'img/AirSoya.png', 1),
+(39, 'CocaCola', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/CocaCola.png', 1),
+(40, 'Dutch Lady Full Cream', 'Chilled full cream milk drink', 2.50, 'Drinks', NULL, 'img/FullCream.png', 1),
+(41, 'F&N Sarsi', 'Canned Drinks', 2.50, 'Drinks', NULL, 'img/Sarsi.png', 1),
+(42, 'Dutch Lady Chocolate', 'Chilled chocolate milk drink', 2.50, 'Drinks', NULL, 'img/Chocolate.png', 1);
 
 -- --------------------------------------------------------
 
@@ -380,6 +399,7 @@ INSERT INTO `report_order` (`report_id`, `order_id`) VALUES
 
 CREATE TABLE `schedule` (
   `schedule_id` int(11) NOT NULL,
+  `employee_name` varchar(255) NOT NULL,
   `shift_date` date DEFAULT NULL,
   `shift_time_start` time DEFAULT NULL,
   `shift_time_end` time DEFAULT NULL
@@ -389,8 +409,8 @@ CREATE TABLE `schedule` (
 -- Dumping data for table `schedule`
 --
 
-INSERT INTO `schedule` (`schedule_id`, `shift_date`, `shift_time_start`, `shift_time_end`) VALUES
-(1, '2025-06-05', '08:00:00', '17:00:00');
+INSERT INTO `schedule` (`schedule_id`, `employee_name`, `shift_date`, `shift_time_start`, `shift_time_end`) VALUES
+(1, '', '2025-06-05', '08:00:00', '17:00:00');
 
 -- --------------------------------------------------------
 
@@ -439,6 +459,12 @@ ALTER TABLE `admin`
 ALTER TABLE `attendance`
   ADD PRIMARY KEY (`attendance_id`),
   ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `delivery_locations`
+--
+ALTER TABLE `delivery_locations`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `employee`
@@ -535,6 +561,12 @@ ALTER TABLE `attendance`
   MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `delivery_locations`
+--
+ALTER TABLE `delivery_locations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
@@ -550,7 +582,7 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `feedbacks`
 --
 ALTER TABLE `feedbacks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `financial_report`
@@ -580,7 +612,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `schedule`
