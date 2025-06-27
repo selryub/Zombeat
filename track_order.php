@@ -25,14 +25,14 @@
         <p class="order-id" id="displayOrderId">Order ID: </p>
 
         <div class="order-image">
-          <img src="img/no-image.png" alt="Order placeholder" class="image-placeholder" />
+          <img src="img/placeholder.jpg" alt="Order placeholder" class="image-placeholder" />
         </div>
 
         <!-- Progress Tracker -->
         <div class="progress-container">
           <div class="progress-step completed">
             <div class="step-icon">
-              <img src="img/clock.png" alt="Order Received" />
+              <img src="received1.jpg" alt="Order Received" />
             </div>
             <div class="step-label">ORDER RECEIVED</div>
             <div class="step-line completed"></div>
@@ -40,7 +40,7 @@
 
           <div class="progress-step completed">
             <div class="step-icon">
-              <img src="img/thumbs-up.png" alt="Order Confirmed" />
+              <img src="received2.jpg" alt="Order Confirmed" />
             </div>
             <div class="step-label">ORDER CONFIRMED</div>
             <div class="step-line completed"></div>
@@ -48,7 +48,7 @@
 
           <div class="progress-step active">
             <div class="step-icon">
-              <img src="img/utensils.png" alt="Order Processed" />
+              <img src="utensils.jpg" alt="Order Processed" />
             </div>
             <div class="step-label">ORDER PROCESSED</div>
             <div class="step-line"></div>
@@ -56,7 +56,7 @@
 
           <div class="progress-step">
             <div class="step-icon">
-              <img src="img/scooter.png" alt="On the Way" />
+              <img src="img/scooter.jpg" alt="On the Way" />
             </div>
             <div class="step-label">ON THE WAY</div>
             <div class="step-line"></div>
@@ -64,7 +64,7 @@
 
           <div class="progress-step">
             <div class="step-icon">
-              <img src="img/delivered.png" alt="Delivered" />
+              <img src="img/delivered.jpg" alt="Delivered" />
             </div>
             <div class="step-label">DELIVERED</div>
           </div>
