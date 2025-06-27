@@ -22,7 +22,7 @@
         <button class="close-btn">✕</button>
 
         <h1 class="order-title">ORDER STATUS</h1>
-        <p class="order-id">Order ID: <!-- Optional: Insert dynamic ID here --></p>
+        <p class="order-id" id="displayOrderId">Order ID: </p>
 
         <div class="order-image">
           <img src="img/no-image.png" alt="Order placeholder" class="image-placeholder" />
@@ -90,6 +90,14 @@
     document.querySelector('.close-btn').addEventListener('click', () => {
       window.location.href = 'user_dashboard.php'; // 🔁 Change if your homepage is named differently
     });
+
+    // ✅ Display Order ID from localStorage
+const orderId = localStorage.getItem('orderId') || '-';
+document.getElementById('displayOrderId').textContent = `Order ID: ${orderId}`;
+
+const savedOrderId = localStorage.getItem('orderId') || '-';
+document.getElementById('displayOrderId').textContent = `Order ID: ${savedOrderId}`;
+
 
     // Auto-hide the notification after 5 seconds
     window.onload = () => {
